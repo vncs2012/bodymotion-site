@@ -24,7 +24,7 @@ export default function Contact() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
-      setMsg({ text: "Mensagem enviada! Nosso time responde em breve.", ok: true });
+      setMsg({ text: "Contato enviado! Vamos avisar você quando os acessos forem liberados.", ok: true });
       form.reset();
     } catch {
       setMsg({ text: "Não foi possível enviar agora. Tente novamente.", ok: false });
@@ -43,10 +43,10 @@ export default function Contact() {
           {/* Left */}
           <div>
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-              Fale com a gente
+              Receba o aviso de lançamento
             </h2>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-              Quer ver na prática? Deixe seu contato e mostramos como o BodyMotion pode ajudar.
+              Ainda estamos finalizando os últimos ajustes comerciais da BodyMotion. Deixe seu contato para receber novidades, acesso antecipado e falar com a nossa equipe.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -97,11 +97,11 @@ export default function Contact() {
 
             <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               Mensagem
-              <textarea name="message" rows={3} placeholder="Conte sobre sua clínica..." className={inputCls} />
+              <textarea name="message" rows={3} placeholder="Conte sobre sua clínica ou como pretende usar a plataforma..." className={inputCls} />
             </label>
 
             <Button type="submit" className="w-full mt-1" loading={loading}>
-              Enviar mensagem
+              Entrar na lista de interesse
             </Button>
 
             {msg.text && (

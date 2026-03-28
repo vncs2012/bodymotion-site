@@ -17,6 +17,26 @@ const Cell = ({ included, note }) => {
   return <span className="text-slate-300 dark:text-slate-600">—</span>;
 };
 
+const renderAiQuota = (plan) => {
+  if (!plan.aiAssessmentsMonthly) {
+    return <span className="text-slate-300 dark:text-slate-600">—</span>;
+  }
+
+  const aiFeature = plan.features.find((feature) => feature.name === "Avaliação por Foto + IA");
+  const aiComingSoon = aiFeature?.included === "soon";
+
+  return (
+    <span className="inline-flex items-center justify-center gap-2 font-bold text-slate-700 dark:text-slate-200">
+      {plan.aiAssessmentsMonthly}
+      {aiComingSoon ? (
+        <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-300">
+          Em breve
+        </span>
+      ) : null}
+    </span>
+  );
+};
+
 export default function ComparisonTable() {
   return (
     <section className="mx-auto mt-16 max-w-7xl px-4 sm:px-6">
@@ -31,7 +51,7 @@ export default function ComparisonTable() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse min-w-[700px]">
+          <table className="w-full text-sm border-collapse min-w-[600px]">
             <thead>
               <tr className="border-b border-slate-200/60 dark:border-white/[0.06]">
                 <th className="text-left py-3 px-6 font-semibold text-slate-500 dark:text-slate-400 w-[220px]">
@@ -52,10 +72,10 @@ export default function ComparisonTable() {
             <tbody>
               {/* Limits rows */}
               <tr className="border-b border-slate-100/60 dark:border-white/[0.04] bg-slate-50/50 dark:bg-white/[0.02]">
-                <td className="py-3 px-6 font-semibold text-slate-700 dark:text-slate-300">Pacientes</td>
+                <td className="py-3 px-6 font-semibold text-slate-700 dark:text-slate-300">Pacientes ativos</td>
                 {plans.map((p) => (
                   <td key={p.id} className="py-3 px-4 text-center font-bold text-slate-700 dark:text-slate-200">
-                    {p.patients}
+                    {p.activePatients}
                   </td>
                 ))}
               </tr>
@@ -68,6 +88,14 @@ export default function ComparisonTable() {
                 ))}
               </tr>
               <tr className="border-b border-slate-100/60 dark:border-white/[0.04] bg-slate-50/50 dark:bg-white/[0.02]">
+                <td className="py-3 px-6 font-semibold text-slate-700 dark:text-slate-300">IA/mês</td>
+                {plans.map((p) => (
+                  <td key={p.id} className="py-3 px-4 text-center">
+                    {renderAiQuota(p)}
+                  </td>
+                ))}
+              </tr>
+              <tr className="border-b border-slate-100/60 dark:border-white/[0.04]">
                 <td className="py-3 px-6 font-semibold text-slate-700 dark:text-slate-300">Suporte</td>
                 {plans.map((p) => (
                   <td key={p.id} className="py-3 px-4 text-center text-xs text-slate-500 dark:text-slate-400">

@@ -4,8 +4,8 @@ import GlassCard from "../ui/GlassCard";
 const steps = [
   {
     n: "01",
-    title: "Crie sua conta",
-    desc: "Teste grátis por 14 dias, sem cartão de crédito.",
+    title: "Entre na lista de interesse",
+    desc: "Deixe seu contato para receber o aviso de abertura e prioridade quando os primeiros acessos forem liberados.",
     icon: (
       <svg className="w-7 h-7 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -14,8 +14,8 @@ const steps = [
   },
   {
     n: "02",
-    title: "Cadastre seus pacientes",
-    desc: "Importe dados ou adicione manualmente em poucos cliques.",
+    title: "Importe ou cadastre pacientes",
+    desc: "Traga seus dados de planilhas ou comece do zero. A gente facilita.",
     icon: (
       <svg className="w-7 h-7 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -24,8 +24,8 @@ const steps = [
   },
   {
     n: "03",
-    title: "Atenda e prescreva",
-    desc: "Anamnese, avaliação corporal e prescrição em um único fluxo.",
+    title: "Atenda com as ferramentas certas",
+    desc: "Anamnese, avaliação corporal, prescrição — tudo em um fluxo integrado.",
     icon: (
       <svg className="w-7 h-7 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -34,8 +34,8 @@ const steps = [
   },
   {
     n: "04",
-    title: "Acompanhe a evolução",
-    desc: "Histórico, relatórios e comunicação direta com o paciente.",
+    title: "Veja resultados crescerem",
+    desc: "Acompanhe evolução, engaje pacientes e tome decisões com dados reais.",
     icon: (
       <svg className="w-7 h-7 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -46,13 +46,13 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6">
+    <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6">
       <div className="text-center mb-12">
         <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-          Como funciona
+          Veja como vai funcionar
         </h2>
         <p className="mt-3 text-lg text-slate-600 dark:text-slate-300">
-          Do cadastro ao resultado, em 4 passos simples.
+          Da liberação ao uso no dia a dia, em 4 passos simples.
         </p>
       </div>
 

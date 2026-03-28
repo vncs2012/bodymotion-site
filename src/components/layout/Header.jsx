@@ -3,15 +3,16 @@ import useTheme from "../../hooks/useTheme";
 import Button from "../ui/Button";
 
 const links = [
-  { label: "Funcionalidades", href: "#funcionalidades" },
-  { label: "Planos",          href: "#planos" },
-  { label: "FAQ",             href: "#faq" },
-  { label: "Contato",         href: "#contato" },
+  { label: "Como funciona",    href: "#como-funciona-ia" },
+  { label: "Funcionalidades",  href: "#funcionalidades" },
+  { label: "Segurança",        href: "#seguranca" },
+  { label: "Contato",          href: "#contato" },
 ];
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const scrollToContact = () => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
@@ -43,9 +44,9 @@ export default function Header() {
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
 
-          <a href="#planos" className="hidden sm:inline-flex">
-            <Button size="sm">Teste grátis</Button>
-          </a>
+          <Button size="sm" className="hidden sm:inline-flex" onClick={scrollToContact}>
+            Lista de interesse
+          </Button>
 
           {/* Mobile hamburger */}
           <button className="md:hidden p-1.5" onClick={() => setOpen(!open)} aria-label="Menu">
@@ -67,9 +68,12 @@ export default function Header() {
                 {l.label}
               </a>
             ))}
-            <a href="#planos" onClick={() => setOpen(false)}>
-              <Button className="w-full mt-2">Começar Agora</Button>
-            </a>
+            <Button className="w-full mt-2" onClick={() => {
+              setOpen(false);
+              scrollToContact();
+            }}>
+              Quero ser avisado
+            </Button>
           </nav>
         </div>
       )}

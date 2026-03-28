@@ -5,8 +5,9 @@ Frontend comercial do BodyMotion com foco em divulgação e conversão:
 - layout moderno com glassmorphism;
 - modo claro/escuro;
 - seção de funcionalidades;
-- 5 planos (incluindo teste grátis);
-- integração de checkout preparada para Stripe;
+- planos reposicionados por profissionais, pacientes ativos e IA;
+- início de jornada com 14 dias grátis sem cartão;
+- CTA público apontando para a tela de cadastro do painel;
 - formulário de lead para equipe comercial.
 
 ## Estrutura
@@ -49,39 +50,26 @@ Copie `.env.example` para `.env` e ajuste:
 
 ```bash
 VITE_API_BASE_URL=http://localhost:8000
-VITE_CHECKOUT_ENDPOINT=/payment/checkout
 VITE_LEAD_ENDPOINT=/commercial/leads
-VITE_STRIPE_PUBLISHABLE_KEY=
+VITE_TRIAL_START_URL=/registro
 ```
 
-## Contrato esperado do checkout
+## Fluxo de trial e pagamento
 
-Endpoint chamado pelos botões de plano:
+O site comercial agora inicia pelo trial de 14 dias. Em vez de mandar o usuário direto para o checkout, os botões levam para a URL configurada em `VITE_TRIAL_START_URL`, normalmente a rota pública de cadastro do painel (`/registro`).
 
-- `POST /payment/checkout`
+Essa URL pode ser:
 
-Payload enviado:
+1. relativa, se site e painel compartilharem o mesmo domínio, por exemplo `/registro`;
+2. absoluta, se o painel estiver em outro domínio, por exemplo `https://app.seudominio.com/registro`.
 
-```json
-{
-  "plan_id": "pro_saude",
-  "provider": "stripe",
-  "origin": "https://seusite.com",
-  "success_url": "https://seusite.com?checkout=success&plan=pro_saude",
-  "cancel_url": "https://seusite.com?checkout=cancel&plan=pro_saude"
-}
-```
-
-Retorno aceito:
-
-- `checkout_url`, ou
-- `session_id` (usando `Stripe.redirectToCheckout`).
+Os parâmetros `plan` e `billing` são anexados automaticamente na URL para preservar o contexto da oferta escolhida no site.
 
 ## Próximo passo recomendado
 
 Testar fluxo ponta a ponta com backend real:
 
 1. selecionar plano;
-2. criar checkout;
-3. efetuar pagamento em sandbox Stripe;
-4. validar atualização de assinatura no sistema.
+2. iniciar trial pela tela pública de cadastro;
+3. concluir criação da conta;
+4. validar assinatura `trial` ativa no sistema.

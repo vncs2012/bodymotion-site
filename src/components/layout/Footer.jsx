@@ -15,8 +15,7 @@ export default function Footer() {
           <nav className="flex flex-wrap gap-5 text-sm font-medium text-slate-500 dark:text-slate-400">
             <a href="#inicio"          className="hover:text-cyan-500 transition-colors">Início</a>
             <a href="#funcionalidades" className="hover:text-cyan-500 transition-colors">Funcionalidades</a>
-            <a href="#planos"          className="hover:text-cyan-500 transition-colors">Planos</a>
-            <a href="#faq"             className="hover:text-cyan-500 transition-colors">FAQ</a>
+            <a href="#seguranca"       className="hover:text-cyan-500 transition-colors">Segurança</a>
             <a href="#contato"         className="hover:text-cyan-500 transition-colors">Contato</a>
             <a href="#"                className="hover:text-cyan-500 transition-colors">Privacidade</a>
           </nav>

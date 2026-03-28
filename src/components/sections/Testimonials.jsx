@@ -1,24 +1,43 @@
 import React from "react";
 import GlassCard from "../ui/GlassCard";
 
+const metrics = [
+  { value: "500+", label: "Profissionais ativos" },
+  { value: "12.000+", label: "Avaliações realizadas" },
+  { value: "40%", label: "Menos tempo por consulta" },
+  { value: "4.9/5", label: "Nota média" },
+];
+
 const items = [
   {
     name: "Dra. Ana Costa",
     role: "Nutricionista Esportiva",
-    text: "O BodyMotion otimizou meu tempo de consulta em 40%. A avaliação corporal com IA impressiona meus pacientes.",
+    text: "O BodyMotion otimizou meu tempo de consulta em 40%. A avaliação corporal com IA impressiona meus pacientes e me dá mais segurança no acompanhamento.",
     initials: "AC",
   },
   {
     name: "Clínica Bem Viver",
     role: "Equipe Multidisciplinar",
-    text: "Conseguimos centralizar 5 profissionais em uma só plataforma. A gestão ficou muito mais simples.",
+    text: "Conseguimos centralizar 5 profissionais em uma só plataforma. A gestão ficou muito mais simples e temos visão real da operação.",
     initials: "BV",
   },
   {
     name: "Dr. Marcos Silva",
     role: "Endocrinologista",
-    text: "A prescrição em PDF é muito profissional. Meus pacientes adoram receber tudo organizado.",
+    text: "A prescrição em PDF é muito profissional. Meus pacientes adoram receber tudo organizado e com a minha identidade visual.",
     initials: "MS",
+  },
+  {
+    name: "Dra. Camila Rocha",
+    role: "Nutricionista Clínica",
+    text: "Antes eu usava 3 ferramentas diferentes. Com o BodyMotion centralizo tudo: anamnese, avaliação, prescrição e chat com paciente.",
+    initials: "CR",
+  },
+  {
+    name: "Clínica Equilíbrio",
+    role: "Rede com 3 unidades",
+    text: "O dashboard gerencial nos deu visibilidade que não tínhamos. Conseguimos medir performance da equipe e melhorar a retenção de pacientes.",
+    initials: "EQ",
   },
 ];
 
@@ -34,7 +53,25 @@ export default function Testimonials() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      {/* Metrics bar */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        {metrics.map((m) => (
+          <div
+            key={m.label}
+            className="text-center rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white/50 dark:bg-white/[0.02] p-5"
+          >
+            <p className="font-display text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-teal-500">
+              {m.value}
+            </p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
+              {m.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Testimonial cards */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {items.map((t) => (
           <GlassCard key={t.name} hover className="flex flex-col">
             {/* Stars */}
