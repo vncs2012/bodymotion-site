@@ -1,4 +1,5 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 import Header from "./components/layout/Header";
 import AnnouncementBar from "./components/layout/AnnouncementBar";
 import Footer from "./components/layout/Footer";
@@ -37,6 +38,12 @@ export default function App() {
         </main>
         <Footer />
       </div>
+
+      {/* Toast */}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={closeToast} />}
+
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 }
