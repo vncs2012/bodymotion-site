@@ -11,8 +11,12 @@ import Segments from "./components/sections/Segments";
 import HowItWorks from "./components/sections/HowItWorks";
 import Security from "./components/sections/Security";
 import Contact from "./components/sections/Contact";
+import Toast from "./components/ui/Toast";
+import useCheckout from "./hooks/useCheckout";
 
 export default function App() {
+  const { toast, closeToast } = useCheckout();
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-neutral-800/10 dark:bg-bodymotion-midnight text-neutral-900 dark:text-white transition-colors duration-300">
       {/* Background blobs */}
