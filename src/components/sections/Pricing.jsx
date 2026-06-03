@@ -7,9 +7,10 @@ import { startTrial } from "../../utils/trial";
 export default function Pricing() {
   const [isAnnual, setIsAnnual] = useState(false);
   const [loadingPlanId, setLoadingPlanId] = useState(null);
+  const trialEnabled = Boolean(import.meta.env.VITE_TRIAL_START_URL);
 
   const handleClick = (plan) => {
-    if (plan.isEnterprise) {
+    if (plan.isEnterprise || !trialEnabled) {
       document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
       return;
     }
@@ -22,7 +23,7 @@ export default function Pricing() {
       });
     } catch (_error) {
       setLoadingPlanId(null);
-      alert("Configuração incompleta: defina `VITE_TRIAL_START_URL` para iniciar o teste grátis.");
+      document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -31,18 +32,17 @@ export default function Pricing() {
       {/* Heading */}
       <div className="text-center max-w-3xl mx-auto mb-4">
         <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">
-          Escolha seu plano
+          Planos para cada estágio da operação
         </h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-          Planos pensados pelo tamanho da sua operação. Comece com 14 dias grátis sem cartão e escolha depois.
+          Comece com o essencial e avance para portal, teleconsulta, relatórios e IA auditável conforme sua operação cresce.
         </p>
 
-        {/* Trial callout */}
         <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-teal-500/20 bg-teal-500/5 px-5 py-2 text-sm font-medium text-teal-700 dark:text-teal-300">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-          14 dias grátis para testar. Sem cartão e com escolha de plano depois.
+          {trialEnabled ? "Teste grátis configurado para este ambiente." : "Acesso antecipado com onboarding assistido."}
         </div>
 
         <PricingToggle isAnnual={isAnnual} onChange={setIsAnnual} />
@@ -57,13 +57,14 @@ export default function Pricing() {
               ? plan.annualPrice
               : plan.monthlyPrice;
           const loading = loadingPlanId === plan.id;
-          const aiFeature = plan.features.find((feature) => feature.name === "Avaliação por Foto + IA");
-          const aiComingSoon = aiFeature?.included === "soon";
+          const aiFeature = plan.features.find((feature) => feature.name === "IA nutricional + TACO");
+          const aiBeta = aiFeature?.included === "beta";
 
-          /* Visible features — only included & soon, max 6 */
+          /* Visible features: included, beta, and roadmap items. */
           const visible = plan.features
-            .filter((f) => f.included === true || f.included === "soon")
-            .slice(0, 6);
+            .filter((f) => f.included === true || f.included === "beta" || f.included === "roadmap")
+            .slice(0, 7);
+          const ctaText = plan.isEnterprise ? plan.cta : trialEnabled ? "Começar teste grátis" : plan.cta;
 
           return (
             <div
@@ -137,9 +138,9 @@ export default function Pricing() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18l-.813-2.096a2 2 0 00-1.091-1.091L5 14l2.096-.813a2 2 0 001.091-1.091L9 10l.813 2.096a2 2 0 001.091 1.091L13 14l-2.096.813a2 2 0 00-1.091 1.091ZM18 13l.563 1.437L20 15l-1.437.563L18 17l-.563-1.437L16 15l1.437-.563L18 13ZM17 3l1.132 2.868L21 7l-2.868 1.132L17 11l-1.132-2.868L13 7l2.868-1.132L17 3Z" />
                     </svg>
                     <strong className="text-slate-700 dark:text-slate-200">{plan.aiAssessmentsMonthly}</strong> análises IA/mês
-                    {aiComingSoon && (
-                      <span className="ml-2 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-300">
-                        Em breve
+                    {aiBeta && (
+                      <span className="ml-2 rounded-full bg-violet-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-violet-600 dark:text-violet-300">
+                        Beta
                       </span>
                     )}
                   </p>
@@ -150,8 +151,10 @@ export default function Pricing() {
               <ul className="space-y-2 mb-6 flex-1">
                 {visible.map((f) => (
                   <li key={f.name} className="flex items-center text-sm text-slate-600 dark:text-slate-300 gap-2">
-                    {f.included === "soon" ? (
-                      <span className="text-amber-500 text-xs">🔜</span>
+                    {f.included === "beta" ? (
+                      <span className="rounded-full bg-violet-500/10 px-2 py-0.5 text-[10px] font-bold uppercase text-violet-600 dark:text-violet-300">Beta</span>
+                    ) : f.included === "roadmap" ? (
+                      <span className="rounded-full bg-slate-500/10 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-500 dark:text-slate-300">Roadmap</span>
                     ) : (
                       <svg className="w-4 h-4 text-teal-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -169,7 +172,7 @@ export default function Pricing() {
                 loading={loading}
                 onClick={() => handleClick(plan)}
               >
-                {plan.cta}
+                {ctaText}
               </Button>
             </div>
           );

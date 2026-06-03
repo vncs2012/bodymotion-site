@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const KEY = "bodymotion_theme";
 
 export default function useTheme() {
-  const [theme, setTheme] = useState("dark"); // dark by default
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const stored = localStorage.getItem(KEY);

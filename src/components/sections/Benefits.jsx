@@ -10,7 +10,7 @@ export default function Benefits() {
           Resultados reais para sua rotina
         </h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          Não é só sobre funcionalidades — é sobre o impacto no seu dia a dia e no resultado dos seus pacientes.
+          Não é só sobre funcionalidades. É sobre reduzir atrito no dia a dia e melhorar acompanhamento.
         </p>
       </div>
 

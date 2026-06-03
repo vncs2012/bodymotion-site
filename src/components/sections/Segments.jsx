@@ -3,22 +3,22 @@ import GlassCard from "../ui/GlassCard";
 
 const segments = [
   {
-    title: "Nutricionistas",
-    subtitle: "Autônomo ou consultório individual",
+    title: "Nutricionistas esportivos",
+    subtitle: "Dieta, composição corporal e adesão",
     iconColor: "text-cyan-500",
     iconBg: "bg-cyan-500/10",
     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
     pains: [
       "Perde tempo com planilhas e fichas em papel",
-      "Falta profissionalismo nas entregas ao paciente",
+      "Falta cálculo nutricional estruturado e revisável",
       "Não consegue acompanhar evolução entre consultas",
-      "Dificuldade em reter pacientes a longo prazo",
+      "Dificuldade em conectar dieta, treino e composição corporal",
     ],
     solutions: [
-      "Anamnese digital e avaliação corporal integradas",
-      "Prescrições em PDF com sua marca",
-      "Histórico completo e chat com paciente",
-      "Paciente engajado = mais renovações",
+      "Anamnese, prescrição, TACO e antropometria no mesmo fluxo",
+      "PDF, portal e histórico do paciente",
+      "Diário alimentar, hábitos e evolução corporal",
+      "Treinos e check-ins conectados à conduta nutricional",
     ],
   },
   {
@@ -67,15 +67,15 @@ const segments = [
     iconPath: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
     pains: [
       "Prontuário genérico sem campos clínicos específicos",
-      "Prescrições manuais sem padronização",
+      "Teleconsulta e TCLE em fluxos separados",
       "Sem integração entre avaliação e acompanhamento",
       "Dificuldade de gestão de retornos e evolução",
     ],
     solutions: [
       "Prontuário clínico com anamnese customizável",
-      "Prescrição profissional em PDF com sua marca",
+      "Teleconsulta integrada à agenda e ao portal",
       "Histórico de evolução integrado ao prontuário",
-      "Agenda e gestão de retornos (em breve)",
+      "Agenda, retornos e evolução em uma timeline",
     ],
   },
 ];
@@ -88,7 +88,7 @@ export default function Segments() {
           Feito para quem leva saúde a sério
         </h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          Seja profissional autônomo ou clínica com equipe, o BodyMotion se adapta ao seu modelo de trabalho.
+          O foco inicial é acompanhamento recorrente: nutrição, treino, evolução corporal e operação clínica em um mesmo sistema.
         </p>
       </div>
 

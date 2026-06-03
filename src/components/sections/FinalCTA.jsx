@@ -3,6 +3,15 @@ import Button from "../ui/Button";
 import { startTrial } from "../../utils/trial";
 
 export default function FinalCTA() {
+  const trialEnabled = Boolean(import.meta.env.VITE_TRIAL_START_URL);
+  const handlePrimaryClick = () => {
+    if (trialEnabled) {
+      startTrial();
+      return;
+    }
+    document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6">
       <div className="relative rounded-3xl overflow-hidden">
@@ -12,19 +21,19 @@ export default function FinalCTA() {
 
         <div className="relative z-10 py-16 sm:py-20 px-6 sm:px-12 text-center">
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white max-w-3xl mx-auto">
-            Pronto para transformar seus atendimentos?
+            Pronto para operar dieta, treino e evolução no mesmo lugar?
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
-            Comece com 14 dias grátis, sem cartão, e escolha o plano ideal quando a operação estiver rodando.
+            Solicite acesso para avaliarmos módulos, plano e etapa de implantação ideal para sua operação.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button
               size="lg"
               className="shadow-lg shadow-cyan-500/25"
-              onClick={() => startTrial()}
+              onClick={handlePrimaryClick}
             >
-              Começar grátis por 14 dias
+              {trialEnabled ? "Começar teste grátis" : "Solicitar acesso"}
             </Button>
             <Button
               variant="secondary"
@@ -43,7 +52,7 @@ export default function FinalCTA() {
           </div>
 
           <p className="mt-8 text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide">
-            Sem cartão de crédito &middot; Escolha o plano depois do teste &middot; Suporte em português
+            Onboarding assistido &middot; Módulos beta identificados &middot; Suporte em português
           </p>
         </div>
       </div>

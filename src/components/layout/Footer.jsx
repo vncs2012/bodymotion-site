@@ -8,16 +8,18 @@ export default function Footer() {
           <div>
             <p className="font-display font-bold text-slate-900 dark:text-white">BodyMotion</p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              © 2026 — Plataforma para gestão em nutrição e saúde.
+              © 2026 - Plataforma para nutrição, treino e evolução corporal.
             </p>
           </div>
 
           <nav className="flex flex-wrap gap-5 text-sm font-medium text-slate-500 dark:text-slate-400">
             <a href="#inicio"          className="hover:text-cyan-500 transition-colors">Início</a>
             <a href="#funcionalidades" className="hover:text-cyan-500 transition-colors">Funcionalidades</a>
+            <a href="#para-quem"       className="hover:text-cyan-500 transition-colors">Para quem</a>
+            <a href="#planos"          className="hover:text-cyan-500 transition-colors">Planos</a>
             <a href="#seguranca"       className="hover:text-cyan-500 transition-colors">Segurança</a>
             <a href="#contato"         className="hover:text-cyan-500 transition-colors">Contato</a>
-            <a href="#"                className="hover:text-cyan-500 transition-colors">Privacidade</a>
+            <a href="#privacidade"     className="hover:text-cyan-500 transition-colors">Privacidade</a>
           </nav>
         </div>
       </div>

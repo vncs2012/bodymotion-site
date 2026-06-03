@@ -2,8 +2,39 @@ import React, { useState } from "react";
 import GlassCard from "../ui/GlassCard";
 import Button from "../ui/Button";
 
-const API = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
-const LEAD = import.meta.env.VITE_LEAD_ENDPOINT ?? "/commercial/leads";
+const API = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
+const LEAD = import.meta.env.VITE_LEAD_ENDPOINT || "/commercial/leads";
+const CONTACT_EMAIL = "comercial@bodymotion.pro";
+
+function getTrackingPayload() {
+  if (typeof window === "undefined") return {};
+
+  const params = new URLSearchParams(window.location.search);
+  return {
+    page_url: window.location.href,
+    utm_source: params.get("utm_source") || undefined,
+    utm_medium: params.get("utm_medium") || undefined,
+    utm_campaign: params.get("utm_campaign") || undefined,
+    utm_content: params.get("utm_content") || undefined,
+    utm_term: params.get("utm_term") || undefined,
+  };
+}
+
+function buildMailto(payload) {
+  const subject = encodeURIComponent("Acesso antecipado BodyMotion");
+  const body = encodeURIComponent(
+    [
+      `Nome: ${payload.name ?? ""}`,
+      `Telefone: ${payload.phone ?? ""}`,
+      `E-mail: ${payload.email ?? ""}`,
+      `Profissão / clínica: ${payload.segment ?? ""}`,
+      "",
+      payload.message ?? "",
+    ].join("\n"),
+  );
+
+  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+}
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -15,19 +46,30 @@ export default function Contact() {
     setMsg({ text: "", ok: true });
 
     const form = e.currentTarget;
-    const payload = { ...Object.fromEntries(new FormData(form)), source: "site_comercial_bodymotion" };
+    const payload = {
+      ...Object.fromEntries(new FormData(form)),
+      ...getTrackingPayload(),
+      source: "site_comercial_bodymotion",
+    };
 
     try {
+      if (!API || !LEAD) {
+        window.location.href = buildMailto(payload);
+        setMsg({ text: "Abrimos seu app de e-mail com a mensagem preenchida para a equipe BodyMotion.", ok: true });
+        return;
+      }
+
       const res = await fetch(`${API}${LEAD}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
-      setMsg({ text: "Contato enviado! Vamos avisar você quando os acessos forem liberados.", ok: true });
+      setMsg({ text: "Contato enviado. Vamos retornar com as próximas etapas de acesso.", ok: true });
       form.reset();
     } catch {
-      setMsg({ text: "Não foi possível enviar agora. Tente novamente.", ok: false });
+      window.location.href = buildMailto(payload);
+      setMsg({ text: "Não foi possível enviar pelo formulário. Abrimos o e-mail como alternativa.", ok: false });
     } finally {
       setLoading(false);
     }
@@ -43,10 +85,10 @@ export default function Contact() {
           {/* Left */}
           <div>
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-              Receba o aviso de lançamento
+              Solicite acesso ao BodyMotion
             </h2>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-              Ainda estamos finalizando os últimos ajustes comerciais da BodyMotion. Deixe seu contato para receber novidades, acesso antecipado e falar com a nossa equipe.
+              Conte sobre sua operação para entrarmos com o melhor plano de onboarding: nutrição, treino, avaliação corporal, portal e IA em beta assistido.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -56,7 +98,7 @@ export default function Contact() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="text-sm">comercial@bodymotion.com.br</span>
+                <span className="text-sm">{CONTACT_EMAIL}</span>
               </div>
               <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400">
                 <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400">
@@ -97,12 +139,25 @@ export default function Contact() {
 
             <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               Mensagem
-              <textarea name="message" rows={3} placeholder="Conte sobre sua clínica ou como pretende usar a plataforma..." className={inputCls} />
+              <textarea name="message" rows={3} placeholder="Conte sobre sua clínica, número de profissionais e módulos de interesse..." className={inputCls} />
             </label>
 
             <Button type="submit" className="w-full mt-1" loading={loading}>
-              Entrar na lista de interesse
+              Solicitar acesso
             </Button>
+
+            <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+              Ao enviar, você autoriza o BodyMotion a usar estes dados para
+              retornar seu contato comercial. Veja como tratamos segurança e
+              privacidade em{" "}
+              <a
+                href="#privacidade"
+                className="font-semibold text-cyan-700 underline-offset-4 hover:underline dark:text-cyan-300"
+              >
+                privacidade
+              </a>
+              .
+            </p>
 
             {msg.text && (
               <p className={`text-sm font-semibold text-center ${msg.ok ? "text-teal-600 dark:text-teal-400" : "text-rose-500"}`}>

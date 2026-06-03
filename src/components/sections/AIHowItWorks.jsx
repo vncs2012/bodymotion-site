@@ -5,23 +5,22 @@ import { aiSteps } from "../../data/aiSteps";
 export default function AIHowItWorks() {
   return (
     <section id="como-funciona-ia" className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 scroll-mt-24">
-      {/* Em desenvolvimento banner */}
       <div className="mb-10 mx-auto max-w-3xl">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-violet-500/30 bg-violet-500/10 dark:bg-violet-500/[0.07] px-6 py-4">
+        <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-cyan-500/25 bg-cyan-500/10 px-5 py-4 dark:bg-cyan-500/[0.07] sm:flex-row sm:items-center sm:px-6">
           <div className="flex items-center gap-3">
             <span className="flex h-3 w-3 shrink-0">
-              <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-violet-400 opacity-60"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-violet-500"></span>
+              <span className="absolute inline-flex h-3 w-3 animate-ping rounded-full bg-cyan-400 opacity-60" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-cyan-500" />
             </span>
-            <p className="text-sm font-semibold text-violet-800 dark:text-violet-300">
-              <strong>Em desenvolvimento</strong> — Seja um dos primeiros a ter acesso antecipado.
+            <p className="text-sm font-semibold text-cyan-800 dark:text-cyan-300">
+              <strong>Beta assistido</strong> - IA para acelerar o trabalho, com validação final do profissional.
             </p>
           </div>
           <a
             href="#contato"
-            className="shrink-0 inline-flex items-center gap-1.5 text-sm font-bold text-violet-700 dark:text-violet-300 hover:text-violet-600 dark:hover:text-violet-200 transition-colors"
+            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-cyan-700 transition-colors hover:text-cyan-600 dark:text-cyan-300 dark:hover:text-cyan-200"
           >
-            Solicitar acesso antecipado
+            Entrar no beta
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
@@ -31,20 +30,17 @@ export default function AIHowItWorks() {
 
       <div className="text-center mb-12">
         <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-          Como vai funcionar a{" "}
+          IA auditável para{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">
-            IA de antropometria por foto
+            nutrição e evolução corporal
           </span>
         </h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          Avaliação corporal automatizada em 3 passos simples. Sem equipamentos caros, sem complicação.
+          A promessa não é substituir sua decisão clínica. A plataforma organiza dados, calcula com referência TACO e destaca pontos que precisam de revisão.
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3 relative">
-        {/* Connecting lines (desktop only) */}
-        <div className="hidden md:block absolute top-1/2 left-[33%] w-[34%] h-px bg-gradient-to-r from-cyan-500/30 via-violet-500/30 to-teal-500/30 -translate-y-1/2 z-0" />
-
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 relative">
         {aiSteps.map((step, i) => (
           <GlassCard key={i} hover className="text-center relative z-10">
             <span className="absolute -top-3 -right-2 font-display text-[5rem] font-extrabold leading-none text-cyan-500/[0.06] dark:text-cyan-400/[0.06] select-none">
@@ -75,9 +71,7 @@ export default function AIHowItWorks() {
           </svg>
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <strong className="text-slate-800 dark:text-white">Importante:</strong>{" "}
-            A avaliação por IA complementa — não substitui — a avaliação presencial.
-            Resultados dependem de padronização na captura (iluminação, posicionamento, vestimenta).
-            O profissional sempre valida e pode ajustar qualquer medida manualmente.
+            a IA complementa a decisão profissional. Cálculos nutricionais, candidatos ambíguos e medidas corporais devem ser revisados antes de qualquer orientação ao paciente.
           </p>
         </div>
       </div>

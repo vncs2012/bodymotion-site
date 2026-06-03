@@ -3,8 +3,8 @@ import GlassCard from "../ui/GlassCard";
 
 const items = [
   {
-    title: "Criptografia ponta a ponta",
-    desc: "Toda comunicação entre você, seus pacientes e nossos servidores é criptografada com TLS 1.3.",
+    title: "Conexão criptografada",
+    desc: "A comunicação usa HTTPS/TLS para proteger dados em trânsito entre navegador, paciente e servidor.",
     iconPath: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
     color: "text-cyan-500",
   },
@@ -16,13 +16,13 @@ const items = [
   },
   {
     title: "Consentimento e LGPD",
-    desc: "Termos de consentimento digitais para coleta de dados e fotos. Conformidade total com a LGPD.",
+    desc: "Fluxos com TCLE e consentimento para apoiar a operação com dados sensíveis de saúde.",
     iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "text-emerald-500",
   },
   {
-    title: "Backups e disponibilidade",
-    desc: "Backups automáticos diários, infraestrutura redundante e disponibilidade de 99.9%.",
+    title: "Auditoria operacional",
+    desc: "Relatórios e observabilidade ajudam a acompanhar uso, entregas e pontos de atenção da plataforma.",
     iconPath: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4",
     color: "text-violet-500",
   },
@@ -36,14 +36,13 @@ export default function Security() {
           {/* Left: heading and description */}
           <div>
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-              Seus dados e os dos seus pacientes{" "}
+              Dados sensíveis exigem{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
-                estão protegidos
+                cuidado operacional
               </span>
             </h2>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-              O BodyMotion foi projetado desde o início com privacidade e segurança como prioridade.
-              Lidamos com dados sensíveis de saúde e fotos corporais com o máximo rigor.
+              O BodyMotion evita promessas vagas: a plataforma combina controle de acesso, consentimento, conexão segura e trilhas operacionais para apoiar uma rotina mais responsável.
             </p>
 
             {/* LGPD Badge */}
@@ -52,10 +51,26 @@ export default function Security() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <div>
-                <p className="font-bold text-sm text-slate-900 dark:text-white">LGPD Compliance</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Lei Geral de Proteção de Dados</p>
+                <p className="font-bold text-sm text-slate-900 dark:text-white">Pronto para processos LGPD</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Consentimento, acesso e registros</p>
               </div>
             </div>
+
+            <p
+              id="privacidade"
+              className="mt-5 scroll-mt-24 text-sm leading-relaxed text-slate-500 dark:text-slate-400"
+            >
+              Dados enviados pelo formulário público são usados para retorno
+              comercial, qualificação do atendimento e registro operacional do
+              contato. Solicitações sobre privacidade podem ser enviadas para{" "}
+              <a
+                href="mailto:comercial@bodymotion.pro?subject=Privacidade%20BodyMotion"
+                className="font-semibold text-cyan-700 underline-offset-4 hover:underline dark:text-cyan-300"
+              >
+                comercial@bodymotion.pro
+              </a>
+              .
+            </p>
           </div>
 
           {/* Right: security items grid */}

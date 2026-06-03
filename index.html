@@ -3,38 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BodyMotion | Software para Nutricionistas e Clínicas</title>
+    <title>BodyMotion | Dieta, treino e evolução corporal em uma plataforma</title>
     <meta
       name="description"
-      content="BodyMotion: plataforma completa para gestão de pacientes, nutricionistas e clínicas. Anamnese, antropometria com IA, prescrição e gestão financeira."
+      content="BodyMotion centraliza prontuário, anamnese, antropometria, prescrição com TACO, treinos, teleconsulta, portal do paciente e IA auditável para profissionais de saúde e performance."
     />
+    <link rel="canonical" href="https://www.bodymotion.pro/" />
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%230f172a"/><path d="M18 42V22h8l6 10 6-10h8v20h-7V30l-5 8h-4l-5-8v12z" fill="%2322d3ee"/></svg>' />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bodymotion.com.br/" />
+    <meta property="og:url" content="https://www.bodymotion.pro/" />
     <meta
       property="og:title"
-      content="BodyMotion | Gestão Inteligente para Nutrição e Saúde"
+      content="BodyMotion | Dieta, treino e evolução corporal em uma plataforma"
     />
     <meta
       property="og:description"
-      content="Centralize seus pacientes, anamneses e financeiro em um só lugar. Comece a usar gratuitamente."
+      content="Prontuário, prescrição com TACO, antropometria, treinos, teleconsulta e portal do paciente em um único fluxo."
     />
     <meta
       property="og:image"
-      content="https://bodymotion.com.br/og-image.jpg"
+      content="https://www.bodymotion.pro/og-image.jpg"
     />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta
       property="twitter:title"
-      content="BodyMotion | Gestão Inteligente para Nutrição e Saúde"
+      content="BodyMotion | Dieta, treino e evolução corporal em uma plataforma"
     />
     <meta
       property="twitter:description"
-      content="Centralize seus pacientes, anamneses e financeiro em um só lugar."
+      content="Acompanhe dieta, treino, evolução corporal, teleconsulta e portal do paciente com IA auditável."
     />
+    <meta property="twitter:image" content="https://www.bodymotion.pro/og-image.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,9 +47,37 @@
     />
 
     <script src="https://js.stripe.com/v3" async></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "BodyMotion",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://www.bodymotion.pro/",
+        "description": "Plataforma SaaS para prontuário, prescrição nutricional, antropometria, treinos, teleconsulta e portal do paciente."
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main style="font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 40px 20px; color: #0f172a">
+        <h1>BodyMotion: dieta, treino e evolução corporal em uma única plataforma</h1>
+        <p>
+          Plataforma para profissionais de saúde e performance que precisam centralizar prontuário,
+          anamnese, antropometria, prescrição com base TACO, treinos, teleconsulta e portal do paciente.
+        </p>
+        <section>
+          <h2>Módulos principais</h2>
+          <ul>
+            <li>Prontuário, anamnese e timeline clínica.</li>
+            <li>Prescrição nutricional com cálculo TACO e IA auditável em beta.</li>
+            <li>Antropometria, captura remota de fotos e evolução corporal.</li>
+            <li>Treinos, check-ins, portal do paciente e teleconsulta.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
     <noscript>
       <div style="padding: 20px; text-align: center; color: #333">

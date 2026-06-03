@@ -3,10 +3,11 @@ import useTheme from "../../hooks/useTheme";
 import Button from "../ui/Button";
 
 const links = [
-  { label: "Como funciona",    href: "#como-funciona-ia" },
-  { label: "Funcionalidades",  href: "#funcionalidades" },
+  { label: "IA/TACO",          href: "#como-funciona-ia" },
+  { label: "Módulos",          href: "#funcionalidades" },
+  { label: "Para quem",        href: "#para-quem" },
+  { label: "Planos",           href: "#planos" },
   { label: "Segurança",        href: "#seguranca" },
-  { label: "Contato",          href: "#contato" },
 ];
 
 export default function Header() {
@@ -15,8 +16,8 @@ export default function Header() {
   const scrollToContact = () => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
-      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl glass-strong px-5 py-3 shadow-glass">
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl glass-strong px-4 py-3 shadow-glass sm:px-5">
         {/* Logo */}
         <a
           href="#inicio"
@@ -26,7 +27,7 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
+        <nav className="hidden items-center gap-5 text-sm font-semibold lg:flex xl:gap-8">
           {links.map((l) => (
             <a key={l.href} href={l.href} className="text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
               {l.label}
@@ -38,18 +39,18 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-full border border-slate-200/60 dark:border-white/10 bg-white/50 dark:bg-slate-800/60 flex items-center justify-center text-base transition-colors hover:bg-white dark:hover:bg-slate-800"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200/60 bg-white/50 text-base transition-colors hover:bg-white dark:border-white/10 dark:bg-slate-800/60 dark:hover:bg-slate-800"
             aria-label="Alternar tema"
           >
-            {theme === "dark" ? "☀️" : "🌙"}
+            {theme === "dark" ? "☀" : "◐"}
           </button>
 
           <Button size="sm" className="hidden sm:inline-flex" onClick={scrollToContact}>
-            Lista de interesse
+            Solicitar acesso
           </Button>
 
           {/* Mobile hamburger */}
-          <button className="md:hidden p-1.5" onClick={() => setOpen(!open)} aria-label="Menu">
+          <button className="p-1.5 lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
             <svg className="w-6 h-6 text-slate-700 dark:text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {open
                 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -61,7 +62,7 @@ export default function Header() {
 
       {/* Mobile dropdown */}
       {open && (
-        <div className="md:hidden absolute left-4 right-4 top-[4.5rem] rounded-2xl glass-strong p-5 shadow-xl animate-fade-in-up z-40">
+        <div className="absolute left-3 right-3 top-[4rem] z-40 rounded-2xl glass-strong p-5 shadow-xl animate-fade-in-up sm:left-4 sm:right-4 lg:hidden">
           <nav className="flex flex-col gap-3 text-center">
             {links.map((l) => (
               <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="py-2 text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-500">
@@ -72,7 +73,7 @@ export default function Header() {
               setOpen(false);
               scrollToContact();
             }}>
-              Quero ser avisado
+              Solicitar acesso
             </Button>
           </nav>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GlassCard from "../ui/GlassCard";
 import Badge from "../ui/Badge";
-import { featureCategories } from "../../data/features";
+import { featureCategories, featureStatus } from "../../data/features";
 
 const categoryNames = featureCategories.map((c) => c.category);
 
@@ -14,10 +14,10 @@ export default function Features() {
       <GlassCard>
         <div className="max-w-3xl mb-8">
           <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
-            Tudo o que você precisa para atender e crescer
+            Módulos para acompanhar o paciente inteiro
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-            Do primeiro contato com o paciente até o acompanhamento completo — com ferramentas que simplificam sua rotina.
+            Clínica, nutrição, corpo, treino, portal e gestão no mesmo fluxo, com estados claros entre disponível, beta e roadmap.
           </p>
         </div>
 
@@ -43,17 +43,21 @@ export default function Features() {
           {activeCategory.features.map((f) => (
             <article
               key={f.title}
-              className="group relative rounded-2xl border border-slate-200/60 bg-white/60 dark:border-white/[0.06] dark:bg-white/[0.03] p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-cyan-500/20 dark:hover:bg-white/[0.06]"
+              className="group relative rounded-2xl border border-slate-200/60 bg-white/60 p-5 transition-all hover:-translate-y-0.5 hover:border-cyan-500/20 hover:shadow-lg dark:border-white/[0.06] dark:bg-white/[0.03] dark:hover:bg-white/[0.06]"
             >
               <div className="mb-3 inline-flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800/60 p-2.5 transition-colors group-hover:bg-cyan-50 dark:group-hover:bg-cyan-900/20">
                 {f.icon}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <h3 className="font-display text-base font-bold text-slate-900 dark:text-white">
                   {f.title}
                 </h3>
-                {f.badge && <Badge variant="soon">{f.badge}</Badge>}
+                {f.status && f.status !== "available" && (
+                  <Badge variant={featureStatus[f.status]?.variant ?? "default"}>
+                    {featureStatus[f.status]?.label ?? f.status}
+                  </Badge>
+                )}
               </div>
 
               <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">

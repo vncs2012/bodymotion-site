@@ -2,8 +2,9 @@ import React from "react";
 import GlassCard from "../ui/GlassCard";
 import { plans } from "../../data/plans";
 
-/* Combine all unique feature names from all plans */
-const featureNames = plans[0].features.map((f) => f.name);
+const featureNames = Array.from(
+  new Set(plans.flatMap((plan) => plan.features.map((feature) => feature.name)))
+);
 
 const Cell = ({ included, note }) => {
   if (included === true)
@@ -12,25 +13,27 @@ const Cell = ({ included, note }) => {
         ✓{note ? <span className="text-[10px] text-slate-400 font-normal">({note})</span> : null}
       </span>
     );
-  if (included === "soon")
-    return <span className="text-amber-500 text-xs font-semibold">Em breve</span>;
-  return <span className="text-slate-300 dark:text-slate-600">—</span>;
+  if (included === "beta")
+    return <span className="text-violet-500 text-xs font-semibold">Beta</span>;
+  if (included === "roadmap")
+    return <span className="text-slate-500 text-xs font-semibold">Roadmap</span>;
+  return <span className="text-slate-300 dark:text-slate-600">-</span>;
 };
 
 const renderAiQuota = (plan) => {
   if (!plan.aiAssessmentsMonthly) {
-    return <span className="text-slate-300 dark:text-slate-600">—</span>;
+    return <span className="text-slate-300 dark:text-slate-600">-</span>;
   }
 
-  const aiFeature = plan.features.find((feature) => feature.name === "Avaliação por Foto + IA");
-  const aiComingSoon = aiFeature?.included === "soon";
+  const aiFeature = plan.features.find((feature) => feature.name === "IA nutricional + TACO");
+  const aiBeta = aiFeature?.included === "beta";
 
   return (
     <span className="inline-flex items-center justify-center gap-2 font-bold text-slate-700 dark:text-slate-200">
       {plan.aiAssessmentsMonthly}
-      {aiComingSoon ? (
-        <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-300">
-          Em breve
+      {aiBeta ? (
+        <span className="rounded-full bg-violet-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-violet-600 dark:text-violet-300">
+          Beta
         </span>
       ) : null}
     </span>
