@@ -10,14 +10,19 @@ export default {
       },
       colors: {
         bodymotion: {
-          cyan: "#22d3ee",
-          teal: "#0d9488",
-          midnight: "#0b1220",
+          navy: "#043873",
+          blue: "#4F9CF9",
+          sky: "#A7CEFC",
+          yellow: "#FFE492",
+          ink: "#212529",
+          cyan: "#4F9CF9",
+          teal: "#10A37F",
+          midnight: "#071D3A",
         },
       },
       boxShadow: {
-        glass: "0 18px 40px -24px rgba(13,148,136,0.55)",
-        "glass-lg": "0 24px 50px -16px rgba(13,148,136,0.45)",
+        glass: "0 18px 45px -28px rgba(4,56,115,0.36)",
+        "glass-lg": "0 26px 64px -34px rgba(4,56,115,0.42)",
       },
       animation: {
         floaty: "floaty 18s ease-in-out infinite",

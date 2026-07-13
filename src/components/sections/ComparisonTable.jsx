@@ -9,7 +9,7 @@ const featureNames = Array.from(
 const Cell = ({ included, note }) => {
   if (included === true)
     return (
-      <span className="flex items-center justify-center gap-1 text-teal-500 font-bold text-sm">
+      <span className="flex items-center justify-center gap-1 text-bodymotion-blue font-bold text-sm">
         ✓{note ? <span className="text-[10px] text-slate-400 font-normal">({note})</span> : null}
       </span>
     );
@@ -44,7 +44,8 @@ export default function ComparisonTable() {
   return (
     <section className="mx-auto mt-16 max-w-7xl px-4 sm:px-6">
       <GlassCard className="overflow-hidden !p-0">
-        <div className="p-6 sm:p-8 pb-0">
+        <div className="p-6 pb-0 sm:p-8">
+          <p className="section-eyebrow mb-3">Detalhes</p>
           <h3 className="font-display text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
             Comparativo completo dos planos
           </h3>
@@ -64,7 +65,7 @@ export default function ComparisonTable() {
                   <th
                     key={p.id}
                     className={`py-3 px-4 text-center font-bold text-xs uppercase tracking-wider ${
-                      p.featured ? "text-cyan-600 dark:text-cyan-400" : "text-slate-600 dark:text-slate-300"
+                      p.featured ? "text-bodymotion-blue dark:text-bodymotion-sky" : "text-slate-600 dark:text-slate-300"
                     }`}
                   >
                     {p.name}

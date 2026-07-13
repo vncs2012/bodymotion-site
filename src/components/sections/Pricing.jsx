@@ -38,8 +38,8 @@ export default function Pricing() {
           Comece com o essencial e avance para portal, teleconsulta, relatórios e IA auditável conforme sua operação cresce.
         </p>
 
-        <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-teal-500/20 bg-teal-500/5 px-5 py-2 text-sm font-medium text-teal-700 dark:text-teal-300">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="mt-4 inline-flex items-center gap-2 rounded-[8px] border border-bodymotion-blue/20 bg-bodymotion-blue/10 px-5 py-2 text-sm font-semibold text-bodymotion-navy dark:text-bodymotion-sky">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
           {trialEnabled ? "Teste grátis configurado para este ambiente." : "Acesso antecipado com onboarding assistido."}
@@ -69,23 +69,23 @@ export default function Pricing() {
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col rounded-3xl p-6 transition-all duration-300 ${
+              className={`relative flex flex-col rounded-[8px] p-6 transition-all duration-300 ${
                 plan.featured
-                  ? "border-2 border-cyan-500/40 bg-gradient-to-b from-cyan-500/10 via-white/80 to-teal-500/5 shadow-glass-lg dark:from-cyan-500/15 dark:via-slate-900/50 dark:to-teal-500/10 lg:scale-105 z-10"
-                  : "border border-slate-200/60 bg-white/70 shadow-glass dark:border-white/[0.08] dark:bg-slate-900/50 hover:border-cyan-500/20"
+                  ? "z-10 border-2 border-bodymotion-navy bg-white shadow-glass-lg dark:border-bodymotion-blue dark:bg-white/[0.05] lg:scale-105"
+                  : "border border-slate-200 bg-white shadow-glass hover:border-bodymotion-blue/30 dark:border-white/[0.08] dark:bg-white/[0.035]"
               }`}
             >
               {/* Popular badge */}
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-[10px] font-bold uppercase tracking-widest py-1 px-4 rounded-full shadow-lg whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-[8px] bg-bodymotion-navy px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-bodymotion-yellow shadow-lg dark:bg-bodymotion-blue dark:text-white">
                     Mais popular
                   </span>
                 </div>
               )}
 
               {/* Header */}
-              <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${plan.featured ? "text-cyan-600 dark:text-cyan-400" : "text-slate-400"}`}>
+              <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${plan.featured ? "text-bodymotion-blue" : "text-slate-400"}`}>
                 {plan.badge}
               </p>
               <h3 className="mt-1 font-display text-xl font-extrabold text-slate-900 dark:text-white">
@@ -121,20 +121,20 @@ export default function Pricing() {
               {/* Limits */}
               <div className="mt-3 mb-4 text-xs text-slate-500 dark:text-slate-400 space-y-1">
                 <p>
-                  <svg className="w-3.5 h-3.5 inline mr-1 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="w-3.5 h-3.5 inline mr-1 text-bodymotion-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <strong className="text-slate-700 dark:text-slate-200">{plan.activePatients}</strong> pacientes ativos
                 </p>
                 <p>
-                  <svg className="w-3.5 h-3.5 inline mr-1 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="w-3.5 h-3.5 inline mr-1 text-bodymotion-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                   <strong className="text-slate-700 dark:text-slate-200">{plan.professionals}</strong> {plan.professionals === "1" ? "profissional" : "profissionais"}
                 </p>
                 {plan.aiAssessmentsMonthly && (
                   <p>
-                    <svg className="w-3.5 h-3.5 inline mr-1 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-3.5 h-3.5 inline mr-1 text-bodymotion-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18l-.813-2.096a2 2 0 00-1.091-1.091L5 14l2.096-.813a2 2 0 001.091-1.091L9 10l.813 2.096a2 2 0 001.091 1.091L13 14l-2.096.813a2 2 0 00-1.091 1.091ZM18 13l.563 1.437L20 15l-1.437.563L18 17l-.563-1.437L16 15l1.437-.563L18 13ZM17 3l1.132 2.868L21 7l-2.868 1.132L17 11l-1.132-2.868L13 7l2.868-1.132L17 3Z" />
                     </svg>
                     <strong className="text-slate-700 dark:text-slate-200">{plan.aiAssessmentsMonthly}</strong> análises IA/mês
@@ -156,7 +156,7 @@ export default function Pricing() {
                     ) : f.included === "roadmap" ? (
                       <span className="rounded-full bg-slate-500/10 px-2 py-0.5 text-[10px] font-bold uppercase text-slate-500 dark:text-slate-300">Roadmap</span>
                     ) : (
-                      <svg className="w-4 h-4 text-teal-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <svg className="w-4 h-4 text-bodymotion-blue shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     )}

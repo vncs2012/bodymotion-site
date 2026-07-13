@@ -2,24 +2,24 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="px-4 pb-10 sm:px-6 mt-24">
-      <div className="mx-auto max-w-7xl rounded-2xl glass-strong px-6 py-6 shadow-glass">
+    <footer className="mt-24 border-t border-slate-200 bg-white px-4 pb-10 pt-10 dark:border-white/[0.08] dark:bg-bodymotion-midnight sm:px-6">
+      <div className="mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <p className="font-display font-bold text-slate-900 dark:text-white">BodyMotion</p>
+            <p className="font-display text-lg font-extrabold text-bodymotion-navy dark:text-white">BodyMotion</p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               © 2026 - Plataforma para nutrição, treino e evolução corporal.
             </p>
           </div>
 
           <nav className="flex flex-wrap gap-5 text-sm font-medium text-slate-500 dark:text-slate-400">
-            <a href="#inicio"          className="hover:text-cyan-500 transition-colors">Início</a>
-            <a href="#funcionalidades" className="hover:text-cyan-500 transition-colors">Funcionalidades</a>
-            <a href="#para-quem"       className="hover:text-cyan-500 transition-colors">Para quem</a>
-            <a href="#planos"          className="hover:text-cyan-500 transition-colors">Planos</a>
-            <a href="#seguranca"       className="hover:text-cyan-500 transition-colors">Segurança</a>
-            <a href="#contato"         className="hover:text-cyan-500 transition-colors">Contato</a>
-            <a href="#privacidade"     className="hover:text-cyan-500 transition-colors">Privacidade</a>
+            <a href="#inicio"          className="transition-colors hover:text-bodymotion-blue">Início</a>
+            <a href="#funcionalidades" className="transition-colors hover:text-bodymotion-blue">Funcionalidades</a>
+            <a href="#para-quem"       className="transition-colors hover:text-bodymotion-blue">Para quem</a>
+            <a href="#planos"          className="transition-colors hover:text-bodymotion-blue">Planos</a>
+            <a href="#seguranca"       className="transition-colors hover:text-bodymotion-blue">Segurança</a>
+            <a href="#contato"         className="transition-colors hover:text-bodymotion-blue">Contato</a>
+            <a href="#privacidade"     className="transition-colors hover:text-bodymotion-blue">Privacidade</a>
           </nav>
         </div>
       </div>

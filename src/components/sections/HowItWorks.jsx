@@ -42,11 +42,14 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6">
-      <div className="text-center mb-12">
+      <div className="mb-12 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+        <div>
+          <p className="section-eyebrow mb-3">Fluxo operacional</p>
         <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
           Um fluxo único para acompanhar progresso
         </h2>
-        <p className="mt-3 text-lg text-slate-600 dark:text-slate-300">
+        </div>
+        <p className="max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300 lg:justify-self-end">
           Do primeiro cadastro ao ajuste de conduta, sem espalhar dados entre planilhas, PDFs e conversas.
         </p>
       </div>
@@ -54,11 +57,11 @@ export default function HowItWorks() {
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-5">
         {steps.map((s) => (
           <GlassCard key={s.n} hover className="relative overflow-hidden text-center">
-            <span className="absolute -right-2 -top-3 select-none font-display text-[4.5rem] font-extrabold leading-none text-cyan-500/[0.06] dark:text-cyan-400/[0.06]">
+            <span className="absolute -right-2 -top-3 select-none font-display text-[4.5rem] font-extrabold leading-none text-bodymotion-blue/[0.08] dark:text-bodymotion-sky/[0.08]">
               {s.n}
             </span>
-            <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800/60">
-              <svg className={`h-7 w-7 ${s.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+            <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-[8px] bg-bodymotion-blue/10">
+              <svg className="h-7 w-7 text-bodymotion-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d={s.iconPath} />
               </svg>
             </div>

@@ -32,6 +32,15 @@ export const planFeatureState = {
   false: { label: "Não incluso", marker: "none" },
 };
 
+// Mapeamento de slug do plano → ID interno do backend (tabela subscription_plans)
+// Atualizar se os IDs do banco mudarem (consultar GET /subscription/plans)
+export const PLAN_BACKEND_IDS = {
+  starter: 1,
+  pro_saude: 2,
+  pro_plus: 3,
+  enterprise: null, // enterprise é negociado via contato
+};
+
 export const plans = [
   {
     id: "starter",

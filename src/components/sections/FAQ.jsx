@@ -9,6 +9,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 scroll-mt-24">
       <GlassCard>
+        <p className="section-eyebrow mb-3">Dúvidas</p>
         <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-8">
           Perguntas frequentes
         </h2>
@@ -19,20 +20,22 @@ export default function FAQ() {
             return (
               <div
                 key={i}
-                className={`rounded-2xl border overflow-hidden transition-all duration-300 ${
+                className={`rounded-[8px] border overflow-hidden transition-all duration-300 ${
                   open
-                    ? "border-cyan-500/25 bg-white/50 dark:bg-white/[0.04] shadow-sm"
+                    ? "border-bodymotion-blue/30 bg-bodymotion-blue/5 shadow-sm dark:bg-bodymotion-blue/[0.08]"
                     : "border-slate-200/50 bg-white/30 dark:border-white/[0.06] dark:bg-white/[0.02] hover:bg-white/50 dark:hover:bg-white/[0.04]"
                 }`}
               >
                 <button
-                  className="flex w-full items-center justify-between p-5 text-left font-semibold text-slate-900 dark:text-white focus:outline-none"
+                  className="flex w-full items-center justify-between p-5 text-left font-semibold text-slate-900 dark:text-white"
                   onClick={() => toggle(i)}
+                  aria-expanded={open}
                 >
                   <span className="pr-4">{faq.question}</span>
                   <svg
-                    className={`w-5 h-5 shrink-0 transition-transform duration-300 ${open ? "rotate-180 text-cyan-500" : "text-slate-400"}`}
+                    className={`w-5 h-5 shrink-0 transition-transform duration-300 ${open ? "rotate-180 text-bodymotion-blue" : "text-slate-400"}`}
                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>

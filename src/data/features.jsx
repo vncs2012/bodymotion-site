@@ -1,7 +1,7 @@
 import React from "react";
 
-const I = ({ d, color = "text-cyan-500" }) => (
-  <svg className={`w-6 h-6 ${color}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+const I = ({ d }) => (
+  <svg className="h-6 w-6 text-bodymotion-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" d={d} />
   </svg>
 );

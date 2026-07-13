@@ -14,23 +14,19 @@ export default function FinalCTA() {
 
   return (
     <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6">
-      <div className="relative rounded-3xl overflow-hidden">
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-teal-500/10 dark:from-cyan-500/[0.07] dark:to-teal-500/[0.07]" />
-        <div className="absolute inset-0 glass" />
-
-        <div className="relative z-10 py-16 sm:py-20 px-6 sm:px-12 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white max-w-3xl mx-auto">
+      <div className="blue-panel relative overflow-hidden rounded-[8px]">
+        <div className="relative z-10 px-6 py-16 text-center sm:px-12 sm:py-20">
+          <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.18em] text-bodymotion-yellow">Próximo passo</p>
+          <h2 className="mx-auto max-w-3xl font-display text-3xl font-extrabold sm:text-4xl lg:text-5xl">
             Pronto para operar dieta, treino e evolução no mesmo lugar?
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
+          <p className="mx-auto mt-4 max-w-xl text-lg text-blue-100">
             Solicite acesso para avaliarmos módulos, plano e etapa de implantação ideal para sua operação.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button
               size="lg"
-              className="shadow-lg shadow-cyan-500/25"
               onClick={handlePrimaryClick}
             >
               {trialEnabled ? "Começar teste grátis" : "Solicitar acesso"}
@@ -51,8 +47,8 @@ export default function FinalCTA() {
             </Button>
           </div>
 
-          <p className="mt-8 text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide">
-            Onboarding assistido &middot; Módulos beta identificados &middot; Suporte em português
+          <p className="mt-8 text-xs font-medium tracking-wide text-blue-100/80">
+            Onboarding assistido | Módulos beta identificados | Suporte em português
           </p>
         </div>
       </div>

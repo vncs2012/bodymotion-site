@@ -76,33 +76,33 @@ export default function Contact() {
   };
 
   const inputCls =
-    "mt-2 w-full rounded-xl border border-slate-300/50 bg-white/80 dark:border-white/10 dark:bg-slate-800/70 px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30";
+    "mt-2 w-full rounded-[8px] border border-slate-300/70 bg-white px-4 py-3 text-sm outline-none transition focus:border-bodymotion-blue focus:ring-1 focus:ring-bodymotion-blue/30 dark:border-white/10 dark:bg-white/[0.06]";
 
   return (
     <section id="contato" className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 scroll-mt-24">
-      <GlassCard>
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left */}
-          <div>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
+      <GlassCard className="overflow-hidden !p-0">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="blue-panel p-6 sm:p-8 lg:p-10">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-bodymotion-yellow">Acesso antecipado</p>
+            <h2 className="font-display text-2xl font-extrabold sm:text-4xl">
               Solicite acesso ao BodyMotion
             </h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
+            <p className="mt-4 text-lg leading-relaxed text-blue-100">
               Conte sobre sua operação para entrarmos com o melhor plano de onboarding: nutrição, treino, avaliação corporal, portal e IA em beta assistido.
             </p>
 
             <div className="mt-8 space-y-4">
-              <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400">
-                <div className="w-10 h-10 rounded-full bg-cyan-100 dark:bg-cyan-900/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <div className="flex items-center gap-3 text-blue-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/10 text-bodymotion-yellow">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <span className="text-sm">{CONTACT_EMAIL}</span>
               </div>
-              <div className="flex items-center gap-3 text-slate-600 dark:text-slate-400">
-                <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <div className="flex items-center gap-3 text-blue-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/10 text-bodymotion-yellow">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -114,7 +114,7 @@ export default function Contact() {
           {/* Right: form */}
           <form
             onSubmit={handleSubmit}
-            className="grid gap-4 rounded-2xl border border-slate-200/40 dark:border-white/[0.06] bg-white/40 dark:bg-white/[0.03] p-6"
+            className="grid gap-4 bg-white p-6 dark:bg-white/[0.035] sm:p-8 lg:p-10"
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
@@ -152,7 +152,7 @@ export default function Contact() {
               privacidade em{" "}
               <a
                 href="#privacidade"
-                className="font-semibold text-cyan-700 underline-offset-4 hover:underline dark:text-cyan-300"
+                className="font-semibold text-bodymotion-blue underline-offset-4 hover:underline dark:text-bodymotion-sky"
               >
                 privacidade
               </a>
@@ -160,7 +160,7 @@ export default function Contact() {
             </p>
 
             {msg.text && (
-              <p className={`text-sm font-semibold text-center ${msg.ok ? "text-teal-600 dark:text-teal-400" : "text-rose-500"}`}>
+              <p className={`text-center text-sm font-semibold ${msg.ok ? "text-bodymotion-blue dark:text-bodymotion-sky" : "text-rose-500"}`}>
                 {msg.text}
               </p>
             )}

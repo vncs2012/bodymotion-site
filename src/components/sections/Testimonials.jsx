@@ -58,9 +58,9 @@ export default function Testimonials() {
         {metrics.map((m) => (
           <div
             key={m.label}
-            className="text-center rounded-2xl border border-slate-200/60 dark:border-white/[0.06] bg-white/50 dark:bg-white/[0.02] p-5"
+            className="text-center rounded-[8px] border border-slate-200/60 dark:border-white/[0.06] bg-white/50 dark:bg-white/[0.02] p-5"
           >
-            <p className="font-display text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-teal-500">
+            <p className="font-display text-2xl sm:text-3xl font-extrabold text-bodymotion-blue">
               {m.value}
             </p>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -77,7 +77,7 @@ export default function Testimonials() {
             {/* Stars */}
             <div className="flex gap-0.5 mb-4 text-amber-400">
               {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.07 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.28-3.957z" />
                 </svg>
               ))}
@@ -86,7 +86,7 @@ export default function Testimonials() {
             <p className="text-slate-600 dark:text-slate-300 text-sm italic leading-relaxed flex-1">"{t.text}"</p>
 
             <div className="flex items-center gap-3 mt-6 pt-5 border-t border-slate-200/50 dark:border-white/[0.06]">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-white font-bold text-xs">
+              <div className="w-10 h-10 rounded-full bg-bodymotion-navy flex items-center justify-center text-white font-bold text-xs dark:bg-bodymotion-blue">
                 {t.initials}
               </div>
               <div>

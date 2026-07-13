@@ -12,59 +12,54 @@
   }
 
   body {
-    @apply font-body antialiased;
+    @apply bg-white font-body text-bodymotion-ink antialiased dark:bg-bodymotion-midnight dark:text-white;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    @apply bg-cyan-500/30 text-cyan-900 dark:text-cyan-100;
+    @apply bg-bodymotion-yellow text-bodymotion-navy;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-bodymotion-blue ring-offset-2 ring-offset-white dark:ring-offset-bodymotion-midnight;
+  }
+
+  :target {
+    scroll-margin-top: 104px;
   }
 }
 
 @layer components {
-  /* ── Animated background blobs ── */
-  .blob {
-    @apply absolute rounded-full opacity-40;
-    filter: blur(80px);
-    animation: floaty 18s ease-in-out infinite;
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-16 rounded-[8px] bg-bodymotion-navy px-4 py-2 text-sm font-bold text-white shadow-lg transition-transform focus:translate-y-0;
   }
 
-  .blob-cyan {
-    @apply w-[28rem] h-[28rem] bg-cyan-400/50;
-    top: -8rem;
-    left: -6rem;
-  }
-
-  .blob-teal {
-    @apply w-[32rem] h-[32rem] bg-teal-500/30;
-    top: 30%;
-    right: -8rem;
-    animation-delay: -6s;
-  }
-
-  .blob-indigo {
-    @apply w-[24rem] h-[24rem] bg-indigo-500/20;
-    bottom: 10%;
-    left: 20%;
-    animation-delay: -12s;
-  }
-
-  /* ── Glassmorphism tokens ── */
+  /* ── Surface tokens ── */
   .glass {
-    @apply bg-white/60 backdrop-blur-2xl border border-white/30
-           dark:bg-slate-900/50 dark:border-white/[0.08];
+    @apply border border-slate-200/80 bg-white shadow-glass dark:border-white/[0.08] dark:bg-white/[0.035];
   }
 
   .glass-strong {
-    @apply bg-white/75 backdrop-blur-2xl border border-white/40
-           dark:bg-slate-900/60 dark:border-white/10;
+    @apply border border-slate-200/90 bg-white/95 shadow-glass backdrop-blur-xl dark:border-white/[0.08] dark:bg-bodymotion-midnight/90;
   }
 
   /* ── Gradient CTA ── */
   .btn-gradient {
-    @apply bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold
-           shadow-[0_10px_22px_-12px_rgba(13,148,136,0.85)]
-           hover:from-cyan-400 hover:to-teal-400
+    @apply bg-bodymotion-yellow text-bodymotion-navy font-bold
+           shadow-[0_12px_24px_-16px_rgba(4,56,115,0.9)]
+           hover:bg-[#F7D86F]
            active:scale-[0.97] transition-all duration-200;
+  }
+
+  .blue-panel {
+    @apply bg-bodymotion-navy text-white dark:bg-[#063064];
+    background-image:
+      linear-gradient(135deg, rgba(79, 156, 249, 0.18), transparent 36%),
+      repeating-radial-gradient(circle at 0% 50%, rgba(167, 206, 252, 0.18) 0 1px, transparent 1px 14px);
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-extrabold uppercase tracking-[0.18em] text-bodymotion-blue;
   }
 }
 

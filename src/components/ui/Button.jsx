@@ -2,11 +2,11 @@ import React from "react";
 
 const variants = {
   primary:
-    "btn-gradient rounded-full",
+    "btn-gradient rounded-[8px]",
   secondary:
-    "rounded-full border border-slate-300/60 bg-white/80 text-slate-900 hover:border-cyan-500/50 dark:border-white/15 dark:bg-slate-800/80 dark:text-white transition-colors",
+    "rounded-[8px] border border-bodymotion-blue/35 bg-white text-bodymotion-navy hover:border-bodymotion-blue hover:bg-bodymotion-blue/5 dark:border-white/15 dark:bg-white/[0.05] dark:text-white dark:hover:bg-white/[0.08] transition-colors",
   ghost:
-    "rounded-full text-slate-600 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400 transition-colors",
+    "rounded-[8px] text-slate-600 hover:bg-slate-100 hover:text-bodymotion-navy dark:text-slate-300 dark:hover:bg-white/[0.06] dark:hover:text-white transition-colors",
 };
 
 const sizes = {

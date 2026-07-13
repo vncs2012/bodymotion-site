@@ -22,11 +22,11 @@ export default function App() {
   const { toast, closeToast } = useCheckout();
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-slate-50 text-neutral-900 transition-colors duration-300 dark:bg-bodymotion-midnight dark:text-white">
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(rgba(15,23,42,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.05)_1px,transparent_1px)] bg-[size:44px_44px] dark:bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]" />
+    <div className="relative min-h-screen overflow-x-hidden bg-white text-bodymotion-ink transition-colors duration-300 dark:bg-bodymotion-midnight dark:text-white">
+      <a href="#inicio" className="skip-link">Pular para o conteúdo</a>
       <div className="relative z-10">
-        <Header />
         <AnnouncementBar />
+        <Header />
         <main>
           <Hero />
           <AIHowItWorks />
