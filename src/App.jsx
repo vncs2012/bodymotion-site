@@ -7,6 +7,7 @@ import Hero from "./components/sections/Hero";
 import ProductStory from "./components/sections/ProductStory";
 import AudienceFocus from "./components/sections/AudienceFocus";
 import Offer from "./components/sections/Offer";
+import ComparisonTable from "./components/sections/ComparisonTable";
 import Security from "./components/sections/Security";
 import FAQ from "./components/sections/FAQ";
 import Contact from "./components/sections/Contact";
@@ -27,6 +28,7 @@ export default function App() {
           <ProductStory />
           <AudienceFocus />
           <Offer />
+          <ComparisonTable />
           <Security />
           <FAQ />
           <Contact />
