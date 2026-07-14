@@ -1,21 +1,22 @@
 # BodyMotion Site Comercial (Vite + React)
 
-Frontend comercial do BodyMotion com foco em divulgação e conversão:
+Landing page comercial do BodyMotion com foco em demonstrações e captação de leads qualificados:
 
-- layout moderno com glassmorphism;
-- modo claro/escuro;
-- seção de funcionalidades;
-- planos reposicionados por profissionais, pacientes ativos e IA;
-- início de jornada com 14 dias grátis sem cartão;
-- CTA público apontando para a tela de cadastro do painel;
-- formulário de lead para equipe comercial.
+- narrativa centrada em consulta, prescrição, treino e evolução corporal;
+- telas reais do produto com dados demonstrativos;
+- seções focadas em nutricionistas e clínicas;
+- CTA para demonstração guiada;
+- formulário de lead com UTM e fallback por e-mail;
+- eventos de intenção e conversão via Vercel Analytics;
+- SEO básico com canonical, `robots.txt` e sitemap.
 
 ## Estrutura
 
-- `index.html`: entry do Vite + Tailwind CDN + Stripe script.
-- `src/main.jsx`: bootstrap React.
-- `src/App.jsx`: layout e lógica do site (tema, FAQ, planos, checkout, lead).
-- `src/styles.css`: estilos globais e animações de fundo.
+- `index.html`: metadados e entry do Vite.
+- `src/App.jsx`: composição da landing page e Analytics.
+- `src/components/sections/`: seções comerciais e formulário de demonstração.
+- `src/utils/analytics.js`: eventos de intenção e conversão.
+- `src/styles/globals.css`: estilos globais e animações.
 - `.env.example`: variáveis de integração da API.
 
 ## Rodar localmente
@@ -54,22 +55,22 @@ VITE_LEAD_ENDPOINT=/commercial/leads
 VITE_TRIAL_START_URL=/registro
 ```
 
-## Fluxo de trial e pagamento
+## Eventos comerciais
 
-O site comercial agora inicia pelo trial de 14 dias. Em vez de mandar o usuário direto para o checkout, os botões levam para a URL configurada em `VITE_TRIAL_START_URL`, normalmente a rota pública de cadastro do painel (`/registro`).
+Quando o projeto estiver publicado na Vercel, os eventos abaixo podem ser acompanhados no Web Analytics:
 
-Essa URL pode ser:
+1. `cta_demo_clicked`: clique em uma chamada para demonstração;
+2. `product_explored`: início da exploração das telas do produto;
+3. `plan_interest_clicked`: interesse em um plano;
+4. `lead_form_started`: início do preenchimento do formulário;
+5. `lead_form_submitted`: envio bem-sucedido para a API;
+6. `lead_form_fallback`: uso do e-mail quando a API não está configurada ou falha.
 
-1. relativa, se site e painel compartilharem o mesmo domínio, por exemplo `/registro`;
-2. absoluta, se o painel estiver em outro domínio, por exemplo `https://app.seudominio.com/registro`.
+## Próximo passo de publicação
 
-Os parâmetros `plan` e `billing` são anexados automaticamente na URL para preservar o contexto da oferta escolhida no site.
+Antes de publicar, configure a URL pública da API e teste o fluxo ponta a ponta:
 
-## Próximo passo recomendado
-
-Testar fluxo ponta a ponta com backend real:
-
-1. selecionar plano;
-2. iniciar trial pela tela pública de cadastro;
-3. concluir criação da conta;
-4. validar assinatura `trial` ativa no sistema.
+1. preencher e enviar o formulário;
+2. confirmar o lead no painel comercial;
+3. validar origem/UTMs e notificações comerciais;
+4. cadastrar a imagem Open Graph final antes de divulgar links em redes sociais.

@@ -15,7 +15,7 @@ export default function FAQ() {
         </h2>
 
         <div className="space-y-3">
-          {faqs.map((faq, i) => {
+          {faqs.slice(0, 6).map((faq, i) => {
             const open = openIdx === i;
             return (
               <div

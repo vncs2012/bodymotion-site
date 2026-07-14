@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import useTheme from "../../hooks/useTheme";
+import { trackSiteEvent } from "../../utils/analytics";
 import Button from "../ui/Button";
 
 const links = [
-  { label: "IA/TACO",          href: "#como-funciona-ia" },
-  { label: "Módulos",          href: "#funcionalidades" },
-  { label: "Para quem",        href: "#para-quem" },
+  { label: "Produto",          href: "#produto" },
+  { label: "Nutricionistas",   href: "#nutricionistas" },
+  { label: "Clínicas",         href: "#clinicas" },
   { label: "Planos",           href: "#planos" },
   { label: "Segurança",        href: "#seguranca" },
 ];
@@ -13,7 +14,10 @@ const links = [
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
-  const scrollToContact = () => document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToContact = () => {
+    trackSiteEvent("cta_demo_clicked", { placement: "header" });
+    document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 px-4 backdrop-blur-xl dark:border-white/[0.08] dark:bg-bodymotion-midnight/90 sm:px-6">
@@ -57,7 +61,7 @@ export default function Header() {
           </button>
 
           <Button size="sm" className="hidden sm:inline-flex" onClick={scrollToContact}>
-            Solicitar acesso
+            Agendar demonstração
           </Button>
 
           <button
@@ -87,7 +91,7 @@ export default function Header() {
               setOpen(false);
               scrollToContact();
             }}>
-              Solicitar acesso
+              Agendar demonstração
             </Button>
           </nav>
         </div>
