@@ -1,42 +1,52 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
-  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        display: ["Sora", "sans-serif"],
+        display: ["'Bricolage Grotesque'", "sans-serif"],
         body: ["Manrope", "sans-serif"],
       },
       colors: {
-        bodymotion: {
-          navy: "#043873",
-          blue: "#4F9CF9",
-          sky: "#A7CEFC",
-          yellow: "#FFE492",
-          ink: "#212529",
-          cyan: "#4F9CF9",
-          teal: "#10A37F",
-          midnight: "#071D3A",
+        bm: {
+          ink: "#22255a", // navy oficial da logomarca
+          night: "#15173f", // navy profundo p/ seções escuras
+          deep: "#2b2e6b", // navy elevado (superfícies em seção escura)
+          cyan: "#50b4e6", // ciano oficial da logomarca — cor única de ação
+          "cyan-deep": "#2b95cc", // hover / bordas do ciano
+          "cyan-soft": "#eaf5fc", // tint de apoio
+          paper: "#f6f9fd", // fundo claro padrão
+          mist: "#dfe9f4", // linhas e bordas suaves
+          slate: "#565d85", // texto secundário
         },
+      },
+      maxWidth: {
+        shell: "76rem",
       },
       boxShadow: {
-        glass: "0 18px 45px -28px rgba(4,56,115,0.36)",
-        "glass-lg": "0 26px 64px -34px rgba(4,56,115,0.42)",
-      },
-      animation: {
-        floaty: "floaty 18s ease-in-out infinite",
-        "fade-in-up": "fade-in-up 0.7s ease-out forwards",
+        card: "0 1px 2px rgba(34,37,90,0.06), 0 12px 32px -18px rgba(34,37,90,0.25)",
+        frame:
+          "0 1px 3px rgba(34,37,90,0.08), 0 32px 72px -36px rgba(34,37,90,0.45)",
+        cta: "0 14px 30px -16px rgba(43,149,204,0.75)",
       },
       keyframes: {
-        floaty: {
-          "0%,100%": { transform: "translate3d(0,0,0) scale(1)" },
-          "50%": { transform: "translate3d(0,-18px,0) scale(1.06)" },
-        },
-        "fade-in-up": {
-          from: { opacity: "0", transform: "translateY(28px)" },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(26px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "trace-line": {
+          from: { strokeDashoffset: "var(--trace-length, 600)" },
+          to: { strokeDashoffset: "0" },
+        },
+        "float-soft": {
+          "0%,100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+      },
+      animation: {
+        "fade-up": "fade-up 0.7s cubic-bezier(0.22,1,0.36,1) forwards",
+        "trace-line": "trace-line 1.1s cubic-bezier(0.55,0,0.25,1) forwards",
+        "float-soft": "float-soft 7s ease-in-out infinite",
       },
     },
   },
