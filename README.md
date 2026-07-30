@@ -1,48 +1,40 @@
-# BodyMotion Site Comercial (Vite + React)
+# Bodymotion — Site Comercial (Vite + React)
 
-Landing page comercial do BodyMotion com foco em demonstrações e captação de leads qualificados:
+Landing page comercial do Bodymotion orientada a demonstração e captação de leads
+qualificados, com a identidade visual oficial da logomarca (navy `#22255a` + ciano
+`#50b4e6`, Bricolage Grotesque + Manrope).
 
-- narrativa centrada em consulta, prescrição, treino e evolução corporal;
-- telas reais do produto com dados demonstrativos;
-- seções focadas em nutricionistas e clínicas;
-- CTA para demonstração guiada;
-- formulário de lead com UTM e fallback por e-mail;
-- eventos de intenção e conversão via Vercel Analytics;
-- SEO básico com canonical, `robots.txt` e sitemap.
+Estrutura da página (branch `feat/landing-2026`):
 
-## Estrutura
+1. Hero pôster com composição do painel e prova factual (TACO, portal OTP, TCLE, check-ins);
+2. Problema: acompanhamento fragmentado em planilha/PDF/WhatsApp/apps;
+3. Módulos em abas (Atendimento, Nutrição+IA, Antropometria, Treinos, Agenda, Portal, Operação);
+4. Fluxo em 5 passos;
+5. IA auditável ("A IA sugere. A TACO calcula. Você decide.");
+6. Personas (nutricionista esportivo e clínica multidisciplinar);
+7. Planos compactos (R$ 97/197/347 + Enterprise) com toggle mensal/anual;
+8. Segurança com claims defensáveis;
+9. FAQ;
+10. Formulário de demonstração com UTM e fallback por e-mail.
 
-- `index.html`: metadados e entry do Vite.
-- `src/App.jsx`: composição da landing page e Analytics.
-- `src/components/sections/`: seções comerciais e formulário de demonstração.
-- `src/utils/analytics.js`: eventos de intenção e conversão.
-- `src/styles/globals.css`: estilos globais e animações.
-- `.env.example`: variáveis de integração da API.
+## Estrutura de código
+
+- `index.html`: metadados, JSON-LD, fontes e conteúdo estático indexável.
+- `src/App.jsx`: composição da landing e Analytics.
+- `src/data/landing.js`: toda a copy editorial (módulos, passos, FAQ, segurança).
+- `src/data/plans.js`: planos e preços (alinhar sempre com o seed da API).
+- `src/components/sections/`: seções da página.
+- `src/components/mock/`: composições ilustrativas do produto (dados fictícios).
+- `src/components/ui/`: Button, Reveal, MotionLine, ProductFrame, Toast.
+- `public/brand/`: logomarca oficial (horizontal, branca, símbolo/favicon).
 
 ## Rodar localmente
 
-1. Instale dependências:
-
 ```bash
 npm install
-```
-
-2. Suba ambiente de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-3. Build de produção:
-
-```bash
-npm run build
-```
-
-4. Preview do build:
-
-```bash
-npm run preview
+npm run dev      # desenvolvimento
+npm run build    # build de produção
+npm run preview  # preview do build
 ```
 
 ## Variáveis de ambiente
@@ -55,22 +47,35 @@ VITE_LEAD_ENDPOINT=/commercial/leads
 VITE_TRIAL_START_URL=/registro
 ```
 
-## Eventos comerciais
+Sem `VITE_API_BASE_URL`, o formulário usa fallback de e-mail (mailto para
+`comercial@bodymotion.pro`).
 
-Quando o projeto estiver publicado na Vercel, os eventos abaixo podem ser acompanhados no Web Analytics:
+## Screenshots reais do produto
 
-1. `cta_demo_clicked`: clique em uma chamada para demonstração;
-2. `product_explored`: início da exploração das telas do produto;
-3. `plan_interest_clicked`: interesse em um plano;
-4. `lead_form_started`: início do preenchimento do formulário;
-5. `lead_form_submitted`: envio bem-sucedido para a API;
-6. `lead_form_fallback`: uso do e-mail quando a API não está configurada ou falha.
+As telas do produto hoje são composições ilustrativas (`src/components/mock/`),
+projetadas para serem trocadas por screenshots reais sem refatorar nada:
 
-## Próximo passo de publicação
+1. Capture a tela no painel com uma conta demo e dados fictícios (sem nomes,
+   e-mails ou CPFs reais — LGPD), em janela de ~1280×800.
+2. Salve em `public/screens/<modulo>.png` (ex.: `nutricao.png`, `dashboard.png`).
+3. No componente da seção, passe o caminho ao `ProductFrame`:
+   `<ProductFrame screenshot="/screens/nutricao.png" alt="..." />` — o mock é
+   substituído automaticamente pela imagem.
 
-Antes de publicar, configure a URL pública da API e teste o fluxo ponta a ponta:
+## Eventos de analytics (Vercel Web Analytics)
 
-1. preencher e enviar o formulário;
-2. confirmar o lead no painel comercial;
-3. validar origem/UTMs e notificações comerciais;
-4. cadastrar a imagem Open Graph final antes de divulgar links em redes sociais.
+- `header_cta_click` / `header_login_click`
+- `hero_primary_cta_click` / `hero_secondary_cta_click`
+- `module_tab_view` (módulo ativo nas abas)
+- `pricing_billing_toggle` / `pricing_cta_click`
+- `faq_open`
+- `lead_form_started` / `lead_form_submitted` / `lead_form_fallback`
+
+## Checklist antes de publicar
+
+1. Configurar `VITE_API_BASE_URL` público e CORS da API para o domínio real;
+2. Enviar um lead de teste e confirmar persistência + notificação + painel `/comercial/leads`;
+3. Validar UTMs de ponta a ponta;
+4. Conferir `PLAN_BACKEND_IDS` em `src/data/plans.js` contra `GET /subscription/plans`
+   do ambiente de produção (IDs divergem entre ambientes);
+5. Testar OG image em compartilhamento (WhatsApp/LinkedIn) — `public/og-image.png`.
