@@ -108,7 +108,7 @@ export function Bars({ values, tone = "cyan", labels = null }) {
   );
 }
 
-export function Sparkline({ points = "0,26 18,22 36,24 54,17 72,18 90,11 108,13 126,6", className = "h-full min-h-[52px] w-full flex-1" }) {
+export function Sparkline({ points = "0,26 18,22 36,24 54,17 72,18 90,11 108,13 126,6", className = "h-12 w-full" }) {
   return (
     <svg viewBox="0 0 126 30" className={className} preserveAspectRatio="none" aria-hidden="true">
       <polyline

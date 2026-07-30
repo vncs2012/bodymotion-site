@@ -16,7 +16,7 @@ export default function IaAuditavel() {
               IA auditável · em beta
             </p>
             <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight tracking-[-0.02em] sm:text-[2.6rem]">
-              A IA sugere. A TACO calcula.{" "}
+              A IA sugere.{" "}
               <span className="text-bm-cyan">Você decide.</span>
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-white/70">

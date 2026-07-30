@@ -4,6 +4,7 @@ import ProductFrame from "../ui/ProductFrame";
 import Reveal from "../ui/Reveal";
 import { DashboardMock } from "../mock/compositions";
 import { PROOFS } from "../../data/landing";
+import { heroScreenshot } from "../../data/screens";
 import { trackSiteEvent } from "../../utils/analytics";
 
 export default function Hero() {
@@ -31,26 +32,25 @@ export default function Hero() {
             <Reveal>
               <p className="eyebrow">
                 <img src="/brand/favicon.png" alt="" className="h-4 w-4 object-contain" />
-                Plataforma de acompanhamento clínico e performance
+                Do atendimento ao relacionamento com o paciente
               </p>
             </Reveal>
 
             <Reveal delay={90}>
               <h1 className="mt-5 font-display text-[2.6rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-bm-ink sm:text-6xl lg:text-[4.1rem]">
-                Nutrição, treino e{" "}
                 <span className="relative inline-block whitespace-nowrap">
-                  evolução corporal
+                  A clínica inteira
                   <MotionLine className="absolute -bottom-2 left-0 h-[0.35em] w-full" />
                 </span>{" "}
-                no mesmo acompanhamento.
+                em um só fluxo.
               </h1>
             </Reveal>
 
             <Reveal delay={180}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-bm-slate">
-                O Bodymotion reúne prontuário, anamnese, antropometria, prescrição com base
-                TACO, treinos, teleconsulta e portal do paciente — sem espalhar a sua rotina
-                entre planilhas, PDFs e WhatsApp.
+                Prontuário, anamnese, antropometria, prescrição, treinos, teleconsulta, portal
+                do paciente e o relacionamento da clínica — protocolos, retorno e feedback —
+                sem espalhar a rotina entre planilhas, PDFs e WhatsApp.
               </p>
             </Reveal>
 
@@ -75,7 +75,7 @@ export default function Hero() {
                 </a>
               </div>
               <p className="mt-4 text-sm font-semibold text-bm-slate">
-                Demonstração guiada, sem compromisso · Planos a partir de R$ 97/mês
+                14 dias grátis para testar · Planos a partir de R$ 47,90/mês
               </p>
             </Reveal>
           </div>
@@ -86,23 +86,24 @@ export default function Hero() {
               className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-bm-cyan/25 via-transparent to-transparent blur-2xl"
             />
             <ProductFrame
+              screenshot={heroScreenshot()}
               alt="Painel do Bodymotion com agenda do dia, pacientes ativos e evolução de peso"
-              caption="Visão do painel — dados ilustrativos"
+              caption="Visão do painel — dados de demonstração"
               className="relative"
             >
               <DashboardMock />
             </ProductFrame>
 
-            <div className="absolute -left-8 -top-4 hidden animate-float-soft rounded-xl border border-bm-mist bg-white px-3.5 py-2.5 shadow-card lg:-left-12 md:block">
+            <div className="absolute -bottom-6 -left-10 hidden animate-float-soft rounded-xl border border-bm-mist bg-white px-3.5 py-2.5 shadow-card md:block">
               <p className="text-[10px] font-extrabold uppercase tracking-wide text-bm-cyan-deep">Check-in recebido</p>
               <p className="text-xs font-bold text-bm-ink">Treino B concluído · RPE 8</p>
             </div>
             <div
-              className="absolute -bottom-5 -right-3 hidden animate-float-soft rounded-xl border border-bm-mist bg-white px-3.5 py-2.5 shadow-card md:block"
+              className="absolute -right-6 -top-7 hidden animate-float-soft rounded-xl border border-bm-mist bg-white px-3.5 py-2.5 shadow-card md:block"
               style={{ animationDelay: "1.8s" }}
             >
-              <p className="text-[10px] font-extrabold uppercase tracking-wide text-bm-cyan-deep">Prescrição validada</p>
-              <p className="text-xs font-bold text-bm-ink">Cálculo TACO conferido ✓</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-wide text-bm-cyan-deep">Feedback do paciente</p>
+              <p className="text-xs font-bold text-bm-ink">Camila avaliou o protocolo ★ 5</p>
             </div>
           </Reveal>
         </div>

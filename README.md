@@ -52,15 +52,27 @@ Sem `VITE_API_BASE_URL`, o formulário usa fallback de e-mail (mailto para
 
 ## Screenshots reais do produto
 
-As telas do produto hoje são composições ilustrativas (`src/components/mock/`),
-projetadas para serem trocadas por screenshots reais sem refatorar nada:
+As telas hoje são composições ilustrativas (`src/components/mock/`). Para trocar
+por capturas reais existe um script automatizado:
 
-1. Capture a tela no painel com uma conta demo e dados fictícios (sem nomes,
-   e-mails ou CPFs reais — LGPD), em janela de ~1280×800.
-2. Salve em `public/screens/<modulo>.png` (ex.: `nutricao.png`, `dashboard.png`).
-3. No componente da seção, passe o caminho ao `ProductFrame`:
-   `<ProductFrame screenshot="/screens/nutricao.png" alt="..." />` — o mock é
-   substituído automaticamente pela imagem.
+```bash
+npx playwright install chromium
+```
+
+```bash
+BM_PANEL_URL=http://localhost:8080 BM_USER=demo.landing BM_PASS='<senha>' node scripts/capture-screens.mjs
+```
+
+Ele loga no painel, visita cada módulo e salva os PNGs em `public/screens/`.
+Depois, mude `USE_SCREENSHOTS` para `true` em `src/data/screens.js` — se algum
+arquivo faltar, aquele módulo volta sozinho para a composição ilustrativa.
+
+**LGPD — obrigatório:** use sempre uma conta de demonstração com pacientes
+fictícios. Nunca capture telas com nome, e-mail, telefone ou CPF de paciente
+real; essas imagens vão para uma página pública. Há um seed de referência em
+`scratchpad/seed_demo.sql` da sessão que criou a landing (profissional
+"Ana Duarte" + 10 pacientes `@example.com`, marcados com
+`person.observation = 'demo-landing-2026'` para facilitar a limpeza).
 
 ## Eventos de analytics (Vercel Web Analytics)
 

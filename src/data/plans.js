@@ -1,44 +1,47 @@
-const shared = {
-  gestao:       { name: "Gestão de pacientes", included: true },
-  anamnese:     { name: "Anamnese digital", included: true },
-  prontuario:   { name: "Prontuário e timeline", included: true },
-  prescricao:   { name: "Prescrição em PDF", included: true },
-  antropo:      { name: "Antropometria e histórico", included: true },
-  treinos:      { name: "Treinos e check-ins", included: true },
-  portal:       { name: "Portal do paciente", included: true },
-  agenda:       { name: "Agenda e teleconsulta", included: true },
-  envio:        { name: "Envio por e-mail / WhatsApp", included: true },
-  relatorios:   { name: "Relatórios avançados", included: true },
-  marca:        { name: "Marca personalizada", included: true },
-  permissoes:   { name: "Permissões avançadas", included: true },
-  mobile:       { name: "Aplicativo mobile", included: "beta" },
-  nutricaoIA:   { name: "IA nutricional + TACO", included: "beta" },
-  fotoIA:       { name: "Avaliação por foto + IA", included: "beta" },
-  modelo3d:     { name: "Modelo 3D corporal", included: "beta" },
-  anamneseIA:   { name: "Resumo de anamnese com IA", included: "roadmap" },
-  periodizacao: { name: "Periodização com IA", included: "roadmap" },
-  ambiente:     { name: "Ambiente dedicado", included: true },
-};
-
-const no = (feature) => ({ ...feature, included: false });
-const yes = (feature) => ({ ...feature, included: true });
-const beta = (feature) => ({ ...feature, included: "beta" });
-const roadmap = (feature) => ({ ...feature, included: "roadmap" });
-
-export const planFeatureState = {
-  true: { label: "Incluído", marker: "check" },
-  beta: { label: "Beta", marker: "beta" },
-  roadmap: { label: "Roadmap", marker: "roadmap" },
-  false: { label: "Não incluso", marker: "none" },
-};
-
-// Mapeamento de slug do plano → ID interno do backend (tabela subscription_plans)
-// Atualizar se os IDs do banco mudarem (consultar GET /subscription/plans)
+// ATENÇÃO — divergência conhecida com o backend (30/07/2026):
+// a tabela financial_management.subscription_plans ainda tem os preços e nomes
+// antigos (Starter 97 / Pro Saúde 197 / Pro+ Saúde 347). Antes de ligar qualquer
+// checkout é obrigatório atualizar o backend (scripts/seed_billing_plans.py +
+// banco) e reconferir os IDs abaixo com GET /subscription/plans do ambiente.
+//
+// Mapeamento site -> id no banco (por posição de tier, não por nome):
+//   gratis     -> 5  ("Trial",      R$ 0, 14 dias, 10 pacientes)
+//   starter    -> 2  ("Starter")
+//   pro        -> 3  (hoje "Pro Saúde"  no banco -> renomear para "Pro")
+//   pro_saude  -> 4  (hoje "Pro+ Saúde" no banco -> renomear para "Pro Saúde")
 export const PLAN_BACKEND_IDS = {
-  starter: 1,
-  pro_saude: 2,
-  pro_plus: 3,
-  enterprise: null, // enterprise é negociado via contato
+  gratis: 5,
+  starter: 2,
+  pro: 3,
+  pro_saude: 4,
+  estudante: null, // exige validação de matrícula, sem autoatendimento
+  enterprise: null, // negociado via contato
+};
+
+// Plano de entrada gratuito — espelha o plano "Trial" do backend.
+export const freePlan = {
+  id: "gratis",
+  name: "Teste grátis",
+  durationLabel: "14 dias",
+  description: "Acesso completo à plataforma para conhecer o fluxo com os seus próprios casos.",
+  highlights: [
+    "Acesso completo por 14 dias",
+    "Até 10 pacientes ativos",
+    "Inclui avaliações e prescrições com IA",
+  ],
+  cta: "Começar pelo teste grátis",
+};
+
+// Oferta para estudante — PROPOSTA: 50% do Starter, sujeita à sua confirmação.
+export const studentPlan = {
+  id: "estudante",
+  name: "Estudante",
+  price: 23.9,
+  description:
+    "Para quem ainda está na graduação e quer aprender a rotina clínica na ferramenta que vai usar depois.",
+  requirement: "Exige comprovante de matrícula ativa, revalidado a cada semestre.",
+  highlights: ["Limites do plano Starter", "1 profissional", "Renovação semestral com novo comprovante"],
+  cta: "Solicitar plano estudante",
 };
 
 export const plans = [
@@ -47,145 +50,71 @@ export const plans = [
     badge: "Essencial",
     name: "Starter",
     description: "Para profissional solo que quer sair de planilhas e centralizar o atendimento.",
-    monthlyPrice: 97,
-    annualPrice: 77,
-    period: "mês",
-    cta: "Solicitar acesso",
+    monthlyPrice: 47.9,
+    annualPrice: 38.9,
+    professionals: "1",
+    activePatients: "50",
     featured: false,
     popular: false,
-    activePatients: "50",
-    aiAssessmentsMonthly: null,
-    professionals: "1",
-    supportLevel: "E-mail",
-    features: [
-      yes(shared.gestao),
-      yes(shared.anamnese),
-      yes(shared.prontuario),
-      yes(shared.prescricao),
-      yes(shared.antropo),
-      yes(shared.treinos),
-      no(shared.portal),
-      no(shared.agenda),
-      no(shared.envio),
-      no(shared.relatorios),
-      no(shared.marca),
-      no(shared.permissoes),
-      no(shared.mobile),
-      no(shared.nutricaoIA),
-      no(shared.fotoIA),
-      no(shared.modelo3d),
-      no(shared.anamneseIA),
-      no(shared.periodizacao),
-      no(shared.ambiente),
-    ],
+  },
+  {
+    id: "pro",
+    badge: "Equilíbrio ideal", // a pílula de destaque já diz "Mais escolhido"
+    name: "Pro",
+    description: "Para consultórios que acompanham o paciente entre uma consulta e outra.",
+    monthlyPrice: 97.9,
+    annualPrice: 78.9,
+    professionals: "3",
+    activePatients: "200",
+    featured: true,
+    popular: true,
   },
   {
     id: "pro_saude",
-    badge: "Mais popular",
+    badge: "Clínica completa",
     name: "Pro Saúde",
-    description: "Para consultórios que acompanham pacientes entre consultas.",
-    monthlyPrice: 197,
-    annualPrice: 157,
-    period: "mês",
-    cta: "Solicitar acesso",
-    featured: true,
-    popular: true,
-    activePatients: "200",
-    aiAssessmentsMonthly: null,
-    professionals: "5",
-    supportLevel: "Prioritário",
-    features: [
-      yes(shared.gestao),
-      yes(shared.anamnese),
-      yes(shared.prontuario),
-      yes(shared.prescricao),
-      yes(shared.antropo),
-      yes(shared.treinos),
-      yes(shared.portal),
-      yes(shared.agenda),
-      yes(shared.envio),
-      yes(shared.relatorios),
-      yes(shared.marca),
-      no(shared.permissoes),
-      no(shared.mobile),
-      no(shared.nutricaoIA),
-      no(shared.fotoIA),
-      no(shared.modelo3d),
-      no(shared.anamneseIA),
-      no(shared.periodizacao),
-      no(shared.ambiente),
-    ],
-  },
-  {
-    id: "pro_plus",
-    badge: "Com IA",
-    name: "Pro+ Saúde",
-    description: "Para clínicas e profissionais que querem IA auditável, fotos e operação avançada.",
-    monthlyPrice: 347,
-    annualPrice: 277,
-    period: "mês",
-    cta: "Entrar no beta",
-    featured: false,
-    popular: false,
+    description: "Para clínicas que precisam de IA, relacionamento e operação multiprofissional.",
+    monthlyPrice: 159.9,
+    annualPrice: 129.9,
+    professionals: "10",
     activePatients: "500",
-    aiAssessmentsMonthly: "200",
-    professionals: "15",
-    supportLevel: "Dedicado",
-    features: [
-      yes(shared.gestao),
-      yes(shared.anamnese),
-      yes(shared.prontuario),
-      yes(shared.prescricao),
-      yes(shared.antropo),
-      yes(shared.treinos),
-      yes(shared.portal),
-      yes(shared.agenda),
-      yes(shared.envio),
-      yes(shared.relatorios),
-      yes(shared.marca),
-      yes(shared.permissoes),
-      beta(shared.mobile),
-      beta(shared.nutricaoIA),
-      beta(shared.fotoIA),
-      beta(shared.modelo3d),
-      roadmap(shared.anamneseIA),
-      roadmap(shared.periodizacao),
-      no(shared.ambiente),
-    ],
-  },
-  {
-    id: "enterprise",
-    badge: "Corporativo",
-    name: "Enterprise",
-    description: "Para redes, times multidisciplinares e operações com onboarding consultivo.",
-    isEnterprise: true,
-    cta: "Falar com especialista",
     featured: false,
     popular: false,
-    activePatients: "Ilimitados",
-    aiAssessmentsMonthly: "Sob contrato",
-    professionals: "Ilimitados",
-    supportLevel: "Gestor de conta",
-    features: [
-      yes(shared.gestao),
-      yes(shared.anamnese),
-      yes(shared.prontuario),
-      yes(shared.prescricao),
-      yes(shared.antropo),
-      yes(shared.treinos),
-      yes(shared.portal),
-      yes(shared.agenda),
-      yes(shared.envio),
-      yes(shared.relatorios),
-      yes(shared.marca),
-      yes(shared.permissoes),
-      beta(shared.mobile),
-      beta(shared.nutricaoIA),
-      beta(shared.fotoIA),
-      beta(shared.modelo3d),
-      roadmap(shared.anamneseIA),
-      roadmap(shared.periodizacao),
-      yes(shared.ambiente),
-    ],
   },
 ];
+
+export const enterprisePlan = {
+  id: "enterprise",
+  name: "Enterprise",
+  description:
+    "Para redes, franquias e times multidisciplinares que precisam de contrato, ambiente e acompanhamento próprios.",
+  highlights: [
+    "Profissionais e pacientes sob contrato",
+    "Ambiente dedicado",
+    "Gestor de conta e onboarding consultivo",
+    "Permissões e relatórios sob medida",
+  ],
+  cta: "Falar com especialista",
+};
+
+// Destaques por plano, exibidos nos cards (acumulativos).
+export const PLAN_HIGHLIGHTS = {
+  starter: [
+    "Prontuário, anamnese e prescrição em PDF",
+    "Antropometria com histórico e fotos",
+    "Treinos e check-ins",
+    "1 profissional · até 50 pacientes ativos",
+  ],
+  pro: [
+    "Tudo do Starter",
+    "Portal do paciente e agenda com teleconsulta",
+    "Envio por e-mail/WhatsApp e relatórios",
+    "3 profissionais · até 200 pacientes ativos",
+  ],
+  pro_saude: [
+    "Tudo do Pro",
+    "Relacionamento: protocolos, retorno e feedback",
+    "IA nutricional e avaliação por foto (beta)",
+    "10 profissionais · até 500 pacientes ativos",
+  ],
+};

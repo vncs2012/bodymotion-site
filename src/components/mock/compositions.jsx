@@ -224,6 +224,61 @@ export function PortalMock() {
   );
 }
 
+export function RelacionamentoMock() {
+  return (
+    <AppShell active="Clínica">
+      <PanelHeader title="Clínica · hoje" chip="4 vencendo" />
+      <div className="flex min-h-0 flex-1 gap-2.5">
+        <Card className="flex w-[54%] flex-col gap-1">
+          <p className="text-[8px] font-bold uppercase tracking-wide text-bm-slate">Acompanhamentos</p>
+          {[
+            ["C. Prado", "Protocolo · emagrecimento", "vence hoje", true],
+            ["R. Lomba", "Recompra de suplemento", "em 3 dias", false],
+            ["M. Bittencourt", "Retorno de consulta", "em 5 dias", false],
+          ].map(([nome, tipo, prazo, urgente]) => (
+            <div
+              key={nome}
+              className={`rounded-md px-1.5 py-1 ${urgente ? "border border-rose-300 bg-rose-50" : "bg-bm-paper"}`}
+            >
+              <p className="text-[9px] font-extrabold text-bm-ink">{nome}</p>
+              <div className="flex items-center justify-between gap-1">
+                <span className="truncate text-[8px] font-semibold text-bm-slate">{tipo}</span>
+                <span className={`shrink-0 text-[8px] font-extrabold ${urgente ? "text-rose-600" : "text-bm-slate"}`}>
+                  {prazo}
+                </span>
+              </div>
+            </div>
+          ))}
+          <span className="mt-auto inline-flex w-fit rounded-full bg-bm-cyan px-2 py-0.5 text-[8px] font-extrabold text-bm-ink">
+            Pedir feedback
+          </span>
+        </Card>
+        <div className="flex min-w-0 flex-1 flex-col gap-2.5">
+          <Card>
+            <p className="text-[8px] font-bold uppercase tracking-wide text-bm-slate">Feedback do paciente</p>
+            <p className="mt-0.5 text-sm font-extrabold text-bm-ink">
+              4,6 <span className="text-[9px] font-bold text-amber-500">★★★★★</span>
+            </p>
+            <p className="text-[8px] font-semibold text-bm-slate">“Consegui manter o plano na viagem.”</p>
+          </Card>
+          <Card className="flex flex-1 flex-col">
+            <p className="text-[8px] font-bold uppercase tracking-wide text-bm-slate">Funil de leads</p>
+            <div className="mt-1 flex flex-1 flex-col justify-center gap-1">
+              {[["Novos", 8, "w-full"], ["Contatados", 5, "w-3/5"], ["Convertidos", 3, "w-2/5"]].map(([et, n, w]) => (
+                <div key={et} className="flex items-center gap-1.5">
+                  <span className="w-14 shrink-0 text-[8px] font-bold text-bm-slate">{et}</span>
+                  <span className={`h-2 rounded-full bg-bm-cyan ${w}`} />
+                  <span className="text-[8px] font-extrabold text-bm-ink">{n}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </AppShell>
+  );
+}
+
 export function OperacaoMock() {
   return (
     <AppShell active="Relatórios">

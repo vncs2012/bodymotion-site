@@ -3,10 +3,10 @@
 // PLANO_IMPLEMENTACAO_SITE_COMERCIAL_LEADS_2026.md antes de alterar claims.
 
 export const PROOFS = [
-  { title: "Base TACO", detail: "Cálculo nutricional sobre tabela brasileira" },
+  { title: "Prontuário e evolução", detail: "Histórico clínico e corporal no mesmo lugar" },
+  { title: "Dieta e treino juntos", detail: "Um plano só para nutrição e performance" },
   { title: "Portal do paciente", detail: "Acesso seguro por código, sem senha" },
-  { title: "Teleconsulta com TCLE", detail: "Consentimento registrado na sessão" },
-  { title: "Treinos e check-ins", detail: "Dieta e treino no mesmo histórico" },
+  { title: "Relacionamento e retorno", detail: "Protocolos, recompra e feedback" },
 ];
 
 export const FRAGMENTS = [
@@ -53,12 +53,12 @@ export const MODULES = [
   {
     id: "nutricao",
     tab: "Nutrição + IA",
-    title: "Prescrição nutricional com base TACO",
+    title: "Prescrição que já sai calculada",
     status: "Disponível · IA em beta",
     description:
-      "Monte a prescrição, calcule macros sobre a tabela brasileira e entregue em PDF. A IA interpreta o texto e sugere correspondências — você revisa antes de salvar.",
+      "Monte o plano alimentar, tenha os macros calculados sobre a tabela nutricional brasileira e entregue em PDF. A IA interpreta o texto e sugere correspondências — você revisa antes de salvar.",
     bullets: [
-      "Cálculo de macros sobre a base TACO",
+      "Macros calculados sobre a tabela brasileira (TACO)",
       "PDF profissional com envio ao paciente",
       "IA auditável: sugestões passam pela sua validação",
       "Diário alimentar e hábitos no acompanhamento",
@@ -121,9 +121,23 @@ export const MODULES = [
     ],
   },
   {
+    id: "relacionamento",
+    tab: "Relacionamento",
+    title: "A clínica que não perde o paciente de vista",
+    status: "Disponível",
+    description:
+      "Protocolos, planos e catálogo da clínica atribuídos ao paciente, com acompanhamento de retorno e recompra — e o feedback dele por link seguro, sem precisar ligar cobrando resposta.",
+    bullets: [
+      "Protocolos e planos atribuídos ao paciente",
+      "Retorno e recompra acompanhados automaticamente",
+      "Feedback do paciente por link seguro (nota e comentário)",
+      "Funil de leads comerciais até virar paciente",
+    ],
+  },
+  {
     id: "operacao",
     tab: "Operação",
-    title: "A clínica inteira sob controle",
+    title: "A operação inteira sob controle",
     status: "Disponível",
     description:
       "Equipe multiusuário com permissões por papel, relatórios de retenção e operação, trilhas de auditoria e visão do que precisa de atenção.",
@@ -168,9 +182,9 @@ export const AI_STEPS = [
   },
   {
     step: "02",
-    title: "A TACO calcula",
+    title: "A tabela calcula",
     detail:
-      "Cada item é correspondido à base nutricional brasileira e os macros são calculados de forma estruturada.",
+      "Cada item é correspondido à tabela nutricional brasileira (TACO) e os macros saem calculados de forma estruturada.",
   },
   {
     step: "03",
@@ -236,6 +250,14 @@ export const SECURITY_ITEMS = [
 
 export const FAQS = [
   {
+    q: "Como funciona o teste grátis de 14 dias?",
+    a: "São 14 dias com acesso completo à plataforma, limitado a 10 pacientes ativos — o suficiente para rodar casos reais do seu consultório. Ao fim do período você escolhe o plano; o histórico criado no teste continua com você.",
+  },
+  {
+    q: "Existe plano para estudante?",
+    a: "Sim. O plano estudante custa R$ 23,90/mês com os limites do Starter e exige comprovante de matrícula ativa, revalidado a cada semestre. É pensado para quem quer aprender a rotina clínica na ferramenta que vai usar depois de formado.",
+  },
+  {
     q: "Como funciona a demonstração?",
     a: "Você conta como atende hoje e mostramos os fluxos que fazem sentido para a sua rotina, com dados de exemplo. Sem compromisso — é também o momento de tirar dúvidas de migração e plano.",
   },
@@ -249,7 +271,7 @@ export const FAQS = [
   },
   {
     q: "Funciona para clínicas com vários profissionais?",
-    a: "Sim. O Bodymotion tem operação multiusuário com permissões por papel, agenda de equipe, prontuário central e relatórios da operação. Os planos Pro acomodam equipes de até 15 profissionais.",
+    a: "Sim — é onde a plataforma rende mais. Além do prontuário central e das permissões por papel, o módulo de relacionamento acompanha retorno, protocolos e feedback de cada paciente da clínica. O Pro atende até 3 profissionais e o Pro Saúde até 10; acima disso, o Enterprise é sob contrato.",
   },
   {
     q: "O que significa um recurso estar em beta?",
@@ -261,6 +283,6 @@ export const FAQS = [
   },
   {
     q: "Como funcionam os planos e o upgrade?",
-    a: "Os planos partem de R$ 97/mês e crescem com a sua operação — pacientes ativos, equipe e recursos de IA. O upgrade é feito sem perder histórico.",
+    a: "Você começa com 14 dias grátis de acesso completo. Depois, os planos partem de R$ 47,90/mês e crescem com a sua operação — pacientes ativos, equipe e recursos de IA. Há também plano para estudante com comprovante de matrícula. O upgrade é feito sem perder histórico.",
   },
 ];

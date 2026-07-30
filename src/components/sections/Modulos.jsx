@@ -8,9 +8,11 @@ import {
   TreinoMock,
   AgendaMock,
   PortalMock,
+  RelacionamentoMock,
   OperacaoMock,
 } from "../mock/compositions";
 import { MODULES } from "../../data/landing";
+import { screenshotFor } from "../../data/screens";
 import { trackSiteEvent } from "../../utils/analytics";
 
 const MOCKS = {
@@ -19,8 +21,9 @@ const MOCKS = {
   antropometria: AntropometriaMock,
   treinos: TreinoMock,
   agenda: AgendaMock,
-  operacao: OperacaoMock,
   portal: PortalMock,
+  relacionamento: RelacionamentoMock,
+  operacao: OperacaoMock,
 };
 
 export default function Modulos() {
@@ -100,8 +103,9 @@ export default function Modulos() {
           </div>
 
           <ProductFrame
+            screenshot={screenshotFor(active.id)}
             alt={`Tela do módulo ${active.tab} do Bodymotion`}
-            caption={`Módulo ${active.tab} — dados ilustrativos`}
+            caption={`Módulo ${active.tab} — dados de demonstração`}
           >
             <Mock />
           </ProductFrame>
