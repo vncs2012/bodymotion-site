@@ -1,47 +1,40 @@
-# BodyMotion Site Comercial (Vite + React)
+# Bodymotion — Site Comercial (Vite + React)
 
-Frontend comercial do BodyMotion com foco em divulgação e conversão:
+Landing page comercial do Bodymotion orientada a demonstração e captação de leads
+qualificados, com a identidade visual oficial da logomarca (navy `#22255a` + ciano
+`#50b4e6`, Bricolage Grotesque + Manrope).
 
-- layout moderno com glassmorphism;
-- modo claro/escuro;
-- seção de funcionalidades;
-- planos reposicionados por profissionais, pacientes ativos e IA;
-- início de jornada com 14 dias grátis sem cartão;
-- CTA público apontando para a tela de cadastro do painel;
-- formulário de lead para equipe comercial.
+Estrutura da página (branch `feat/landing-2026`):
 
-## Estrutura
+1. Hero pôster com composição do painel e prova factual (TACO, portal OTP, TCLE, check-ins);
+2. Problema: acompanhamento fragmentado em planilha/PDF/WhatsApp/apps;
+3. Módulos em abas (Atendimento, Nutrição+IA, Antropometria, Treinos, Agenda, Portal, Operação);
+4. Fluxo em 5 passos;
+5. IA auditável ("A IA sugere. A TACO calcula. Você decide.");
+6. Personas (nutricionista esportivo e clínica multidisciplinar);
+7. Planos compactos (R$ 97/197/347 + Enterprise) com toggle mensal/anual;
+8. Segurança com claims defensáveis;
+9. FAQ;
+10. Formulário de demonstração com UTM e fallback por e-mail.
 
-- `index.html`: entry do Vite + Tailwind CDN + Stripe script.
-- `src/main.jsx`: bootstrap React.
-- `src/App.jsx`: layout e lógica do site (tema, FAQ, planos, checkout, lead).
-- `src/styles.css`: estilos globais e animações de fundo.
-- `.env.example`: variáveis de integração da API.
+## Estrutura de código
+
+- `index.html`: metadados, JSON-LD, fontes e conteúdo estático indexável.
+- `src/App.jsx`: composição da landing e Analytics.
+- `src/data/landing.js`: toda a copy editorial (módulos, passos, FAQ, segurança).
+- `src/data/plans.js`: planos e preços (alinhar sempre com o seed da API).
+- `src/components/sections/`: seções da página.
+- `src/components/mock/`: composições ilustrativas do produto (dados fictícios).
+- `src/components/ui/`: Button, Reveal, MotionLine, ProductFrame, Toast.
+- `public/brand/`: logomarca oficial (horizontal, branca, símbolo/favicon).
 
 ## Rodar localmente
 
-1. Instale dependências:
-
 ```bash
 npm install
-```
-
-2. Suba ambiente de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-3. Build de produção:
-
-```bash
-npm run build
-```
-
-4. Preview do build:
-
-```bash
-npm run preview
+npm run dev      # desenvolvimento
+npm run build    # build de produção
+npm run preview  # preview do build
 ```
 
 ## Variáveis de ambiente
@@ -54,22 +47,47 @@ VITE_LEAD_ENDPOINT=/commercial/leads
 VITE_TRIAL_START_URL=/registro
 ```
 
-## Fluxo de trial e pagamento
+Sem `VITE_API_BASE_URL`, o formulário usa fallback de e-mail (mailto para
+`comercial@bodymotion.pro`).
 
-O site comercial agora inicia pelo trial de 14 dias. Em vez de mandar o usuário direto para o checkout, os botões levam para a URL configurada em `VITE_TRIAL_START_URL`, normalmente a rota pública de cadastro do painel (`/registro`).
+## Screenshots reais do produto
 
-Essa URL pode ser:
+As telas hoje são composições ilustrativas (`src/components/mock/`). Para trocar
+por capturas reais existe um script automatizado:
 
-1. relativa, se site e painel compartilharem o mesmo domínio, por exemplo `/registro`;
-2. absoluta, se o painel estiver em outro domínio, por exemplo `https://app.seudominio.com/registro`.
+```bash
+npx playwright install chromium
+```
 
-Os parâmetros `plan` e `billing` são anexados automaticamente na URL para preservar o contexto da oferta escolhida no site.
+```bash
+BM_PANEL_URL=http://localhost:8080 BM_USER=demo.landing BM_PASS='<senha>' node scripts/capture-screens.mjs
+```
 
-## Próximo passo recomendado
+Ele loga no painel, visita cada módulo e salva os PNGs em `public/screens/`.
+Depois, mude `USE_SCREENSHOTS` para `true` em `src/data/screens.js` — se algum
+arquivo faltar, aquele módulo volta sozinho para a composição ilustrativa.
 
-Testar fluxo ponta a ponta com backend real:
+**LGPD — obrigatório:** use sempre uma conta de demonstração com pacientes
+fictícios. Nunca capture telas com nome, e-mail, telefone ou CPF de paciente
+real; essas imagens vão para uma página pública. Há um seed de referência em
+`scratchpad/seed_demo.sql` da sessão que criou a landing (profissional
+"Ana Duarte" + 10 pacientes `@example.com`, marcados com
+`person.observation = 'demo-landing-2026'` para facilitar a limpeza).
 
-1. selecionar plano;
-2. iniciar trial pela tela pública de cadastro;
-3. concluir criação da conta;
-4. validar assinatura `trial` ativa no sistema.
+## Eventos de analytics (Vercel Web Analytics)
+
+- `header_cta_click` / `header_login_click`
+- `hero_primary_cta_click` / `hero_secondary_cta_click`
+- `module_tab_view` (módulo ativo nas abas)
+- `pricing_billing_toggle` / `pricing_cta_click`
+- `faq_open`
+- `lead_form_started` / `lead_form_submitted` / `lead_form_fallback`
+
+## Checklist antes de publicar
+
+1. Configurar `VITE_API_BASE_URL` público e CORS da API para o domínio real;
+2. Enviar um lead de teste e confirmar persistência + notificação + painel `/comercial/leads`;
+3. Validar UTMs de ponta a ponta;
+4. Conferir `PLAN_BACKEND_IDS` em `src/data/plans.js` contra `GET /subscription/plans`
+   do ambiente de produção (IDs divergem entre ambientes);
+5. Testar OG image em compartilhamento (WhatsApp/LinkedIn) — `public/og-image.png`.

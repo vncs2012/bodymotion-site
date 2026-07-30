@@ -1,16 +1,17 @@
 import React from "react";
 import { Analytics } from "@vercel/analytics/react";
 import Header from "./components/layout/Header";
-import AnnouncementBar from "./components/layout/AnnouncementBar";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
-import AIHowItWorks from "./components/sections/AIHowItWorks";
-import Benefits from "./components/sections/Benefits";
-import Features from "./components/sections/Features";
-import Segments from "./components/sections/Segments";
-import HowItWorks from "./components/sections/HowItWorks";
-import Security from "./components/sections/Security";
-import Contact from "./components/sections/Contact";
+import Problema from "./components/sections/Problema";
+import Modulos from "./components/sections/Modulos";
+import ComoFunciona from "./components/sections/ComoFunciona";
+import IaAuditavel from "./components/sections/IaAuditavel";
+import Personas from "./components/sections/Personas";
+import Planos from "./components/sections/Planos";
+import Seguranca from "./components/sections/Seguranca";
+import Faq from "./components/sections/Faq";
+import Demonstracao from "./components/sections/Demonstracao";
 import Toast from "./components/ui/Toast";
 import useCheckout from "./hooks/useCheckout";
 
@@ -18,35 +19,27 @@ export default function App() {
   const { toast, closeToast } = useCheckout();
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-neutral-800/10 dark:bg-bodymotion-midnight text-neutral-900 dark:text-white transition-colors duration-300">
-      {/* Background blobs */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-        <div className="blob blob-cyan" />
-        <div className="blob blob-teal" />
-        <div className="blob blob-indigo" />
-      </div>
+    <div className="relative min-h-screen overflow-x-hidden bg-white text-bm-ink">
+      <a href="#inicio" className="skip-link">
+        Pular para o conteúdo
+      </a>
+      <Header />
+      <main>
+        <Hero />
+        <Problema />
+        <Modulos />
+        <ComoFunciona />
+        <IaAuditavel />
+        <Personas />
+        <Planos />
+        <Seguranca />
+        <Faq />
+        <Demonstracao />
+      </main>
+      <Footer />
 
-      {/* Content */}
-      <div className="relative z-10">
-        <Header />
-        <AnnouncementBar />
-        <main>
-          <Hero />
-          <AIHowItWorks />
-          <Benefits />
-          <Features />
-          <Segments />
-          <HowItWorks />
-          <Security />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-
-      {/* Toast */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={closeToast} />}
 
-      {/* Vercel Analytics */}
       <Analytics />
     </div>
   );

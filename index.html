@@ -3,55 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BodyMotion | Software para Nutricionistas e Clínicas</title>
+    <meta name="robots" content="index,follow" />
+    <title>Bodymotion | A clínica inteira em um fluxo: atendimento, evolução e relacionamento</title>
     <meta
       name="description"
-      content="BodyMotion: plataforma completa para gestão de pacientes, nutricionistas e clínicas. Anamnese, antropometria com IA, prescrição e gestão financeira."
+      content="Plataforma para nutricionistas e clínicas: prontuário, anamnese, antropometria, prescrição, treinos, teleconsulta, portal do paciente e relacionamento (protocolos, retorno e feedback) em um único fluxo. 14 dias grátis."
     />
+    <link rel="canonical" href="https://www.bodymotion.pro/" />
+    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <link rel="apple-touch-icon" href="/brand/favicon.png" />
+    <meta name="theme-color" content="#22255a" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bodymotion.com.br/" />
+    <meta property="og:url" content="https://www.bodymotion.pro/" />
+    <meta property="og:site_name" content="Bodymotion" />
+    <meta property="og:locale" content="pt_BR" />
     <meta
       property="og:title"
-      content="BodyMotion | Gestão Inteligente para Nutrição e Saúde"
+      content="Bodymotion | A clínica inteira em um fluxo: atendimento, evolução e relacionamento"
     />
     <meta
       property="og:description"
-      content="Centralize seus pacientes, anamneses e financeiro em um só lugar. Comece a usar gratuitamente."
+      content="Prontuário, prescrição, antropometria, treinos, teleconsulta, portal do paciente e relacionamento da clínica em um único fluxo."
     />
-    <meta
-      property="og:image"
-      content="https://bodymotion.com.br/og-image.jpg"
-    />
+    <meta property="og:image" content="https://www.bodymotion.pro/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta
-      property="twitter:title"
-      content="BodyMotion | Gestão Inteligente para Nutrição e Saúde"
+      name="twitter:title"
+      content="Bodymotion | A clínica inteira em um fluxo: atendimento, evolução e relacionamento"
     />
     <meta
-      property="twitter:description"
-      content="Centralize seus pacientes, anamneses e financeiro em um só lugar."
+      name="twitter:description"
+      content="Prontuário, prescrição, antropometria, treinos, teleconsulta, portal do paciente e relacionamento da clínica em um único fluxo."
     />
+    <meta name="twitter:image" content="https://www.bodymotion.pro/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <script src="https://js.stripe.com/v3" async></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Bodymotion",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://www.bodymotion.pro/",
+        "description": "Plataforma de gestão clínica e acompanhamento de performance: prontuário, anamnese, antropometria, prescrição nutricional, treinos, teleconsulta, portal do paciente e relacionamento com protocolos, retorno e feedback.",
+        "inLanguage": "pt-BR",
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "BRL",
+          "lowPrice": "23.90",
+          "highPrice": "159.90",
+          "offerCount": "4"
+        }
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Conteúdo estático indexável: substituído pelo React no carregamento -->
+      <main style="font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 40px 20px; color: #22255a">
+        <h1>Bodymotion: a clínica inteira em um fluxo, do atendimento ao relacionamento</h1>
+        <p>
+          Plataforma para nutricionistas, consultórios e clínicas multidisciplinares que
+          acompanham dieta, treino, evolução corporal e o relacionamento com o paciente sem
+          espalhar a rotina entre planilhas, PDFs e WhatsApp.
+        </p>
+        <section>
+          <h2>O que o Bodymotion reúne</h2>
+          <ul>
+            <li>Prontuário, consultas, anamnese digital e timeline clínica.</li>
+            <li>Prescrição nutricional com macros calculados e IA auditável.</li>
+            <li>Antropometria, fotos de evolução e captura remota.</li>
+            <li>Treinos com check-ins conectados ao acompanhamento.</li>
+            <li>Agenda, teleconsulta com TCLE e portal do paciente com código de acesso.</li>
+            <li>Relacionamento da clínica: protocolos, planos, retorno, recompra e feedback.</li>
+            <li>Relatórios, permissões e operação multiusuário para equipes.</li>
+          </ul>
+        </section>
+        <p>
+          14 dias grátis para testar. Planos a partir de R$ 47,90/mês, com opção para estudante.
+          Agende uma demonstração guiada.
+        </p>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
     <noscript>
       <div style="padding: 20px; text-align: center; color: #333">
         <h1>JavaScript necessário</h1>
-        <p>Por favor, habilite o JavaScript para usar o BodyMotion.</p>
+        <p>Habilite o JavaScript para navegar pelo site do Bodymotion.</p>
       </div>
     </noscript>
   </body>
