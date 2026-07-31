@@ -39,7 +39,7 @@ export default function Header() {
     >
       <div className="shell flex h-16 items-center justify-between gap-4 sm:h-[72px]">
         <a href="#inicio" aria-label="Bodymotion — início" onClick={close}>
-          <img src="/brand/logo.png" alt="Bodymotion" className="h-8 w-auto sm:h-9" />
+          <img src="/brand/logo.png" alt="Bodymotion" className="h-11 w-auto sm:h-14" />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
