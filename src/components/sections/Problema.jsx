@@ -60,7 +60,7 @@ export default function Problema() {
               {/* um fluxo só */}
               <div className="rounded-2xl bg-bm-ink p-6 text-white shadow-frame sm:p-8">
                 <div className="flex items-center gap-2.5">
-                  <img src="/brand/favicon-branca.png" alt="" className="h-6 w-6 object-contain" />
+                  <img src="/brand/simbolo-branco.svg" alt="" className="h-6 w-6 object-contain" />
                   <p className="font-display text-lg font-extrabold">
                     Um histórico só, do primeiro dia ao resultado
                   </p>

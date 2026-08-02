@@ -12,7 +12,7 @@ export function AppShell({ children, active = "Início" }) {
     <div className="flex aspect-[16/10] w-full bg-bm-paper text-left">
       <aside className="hidden w-[27%] shrink-0 flex-col gap-1 bg-bm-ink px-3 py-3 sm:flex">
         <div className="mb-2 flex items-center gap-2">
-          <img src="/brand/favicon-branca.png" alt="" className="h-5 w-5 object-contain" />
+          <img src="/brand/simbolo-branco.svg" alt="" className="h-5 w-5 object-contain" />
           <span className="text-[10px] font-extrabold tracking-wide text-white">
             Body<span className="text-bm-cyan">motion</span>
           </span>

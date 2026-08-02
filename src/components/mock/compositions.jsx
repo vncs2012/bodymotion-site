@@ -188,7 +188,7 @@ export function PortalMock() {
       <div className="grid w-full max-w-[430px] gap-2.5 sm:grid-cols-[1fr_0.9fr]">
         <div className="rounded-xl bg-white p-3 shadow-frame">
           <div className="flex items-center gap-1.5">
-            <img src="/brand/favicon.png" alt="" className="h-4 w-4 object-contain" />
+            <img src="/brand/simbolo-ciano.svg" alt="" className="h-4 w-4 object-contain" />
             <p className="text-[10px] font-extrabold text-bm-ink">Portal do paciente</p>
           </div>
           <p className="mt-2 text-[9px] font-bold text-bm-slate">Olá, Camila — seu plano de hoje:</p>

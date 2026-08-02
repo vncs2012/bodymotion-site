@@ -31,7 +31,7 @@ export default function Hero() {
           <div>
             <Reveal>
               <p className="eyebrow">
-                <img src="/brand/favicon.png" alt="" className="h-4 w-4 object-contain" />
+                <img src="/brand/simbolo-ciano.svg" alt="" className="h-4 w-4 object-contain" />
                 Do atendimento ao relacionamento com o paciente
               </p>
             </Reveal>
