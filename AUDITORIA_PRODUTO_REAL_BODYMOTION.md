@@ -1,4 +1,4 @@
-# Auditoria do site BodyMotion a partir do produto real
+# Auditoria do site Bodymotion a partir do produto real
 
 Data: 2026-05-23  
 Escopo: `bodymotion-site`, `bodymotion-api`, `bodymotion-painel`, `bodymotion-mobile`, backlogs e docs locais.  
@@ -8,7 +8,7 @@ Metodo: aplicacao da skill `skill-auditoria-pagina-produto-saas.md`, analise est
 
 O site atual esta vendendo um produto menor do que o sistema real.
 
-A leitura dos repos mostra que BodyMotion nao e apenas uma landing de "gestao de pacientes, prescricao e acompanhamento". O produto real ja tem uma tese mais forte: plataforma para acompanhamento clinico, nutricional, corporal e de treino, com portal do paciente, teleatendimento, IA nutricional auditavel sobre TACO, captura remota de fotos, treinos, relatorios e assinatura.
+A leitura dos repos mostra que Bodymotion nao e apenas uma landing de "gestao de pacientes, prescricao e acompanhamento". O produto real ja tem uma tese mais forte: plataforma para acompanhamento clinico, nutricional, corporal e de treino, com portal do paciente, teleatendimento, IA nutricional auditavel sobre TACO, captura remota de fotos, treinos, relatorios e assinatura.
 
 O principal problema comercial e que o site comunica "lancamento em breve" e marca varias funcionalidades como "em breve", enquanto a base mostra agenda, mobile, portal, telehealth, treinos, dietas, IA nutricional e fluxos publicos ja implementados ou parcialmente implementados. Isso reduz percepcao de valor e enfraquece a diferenciacao contra Dietbox, Nutrium, WebDiet e ferramentas de treino.
 
@@ -54,7 +54,7 @@ Recomendacao: reposicionar a home como pagina de produto SaaS para nutricionista
   - Evidencia: `bodymotion-api/src/api/v1/trainings.py`, linhas 246-516.
 - O painel expoe rotas de treinos.
   - Evidencia: `bodymotion-painel/src/App.tsx`, linhas 271-276.
-- Isso muda o posicionamento: BodyMotion compete tambem no espaco de acompanhamento integrado de dieta + treino, nao so software de nutricao tradicional.
+- Isso muda o posicionamento: Bodymotion compete tambem no espaco de acompanhamento integrado de dieta + treino, nao so software de nutricao tradicional.
 
 ### Captura remota e antropometria por foto
 
@@ -178,7 +178,7 @@ O hero usa mock visual desenhado, mas o sistema tem telas reais. Para produto B2
 
 ### Posicionamento principal
 
-BodyMotion e a plataforma para profissionais de saude e performance que acompanham dieta, treino e evolucao corporal em um unico fluxo.
+Bodymotion e a plataforma para profissionais de saude e performance que acompanham dieta, treino e evolucao corporal em um unico fluxo.
 
 ### Nicho inicial mais forte
 
@@ -288,7 +288,7 @@ Se ainda estiver em beta:
 3. Criar secao "Portal do paciente".
 4. Criar secao "Dieta + treino no mesmo acompanhamento".
 5. Adicionar FAQ real sobre beta, LGPD, IA, app, teleconsulta, plano e migracao.
-6. Adicionar comparativo simples: BodyMotion vs planilhas/PDF/WhatsApp/apps separados.
+6. Adicionar comparativo simples: Bodymotion vs planilhas/PDF/WhatsApp/apps separados.
 7. Separar CTA de beta e trial conforme status comercial.
 
 ### P2 - Aquisicao e SEO
@@ -341,4 +341,4 @@ Se ainda estiver em beta:
 
 A direcao correta nao e apenas "melhorar design". O site precisa ser reescrito em torno do produto real.
 
-O BodyMotion tem um diferencial mais forte do que o site comunica: juntar nutricional, corporal, treino e acompanhamento continuo. A primeira versao revisada da home deve corrigir a tese, mostrar produto real, diminuir "em breve", separar beta de roadmap e capturar lead/trial com infraestrutura confiavel.
+O Bodymotion tem um diferencial mais forte do que o site comunica: juntar nutricional, corporal, treino e acompanhamento continuo. A primeira versao revisada da home deve corrigir a tese, mostrar produto real, diminuir "em breve", separar beta de roadmap e capturar lead/trial com infraestrutura confiavel.

@@ -1,4 +1,4 @@
-# Plano de implementação — site comercial e geração de leads BodyMotion
+# Plano de implementação — site comercial e geração de leads Bodymotion
 
 Data da análise: 13/07/2026<br>
 Branch: `feat/site-lead-generation`<br>
@@ -6,13 +6,13 @@ Escopo analisado: `bodymotion-site`, `bodymotion-api`, `bodymotion-painel`, `bod
 
 ## 1. Decisão executiva
 
-O BodyMotion já tem produto suficiente para um site comercial convincente, mas a comunicação atual mistura lançamento, roadmap, quatro públicos, quatro planos e quase todos os módulos em uma única página longa.
+O Bodymotion já tem produto suficiente para um site comercial convincente, mas a comunicação atual mistura lançamento, roadmap, quatro públicos, quatro planos e quase todos os módulos em uma única página longa.
 
 A recomendação é construir um site estático orientado a conversão, com foco inicial em **nutricionistas esportivos e clínicas multidisciplinares que acompanham nutrição, treino e evolução corporal**.
 
 O site deve vender uma transformação simples:
 
-> BodyMotion reúne nutrição, treino e evolução corporal no mesmo acompanhamento, com operação clínica e portal do paciente conectados.
+> Bodymotion reúne nutrição, treino e evolução corporal no mesmo acompanhamento, com operação clínica e portal do paciente conectados.
 
 O projeto deve começar como geração de demanda e demonstração assistida. O self-service com trial e checkout só deve ser ativado depois da correção do fluxo público de registro e da validação ponta a ponta em produção.
 
@@ -224,7 +224,7 @@ Antes de investir em mídia, validar em entrevistas:
 
 ### 4.1 Tese visual
 
-> SaaS clínico de performance com clareza editorial: superfícies claras, azul/ciano BodyMotion, fotografia humana autêntica e telas reais do produto como principal prova.
+> SaaS clínico de performance com clareza editorial: superfícies claras, azul/ciano Bodymotion, fotografia humana autêntica e telas reais do produto como principal prova.
 
 Regras:
 
@@ -802,17 +802,17 @@ Entregas:
 
 Fontes oficiais verificadas em 13/07/2026:
 
-- BodyMotion: <https://www.bodymotion.pro/>
+- Bodymotion: <https://www.bodymotion.pro/>
 - Dietbox: <https://dietbox.me/pt-BR>
 - WebDiet: <https://webdiet.com.br/site/>
 - Nutrium: <https://nutrium.com/pt/professionals>
 
 Leituras relevantes:
 
-- Dietbox vende teste gratuito, app do paciente, agenda, WhatsApp, ferramentas de marketing e planos a partir de faixas abaixo do BodyMotion.
+- Dietbox vende teste gratuito, app do paciente, agenda, WhatsApp, ferramentas de marketing e planos a partir de faixas abaixo do Bodymotion.
 - WebDiet vende trial, Clara IA e Body3D em tier premium, tornando insuficiente comunicar apenas “IA + 3D”.
 - Nutrium ancora a oferta em organização, acompanhamento, crescimento e prova de marcas/clientes, com CTA de teste gratuito.
-- A diferenciação defensável do BodyMotion é o conjunto conectado de nutrição, treino, evolução corporal e operação clínica, não uma feature isolada.
+- A diferenciação defensável do Bodymotion é o conjunto conectado de nutrição, treino, evolução corporal e operação clínica, não uma feature isolada.
 
 ## 17. Definition of Done do projeto
 
