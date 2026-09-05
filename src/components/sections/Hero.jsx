@@ -2,124 +2,144 @@ import React from "react";
 import MotionLine from "../ui/MotionLine";
 import ProductFrame from "../ui/ProductFrame";
 import Reveal from "../ui/Reveal";
-import { DashboardMock } from "../mock/compositions";
-import { PROOFS } from "../../data/landing";
-import { heroScreenshot } from "../../data/screens";
+import { HERO_FACTS } from "../../data/landing";
+import { getScreen } from "../../data/screens";
+import { startTrial } from "../../utils/trial";
 import { trackSiteEvent } from "../../utils/analytics";
 
+const FACT_ICONS = [
+  // macros / TACO
+  <path key="0" d="M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3c-2 1-3 3-3 6v12M17 3v18" />,
+  // portal sem app
+  <React.Fragment key="1">
+    <rect x="7" y="2" width="10" height="20" rx="2" />
+    <path d="M11 18h2" />
+  </React.Fragment>,
+  // teleconsulta
+  <React.Fragment key="2">
+    <path d="M15 10l5-3v10l-5-3" />
+    <rect x="3" y="6" width="12" height="12" rx="2" />
+  </React.Fragment>,
+  // LGPD
+  <React.Fragment key="3">
+    <path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3z" />
+    <path d="M9 12l2 2 4-4" />
+  </React.Fragment>,
+];
+
 export default function Hero() {
+  const heroDesktop = getScreen("hero");
+  const heroMobile = getScreen("heroMobile");
+
   return (
-    <section id="inicio" className="relative overflow-hidden bg-bm-paper pb-16 pt-28 sm:pt-36 lg:pb-24">
-      {/* fundo: grade pontilhada + brilho ciano */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: "radial-gradient(rgba(34,37,90,0.10) 1px, transparent 1px)",
-          backgroundSize: "26px 26px",
-          maskImage: "radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 72%)",
-          WebkitMaskImage: "radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 72%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 right-[-12%] h-[480px] w-[480px] rounded-full bg-bm-cyan/20 blur-3xl"
-      />
+    <>
+      <section id="inicio" className="relative overflow-hidden bg-bm-night pb-16 pt-28 lg:pb-0 lg:pt-36">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full bg-bm-cyan/[0.18] blur-3xl"
+        />
 
-      <div className="shell relative">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-          <div>
-            <Reveal>
-              <p className="eyebrow">
-                <img src="/brand/simbolo-ciano.svg" alt="" className="h-4 w-4 object-contain" />
-                Do atendimento ao relacionamento com o paciente
-              </p>
-            </Reveal>
+        <div className="shell relative">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:items-center lg:gap-14">
+            <div className="max-w-[520px]">
+              <Reveal>
+                <p className="eyebrow !text-bm-cyan">
+                  Para nutricionistas, clínicas e profissionais de avaliação física
+                </p>
+              </Reveal>
 
-            <Reveal delay={90}>
-              <h1 className="mt-5 font-display text-[2.6rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-bm-ink sm:text-6xl lg:text-[4.1rem]">
-                <span className="relative inline-block whitespace-nowrap">
-                  A clínica inteira
-                  <MotionLine className="absolute -bottom-2 left-0 h-[0.35em] w-full" />
-                </span>{" "}
-                em um só fluxo.
-              </h1>
-            </Reveal>
+              <Reveal delay={90}>
+                <h1 className="mt-5 font-display text-[38px] font-extrabold leading-[1.05] tracking-[-0.03em] text-white lg:text-[64px] lg:leading-[1.02]">
+                  Prontuário, avaliação física e dieta{" "}
+                  <span className="relative inline-block whitespace-nowrap">
+                    em um só lugar
+                    <MotionLine className="absolute -bottom-1 left-0 h-[0.3em] w-full" />
+                  </span>
+                  .
+                </h1>
+              </Reveal>
 
-            <Reveal delay={180}>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-bm-slate">
-                Prontuário, anamnese, antropometria, prescrição, treinos, teleconsulta, portal
-                do paciente e o relacionamento da clínica — protocolos, retorno e feedback —
-                sem espalhar a rotina entre planilhas, PDFs e WhatsApp.
-              </p>
-            </Reveal>
+              <Reveal delay={180}>
+                <p className="mt-6 text-lg leading-relaxed text-white/72">
+                  Consulta, medidas, fotos de evolução, plano alimentar e treino no mesmo histórico.
+                  O paciente acompanha tudo pelo celular, sem instalar nada.
+                </p>
+              </Reveal>
 
-            <Reveal delay={260}>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  href="#demonstracao"
-                  className="btn-primary text-base"
-                  onClick={() => trackSiteEvent("hero_primary_cta_click")}
-                >
-                  Agendar demonstração
-                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor" aria-hidden="true">
-                    <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-                <a
-                  href="#modulos"
-                  className="btn-ghost text-base"
-                  onClick={() => trackSiteEvent("hero_secondary_cta_click")}
-                >
-                  Ver os módulos
-                </a>
-              </div>
-              <p className="mt-4 text-sm font-semibold text-bm-slate">
-                14 dias grátis para testar · Planos a partir de R$ 47,90/mês
-              </p>
+              <Reveal delay={260}>
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    className="btn-primary text-base"
+                    onClick={() => {
+                      trackSiteEvent("hero_primary_cta_click");
+                      startTrial({ planId: "pro" });
+                    }}
+                  >
+                    Testar grátis por 14 dias
+                    <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M7 4l6 6-6 6" />
+                    </svg>
+                  </button>
+                  <a
+                    href="#plataforma"
+                    className="btn-ghost-dark text-base"
+                    onClick={() => trackSiteEvent("hero_secondary_cta_click")}
+                  >
+                    Conhecer a plataforma
+                  </a>
+                </div>
+                <p className="mt-4 text-sm font-semibold text-white/60">
+                  Acesso completo · até 10 pacientes no teste · sem compromisso
+                </p>
+              </Reveal>
+            </div>
+
+            <Reveal delay={200}>
+              {heroDesktop && (
+                <ProductFrame
+                  priority
+                  screenshot={heroDesktop.src}
+                  width={heroDesktop.width}
+                  height={heroDesktop.height}
+                  alt="Ficha do paciente no Bodymotion: resumo do que mudou e estado do cuidado (risco, adesão e retorno)"
+                  className="hidden -mr-5 rounded-r-none border-r-0 sm:-mr-8 lg:-mr-[220px] lg:block"
+                />
+              )}
+              {heroMobile && (
+                <ProductFrame
+                  priority
+                  screenshot={heroMobile.src}
+                  width={heroMobile.width}
+                  height={heroMobile.height}
+                  alt="Estado do cuidado do paciente no Bodymotion: risco, adesão e retorno"
+                  className="-mr-5 rounded-r-none border-r-0 sm:-mr-8 lg:hidden"
+                />
+              )}
             </Reveal>
           </div>
-
-          <Reveal delay={200} className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-bm-cyan/25 via-transparent to-transparent blur-2xl"
-            />
-            <ProductFrame
-              screenshot={heroScreenshot()}
-              alt="Painel do Bodymotion com agenda do dia, pacientes ativos e evolução de peso"
-              caption="Visão do painel — dados de demonstração"
-              className="relative"
-            >
-              <DashboardMock />
-            </ProductFrame>
-
-            <div className="absolute -bottom-6 -left-10 hidden animate-float-soft rounded-xl border border-bm-mist bg-white px-3.5 py-2.5 shadow-card md:block">
-              <p className="text-[10px] font-extrabold uppercase tracking-wide text-bm-cyan-deep">Check-in recebido</p>
-              <p className="text-xs font-bold text-bm-ink">Treino B concluído · RPE 8</p>
-            </div>
-            <div
-              className="absolute -right-6 -top-7 hidden animate-float-soft rounded-xl border border-bm-mist bg-white px-3.5 py-2.5 shadow-card md:block"
-              style={{ animationDelay: "1.8s" }}
-            >
-              <p className="text-[10px] font-extrabold uppercase tracking-wide text-bm-cyan-deep">Feedback do paciente</p>
-              <p className="text-xs font-bold text-bm-ink">Camila avaliou o protocolo ★ 5</p>
-            </div>
-          </Reveal>
         </div>
+      </section>
 
-        {/* Prova factual */}
-        <Reveal delay={120}>
-          <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-bm-mist bg-bm-mist lg:grid-cols-4">
-            {PROOFS.map((proof) => (
-              <div key={proof.title} className="bg-white px-5 py-4">
-                <dt className="font-display text-sm font-extrabold text-bm-ink">{proof.title}</dt>
-                <dd className="mt-1 text-xs font-semibold leading-relaxed text-bm-slate">{proof.detail}</dd>
+      <div className="bg-bm-paper">
+        <Reveal delay={120} className="shell">
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-5 border-t border-bm-mist py-7 lg:grid-cols-4 lg:gap-6">
+            {HERO_FACTS.map((fact, i) => (
+              <div key={fact.title} className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bm-cyan-soft text-bm-ink">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {FACT_ICONS[i]}
+                  </svg>
+                </span>
+                <div>
+                  <dt className="font-display text-[15px] font-extrabold text-bm-ink">{fact.title}</dt>
+                  <dd className="mt-0.5 hidden text-sm font-medium leading-snug text-bm-slate lg:block">{fact.detail}</dd>
+                </div>
               </div>
             ))}
           </dl>
         </Reveal>
       </div>
-    </section>
+    </>
   );
 }

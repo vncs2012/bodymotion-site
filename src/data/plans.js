@@ -18,20 +18,6 @@ export const PLAN_BACKEND_IDS = {
   enterprise: null, // negociado via contato
 };
 
-// Plano de entrada gratuito — espelha o plano "Trial" do backend.
-export const freePlan = {
-  id: "gratis",
-  name: "Teste grátis",
-  durationLabel: "14 dias",
-  description: "Acesso completo à plataforma para conhecer o fluxo com os seus próprios casos.",
-  highlights: [
-    "Acesso completo por 14 dias",
-    "Até 10 pacientes ativos",
-    "Inclui avaliações e prescrições com IA",
-  ],
-  cta: "Começar pelo teste grátis",
-};
-
 // Oferta para estudante — PROPOSTA: 50% do Starter, sujeita à sua confirmação.
 export const studentPlan = {
   id: "estudante",
@@ -108,7 +94,7 @@ export const PLAN_HIGHLIGHTS = {
   pro: [
     "Tudo do Starter",
     "Portal do paciente e agenda com teleconsulta",
-    "Envio por e-mail/WhatsApp e relatórios",
+    "Envio por e-mail e WhatsApp, relatórios",
     "3 profissionais · até 200 pacientes ativos",
   ],
   pro_saude: [

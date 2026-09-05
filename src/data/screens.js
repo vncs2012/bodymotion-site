@@ -1,32 +1,29 @@
-// Liga/desliga o uso de screenshots reais do produto na landing.
+// Capturas reais do produto usadas na landing (public/screens/, WebP).
+// Todas vêm da conta de demonstração "Ana Duarte" (pacientes fictícios).
 //
-// false -> a landing usa as composições ilustrativas (src/components/mock/)
-// true  -> usa os PNGs de public/screens/, capturados por scripts/capture-screens.mjs
-//
-// Depois de rodar o script de captura, mude para true e confira a página.
-// Se algum arquivo estiver faltando, aquele módulo volta sozinho para a
-// composição ilustrativa — não quebra a página.
-export const USE_SCREENSHOTS = false;
+// Dimensões conferidas nos arquivos (scripts/capture-screens.mjs mantém a
+// receita de recaptura): as de desktop são 1200×633, as de celular variam —
+// por isso cada chave carrega width/height junto com o caminho, para que
+// todo <img> declare as dimensões reais e evite CLS.
+export const USE_SCREENSHOTS = true;
 
-/** módulo (id em landing.js) -> arquivo em public/screens/ */
-export const MODULE_SCREENSHOTS = {
-  clinica: "/screens/dashboard.png",
-  nutricao: "/screens/prescricao.png",
-  antropometria: "/screens/antropometria.png",
-  treinos: "/screens/treinos.png",
-  agenda: "/screens/agenda.png",
-  relacionamento: "/screens/clinica.png",
-  operacao: "/screens/relatorios.png",
-  // portal do paciente exige sessão do paciente (OTP); segue ilustrativo
+export const SCREENS = {
+  hero: { src: "/screens/tela-paciente360.webp", width: 1200, height: 633 },
+  heroMobile: { src: "/screens/detalhe-cuidado.webp", width: 900, height: 407 },
+  atender: { src: "/screens/tela-consulta.webp", width: 1200, height: 633 },
+  avaliar: { src: "/screens/tela-avaliacao.webp", width: 1200, height: 633 },
+  avaliarMobile: { src: "/screens/detalhe-dobras.webp", width: 900, height: 707 },
+  prescrever: { src: "/screens/tela-cuidado.webp", width: 1200, height: 633 },
+  prescreverMobile: { src: "/screens/detalhe-treino.webp", width: 900, height: 258 },
+  acompanhar: { src: "/screens/tela-clinica.webp", width: 1200, height: 633 },
 };
 
-export const HERO_SCREENSHOT = "/screens/dashboard.png";
-
-export function screenshotFor(moduleId) {
+/**
+ * Retorna os dados de uma captura (src/width/height) ou null se a chave não
+ * existir ou USE_SCREENSHOTS estiver desligado — quem consome decide o que
+ * fazer (ProductFrame exige screenshot; nunca deve receber null em produção).
+ */
+export function getScreen(key) {
   if (!USE_SCREENSHOTS) return null;
-  return MODULE_SCREENSHOTS[moduleId] ?? null;
-}
-
-export function heroScreenshot() {
-  return USE_SCREENSHOTS ? HERO_SCREENSHOT : null;
+  return SCREENS[key] ?? null;
 }
