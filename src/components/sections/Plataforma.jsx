@@ -82,7 +82,7 @@ function PlatformRow({ group, imageLeft, delay }) {
   return (
     <Reveal
       delay={delay}
-      className={`grid gap-8 lg:items-center lg:gap-[72px] ${
+      className={`grid gap-10 lg:items-center lg:gap-[72px] ${
         imageLeft ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)]" : "lg:grid-cols-[minmax(0,440px)_minmax(0,1fr)]"
       }`}
     >
@@ -101,7 +101,7 @@ export default function Plataforma() {
           <h2 className="font-display text-3xl font-extrabold leading-tight tracking-[-0.02em] text-bm-ink sm:text-[2.5rem]">
             Tudo o que você faz com o paciente, no mesmo histórico.
           </h2>
-          <p className="max-w-[640px] text-lg leading-relaxed text-bm-slate">
+          <p className="hidden max-w-[640px] text-lg leading-relaxed text-bm-slate lg:block">
             Não é um pacote de ferramentas separadas. Cada consulta, medida, refeição e treino
             alimenta a mesma ficha.
           </p>

@@ -20,7 +20,7 @@ const TRUST_ICONS = [
 
 export default function Confianca() {
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-14 lg:py-24">
       <div className="shell">
         <Reveal className="mx-auto flex max-w-[820px] flex-col items-center gap-4 text-center">
           <p className="eyebrow justify-center">Confiança</p>
@@ -35,7 +35,7 @@ export default function Confianca() {
         <div className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-3">
           {TRUST_CARDS.map((card, i) => (
             <Reveal key={card.title} delay={i * 100}>
-              <article className="card-surface flex h-full flex-col gap-3.5 p-7">
+              <article className="card-surface flex h-full flex-col gap-3.5 p-5 lg:p-7">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-bm-cyan-soft text-bm-ink">
                   <svg
                     viewBox="0 0 24 24"

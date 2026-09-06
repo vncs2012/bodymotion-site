@@ -5,7 +5,7 @@ import { trackSiteEvent } from "../../utils/analytics";
 
 export default function Faq() {
   return (
-    <section id="perguntas" className="bg-white py-20 lg:py-28">
+    <section id="perguntas" className="bg-white py-14 lg:py-28">
       <div className="shell grid gap-12 lg:grid-cols-[380px_1fr] lg:gap-16">
         <Reveal className="flex flex-col gap-4">
           <p className="eyebrow">Perguntas frequentes</p>

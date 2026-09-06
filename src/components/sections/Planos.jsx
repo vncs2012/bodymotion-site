@@ -58,7 +58,7 @@ export default function Planos({ onOpenDemo }) {
   };
 
   return (
-    <section id="planos" className="bg-bm-paper py-20 lg:py-28">
+    <section id="planos" className="bg-bm-paper py-14 lg:py-28">
       <div className="shell">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow justify-center">Planos</p>

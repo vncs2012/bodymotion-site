@@ -14,7 +14,7 @@ const PERSONA_ICONS = [
 
 export default function ParaQuem() {
   return (
-    <section id="para-quem" className="bg-bm-paper py-24">
+    <section id="para-quem" className="bg-bm-paper py-14 lg:py-24">
       <div className="shell grid gap-10 lg:grid-cols-[380px_1fr] lg:items-start lg:gap-[72px]">
         <Reveal className="flex flex-col gap-4">
           <p className="eyebrow">Para quem é</p>
