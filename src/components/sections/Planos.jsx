@@ -35,7 +35,7 @@ function PlanoCompacto({ plan, billing }) {
     >
       <span className="min-w-0">
         <span className="block font-display text-base font-extrabold text-bm-ink">{plan.name}</span>
-        <span className="mt-0.5 block truncate text-xs font-semibold text-bm-slate">{summary}</span>
+        <span className="mt-0.5 block text-xs font-semibold text-bm-slate">{summary}</span>
       </span>
       <span className="flex shrink-0 items-baseline gap-1">
         <span className="text-xs font-bold text-bm-slate">R$</span>
