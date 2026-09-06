@@ -74,7 +74,7 @@ export default function Header() {
           <img
             src={isPastHero ? "/brand/logo.svg" : "/brand/logo-branca.svg"}
             alt="Bodymotion"
-            className="h-[26px] w-auto lg:h-[34px]"
+            className="h-[34px] w-auto lg:h-[44px]"
           />
         </a>
 
