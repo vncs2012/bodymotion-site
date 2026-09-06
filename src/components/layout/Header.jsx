@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { startTrial } from "../../utils/trial";
 import { trackSiteEvent } from "../../utils/analytics";
 
@@ -12,15 +12,39 @@ const NAV = [
 const APP_URL = "https://app.bodymotion.pro";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
+  const [phase, setPhase] = useState("top");
   const [open, setOpen] = useState(false);
-  const solid = scrolled || open;
+
+  // Três estados: "top" (topo, transparente), "over-hero" (rolou mas ainda
+  // sobre o hero navy) e "past-hero" (hero já ficou para trás, header claro).
+  const effectivePhase = open ? "past-hero" : phase;
+  const isPastHero = effectivePhase === "past-hero";
+  const isOverHero = effectivePhase === "over-hero";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const compute = () => {
+      const scrollY = window.scrollY;
+      if (scrollY <= 8) {
+        setPhase("top");
+        return;
+      }
+      const hero = document.getElementById("inicio");
+      if (!hero) {
+        setPhase("past-hero");
+        return;
+      }
+      const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      setPhase(scrollY > heroBottom - headerHeight ? "past-hero" : "over-hero");
+    };
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+    };
   }, []);
 
   useEffect(() => {
@@ -36,14 +60,19 @@ export default function Header() {
 
   return (
     <header
+      ref={headerRef}
       className={`fixed inset-x-0 top-0 z-50 h-16 transition-colors duration-300 lg:h-[72px] ${
-        solid ? "border-b border-bm-mist bg-white/95 shadow-sm backdrop-blur-lg" : "bg-transparent"
+        isPastHero
+          ? "border-b border-bm-mist bg-white/95 shadow-sm backdrop-blur-lg"
+          : isOverHero
+          ? "border-b border-white/10 bg-bm-night/90 backdrop-blur-lg"
+          : "bg-transparent"
       }`}
     >
       <div className="shell flex h-full items-center justify-between gap-4">
         <a href="#inicio" aria-label="Bodymotion — início" onClick={close}>
           <img
-            src={solid ? "/brand/logo.svg" : "/brand/logo-branca.svg"}
+            src={isPastHero ? "/brand/logo.svg" : "/brand/logo-branca.svg"}
             alt="Bodymotion"
             className="h-[26px] w-auto lg:h-[34px]"
           />
@@ -55,7 +84,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={`text-sm font-bold transition-colors ${
-                solid ? "text-bm-slate hover:text-bm-ink" : "text-white/85 hover:text-white"
+                isPastHero ? "text-bm-slate hover:text-bm-ink" : "text-white/80 hover:text-white"
               }`}
             >
               {item.label}
@@ -67,7 +96,7 @@ export default function Header() {
           <a
             href={APP_URL}
             className={`text-sm font-bold transition-colors ${
-              solid ? "text-bm-slate hover:text-bm-ink" : "text-white/85 hover:text-white"
+              isPastHero ? "text-bm-slate hover:text-bm-ink" : "text-white/80 hover:text-white"
             }`}
             onClick={() => trackSiteEvent("header_login_click")}
           >
@@ -99,7 +128,7 @@ export default function Header() {
           <button
             type="button"
             className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
-              solid ? "border-bm-mist bg-white text-bm-ink" : "border-white/30 text-white"
+              isPastHero ? "border-bm-mist bg-white text-bm-ink" : "border-white/30 text-white"
             }`}
             aria-expanded={open}
             aria-controls="menu-mobile"

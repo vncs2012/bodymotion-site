@@ -15,6 +15,7 @@ export default function ProductFrame({
   height,
   className = "",
   priority = false,
+  sources = [],
 }) {
   const priorityAttrs = priority ? { fetchpriority: "high" } : {};
 
@@ -28,16 +29,27 @@ export default function ProductFrame({
         <i className="h-2.5 w-2.5 rounded-full bg-bm-cyan" aria-hidden="true" />
       </div>
 
-      <img
-        src={screenshot}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? "eager" : "lazy"}
-        decoding={priority ? undefined : "async"}
-        className="block h-auto w-full"
-        {...priorityAttrs}
-      />
+      <picture>
+        {sources.map((source) => (
+          <source
+            key={source.media}
+            media={source.media}
+            srcSet={source.src}
+            width={source.width}
+            height={source.height}
+          />
+        ))}
+        <img
+          src={screenshot}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? undefined : "async"}
+          className="block h-auto w-full"
+          {...priorityAttrs}
+        />
+      </picture>
     </figure>
   );
 }

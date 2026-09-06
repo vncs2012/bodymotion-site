@@ -23,6 +23,20 @@ export default function StickyCta({ drawerOpen = false }) {
     return () => observer.disconnect();
   }, []);
 
+  // Fallback por posição de rolagem — em alguns layouts o IntersectionObserver
+  // sozinho não é suficiente para revelar a barra (ex.: pré-render/SSR).
+  useEffect(() => {
+    const hero = document.getElementById("inicio");
+    if (!hero) return undefined;
+
+    const onScroll = () => {
+      setPastHero(window.scrollY > hero.offsetTop + hero.offsetHeight - 80);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   useEffect(() => {
     const isField = (el) => !!el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName);
     const onFocusIn = (event) => {

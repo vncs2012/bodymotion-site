@@ -13,7 +13,7 @@ export default function CtaFinal({ onOpenDemo }) {
           </h2>
         </Reveal>
         <Reveal delay={80}>
-          <p className="text-lg leading-relaxed text-white/72">
+          <p className="text-lg leading-relaxed text-white/70">
             Crie a conta, cadastre um paciente e rode uma consulta de verdade. Se preferir ver antes, a
             equipe mostra a plataforma na sua rotina em 30 minutos.
           </p>

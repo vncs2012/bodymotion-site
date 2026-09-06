@@ -15,6 +15,39 @@ function Check() {
   );
 }
 
+// Linha compacta (abaixo de lg) para os planos que não são o recomendado —
+// nome + resumo de profissionais/pacientes à esquerda, preço à direita.
+function PlanoCompacto({ plan, billing }) {
+  const annual = billing === "annual";
+  const plural = plan.professionals !== "1";
+  const summary = `${plan.professionals} ${plural ? "profissionais" : "profissional"} · ${
+    plan.activePatients
+  } pacientes${plan.id === "pro_saude" ? " · IA (beta)" : ""}`;
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        trackSiteEvent("pricing_cta_click", { plan: plan.id, billing });
+        startTrial({ planId: plan.id, billing });
+      }}
+      className="card-surface flex min-h-[44px] w-full items-center justify-between gap-3 px-5 py-4 text-left"
+    >
+      <span className="min-w-0">
+        <span className="block font-display text-base font-extrabold text-bm-ink">{plan.name}</span>
+        <span className="mt-0.5 block truncate text-xs font-semibold text-bm-slate">{summary}</span>
+      </span>
+      <span className="flex shrink-0 items-baseline gap-1">
+        <span className="text-xs font-bold text-bm-slate">R$</span>
+        <span className="font-display text-xl font-extrabold leading-none text-bm-ink">
+          {brl(annual ? plan.annualPrice : plan.monthlyPrice)}
+        </span>
+        <span className="text-xs font-bold text-bm-slate">/mês</span>
+      </span>
+    </button>
+  );
+}
+
 export default function Planos({ onOpenDemo }) {
   const [billing, setBilling] = useState("monthly");
   const annual = billing === "annual";
@@ -53,7 +86,7 @@ export default function Planos({ onOpenDemo }) {
                   type="button"
                   aria-pressed={billing === value}
                   onClick={() => toggle(value)}
-                  className={`rounded-full px-5 py-2 text-sm font-extrabold transition-colors ${
+                  className={`inline-flex min-h-[44px] items-center justify-center rounded-full px-5 py-2 text-sm font-extrabold transition-colors lg:min-h-0 ${
                     billing === value ? "bg-bm-ink text-white" : "text-bm-slate hover:text-bm-ink"
                   }`}
                 >
@@ -68,14 +101,14 @@ export default function Planos({ onOpenDemo }) {
           {plans.map((plan, i) => {
             const isPro = plan.id === "pro";
             return (
-              <Reveal key={plan.id} delay={i * 110}>
+              <Reveal key={plan.id} delay={i * 110} className={isPro ? "" : "hidden lg:block"}>
                 <article
                   className={`card-surface relative flex h-full flex-col p-7 ${
                     isPro ? "border-2 border-bm-cyan" : ""
                   }`}
                 >
                   {isPro && (
-                    <span className="absolute -top-3.5 left-7 rounded-full bg-bm-cyan px-4 py-1 text-[11px] font-extrabold uppercase tracking-wide text-bm-ink shadow-cta">
+                    <span className="absolute -top-3.5 left-7 rounded-full bg-bm-cyan px-4 py-1 text-xs font-extrabold uppercase tracking-wide text-bm-ink shadow-cta">
                       Recomendado
                     </span>
                   )}
@@ -112,6 +145,14 @@ export default function Planos({ onOpenDemo }) {
           })}
         </div>
 
+        <Reveal delay={300} className="mt-4 flex flex-col gap-3 lg:hidden">
+          {plans
+            .filter((plan) => plan.id !== "pro")
+            .map((plan) => (
+              <PlanoCompacto key={plan.id} plan={plan} billing={billing} />
+            ))}
+        </Reveal>
+
         <Reveal delay={200}>
           <p className="mt-8 text-center text-sm font-semibold text-bm-slate">
             Estudante: R$ {brl(studentPlan.price)}/mês com comprovante de matrícula · Rede ou franquia:
@@ -119,7 +160,7 @@ export default function Planos({ onOpenDemo }) {
             <button
               type="button"
               onClick={onOpenDemo}
-              className="font-bold text-bm-cyan-deep underline underline-offset-4"
+              className="inline-flex min-h-[44px] items-center lg:min-h-0 font-bold text-bm-cyan-deep underline underline-offset-4"
             >
               fale com a equipe
             </button>

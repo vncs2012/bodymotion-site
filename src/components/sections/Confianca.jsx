@@ -51,7 +51,8 @@ export default function Confianca() {
                   </svg>
                 </span>
                 <p className="font-display text-lg font-extrabold text-bm-ink">{card.title}</p>
-                <div className="flex flex-col gap-2.5">
+                <p className="text-sm leading-relaxed text-bm-slate lg:hidden">{card.items.join(" ")}</p>
+                <div className="hidden flex-col gap-2.5 lg:flex">
                   {card.items.map((item) => (
                     <p key={item} className="text-sm leading-relaxed text-bm-slate">
                       {item}

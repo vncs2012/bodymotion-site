@@ -60,7 +60,7 @@ export default function Hero() {
               </Reveal>
 
               <Reveal delay={180}>
-                <p className="mt-6 text-lg leading-relaxed text-white/72">
+                <p className="mt-6 text-lg leading-relaxed text-white/70">
                   Consulta, medidas, fotos de evolução, plano alimentar e treino no mesmo histórico.
                   O paciente acompanha tudo pelo celular, sem instalar nada.
                 </p>
@@ -96,24 +96,26 @@ export default function Hero() {
             </div>
 
             <Reveal delay={200}>
-              {heroDesktop && (
-                <ProductFrame
-                  priority
-                  screenshot={heroDesktop.src}
-                  width={heroDesktop.width}
-                  height={heroDesktop.height}
-                  alt="Ficha do paciente no Bodymotion: resumo do que mudou e estado do cuidado (risco, adesão e retorno)"
-                  className="hidden -mr-5 rounded-r-none border-r-0 sm:-mr-8 lg:-mr-[220px] lg:block"
-                />
-              )}
               {heroMobile && (
                 <ProductFrame
                   priority
                   screenshot={heroMobile.src}
                   width={heroMobile.width}
                   height={heroMobile.height}
-                  alt="Estado do cuidado do paciente no Bodymotion: risco, adesão e retorno"
-                  className="-mr-5 rounded-r-none border-r-0 sm:-mr-8 lg:hidden"
+                  sources={
+                    heroDesktop
+                      ? [
+                          {
+                            media: "(min-width: 1024px)",
+                            src: heroDesktop.src,
+                            width: heroDesktop.width,
+                            height: heroDesktop.height,
+                          },
+                        ]
+                      : []
+                  }
+                  alt="Ficha do paciente no Bodymotion: estado do cuidado, risco, adesão e retorno"
+                  className="-mr-5 rounded-r-none border-r-0 sm:-mr-8 lg:-mr-[220px]"
                 />
               )}
             </Reveal>
