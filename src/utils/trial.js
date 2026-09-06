@@ -6,7 +6,7 @@ const DEFAULT_TRIAL_BILLING = "monthly";
 /**
  * Constrói a URL de início de trial/checkout.
  *
- * O fluxo:
+ * Os passos:
  *  1. Usuário clica num plano → redirecionado para VITE_TRIAL_START_URL
  *     com ?plan=<slug>&planId=<backendId>&billing=monthly|annual
  *  2. App autentica o usuário, chama POST /payment/checkout com planId e

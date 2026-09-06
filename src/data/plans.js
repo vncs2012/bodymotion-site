@@ -45,7 +45,7 @@ export const plans = [
   },
   {
     id: "pro",
-    badge: "Equilíbrio ideal", // a pílula de destaque já diz "Mais escolhido"
+    badge: "Equilíbrio ideal", // a pílula de destaque já diz "Recomendado"
     name: "Pro",
     description: "Para consultórios que acompanham o paciente entre uma consulta e outra.",
     monthlyPrice: 97.9,
@@ -59,7 +59,7 @@ export const plans = [
     id: "pro_saude",
     badge: "Clínica completa",
     name: "Pro Saúde",
-    description: "Para clínicas que precisam de IA, relacionamento e operação multiprofissional.",
+    description: "Para clínicas que precisam de IA, relacionamento e equipe multiprofissional.",
     monthlyPrice: 159.9,
     annualPrice: 129.9,
     professionals: "10",
