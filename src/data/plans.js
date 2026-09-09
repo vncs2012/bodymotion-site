@@ -18,20 +18,6 @@ export const PLAN_BACKEND_IDS = {
   enterprise: null, // negociado via contato
 };
 
-// Plano de entrada gratuito — espelha o plano "Trial" do backend.
-export const freePlan = {
-  id: "gratis",
-  name: "Teste grátis",
-  durationLabel: "14 dias",
-  description: "Acesso completo à plataforma para conhecer o fluxo com os seus próprios casos.",
-  highlights: [
-    "Acesso completo por 14 dias",
-    "Até 10 pacientes ativos",
-    "Inclui avaliações e prescrições com IA",
-  ],
-  cta: "Começar pelo teste grátis",
-};
-
 // Oferta para estudante — PROPOSTA: 50% do Starter, sujeita à sua confirmação.
 export const studentPlan = {
   id: "estudante",
@@ -59,7 +45,7 @@ export const plans = [
   },
   {
     id: "pro",
-    badge: "Equilíbrio ideal", // a pílula de destaque já diz "Mais escolhido"
+    badge: "Equilíbrio ideal", // a pílula de destaque já diz "Recomendado"
     name: "Pro",
     description: "Para consultórios que acompanham o paciente entre uma consulta e outra.",
     monthlyPrice: 97.9,
@@ -73,7 +59,7 @@ export const plans = [
     id: "pro_saude",
     badge: "Clínica completa",
     name: "Pro Saúde",
-    description: "Para clínicas que precisam de IA, relacionamento e operação multiprofissional.",
+    description: "Para clínicas que precisam de IA, relacionamento e equipe multiprofissional.",
     monthlyPrice: 159.9,
     annualPrice: 129.9,
     professionals: "10",
@@ -108,7 +94,7 @@ export const PLAN_HIGHLIGHTS = {
   pro: [
     "Tudo do Starter",
     "Portal do paciente e agenda com teleconsulta",
-    "Envio por e-mail/WhatsApp e relatórios",
+    "Envio por e-mail e WhatsApp, relatórios",
     "3 profissionais · até 200 pacientes ativos",
   ],
   pro_saude: [

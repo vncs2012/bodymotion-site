@@ -1,45 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { startTrial } from "../../utils/trial";
 import { trackSiteEvent } from "../../utils/analytics";
 
 const NAV = [
-  { href: "#modulos", label: "Produto" },
-  { href: "#fluxo", label: "Como funciona" },
-  { href: "#ia", label: "IA auditável" },
+  { href: "#plataforma", label: "Plataforma" },
+  { href: "#para-quem", label: "Para quem é" },
   { href: "#planos", label: "Planos" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#perguntas", label: "Perguntas" },
 ];
 
 const APP_URL = "https://app.bodymotion.pro";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
+  const [phase, setPhase] = useState("top");
   const [open, setOpen] = useState(false);
 
+  // Três estados: "top" (topo, transparente), "over-hero" (rolou mas ainda
+  // sobre o hero navy) e "past-hero" (hero já ficou para trás, header claro).
+  const effectivePhase = open ? "past-hero" : phase;
+  const isPastHero = effectivePhase === "past-hero";
+  const isOverHero = effectivePhase === "over-hero";
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const compute = () => {
+      const scrollY = window.scrollY;
+      if (scrollY <= 8) {
+        setPhase("top");
+        return;
+      }
+      const hero = document.getElementById("inicio");
+      if (!hero) {
+        setPhase("past-hero");
+        return;
+      }
+      const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      setPhase(scrollY > heroBottom - headerHeight ? "past-hero" : "over-hero");
+    };
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+    };
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.documentElement.style.overflow = "";
+    if (!open) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setOpen(false);
     };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
   const close = () => setOpen(false);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open ? "border-b border-bm-mist bg-white/90 shadow-sm backdrop-blur-lg" : "bg-transparent"
+      ref={headerRef}
+      className={`fixed inset-x-0 top-0 z-50 h-16 transition-colors duration-300 lg:h-[72px] ${
+        isPastHero
+          ? "border-b border-bm-mist bg-white/95 shadow-sm backdrop-blur-lg"
+          : isOverHero
+          ? "border-b border-white/10 bg-bm-night/90 backdrop-blur-lg"
+          : "bg-transparent"
       }`}
     >
-      <div className="shell flex h-16 items-center justify-between gap-4 sm:h-[72px]">
+      <div className="shell flex h-full items-center justify-between gap-4">
         <a href="#inicio" aria-label="Bodymotion — início" onClick={close}>
-          <img src="/brand/logo.png" alt="Bodymotion" className="h-11 w-auto sm:h-14" />
+          <img
+            src={isPastHero ? "/brand/logo.svg" : "/brand/logo-branca.svg"}
+            alt="Bodymotion"
+            className="h-9 w-auto lg:h-[46px]"
+          />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
@@ -47,7 +83,9 @@ export default function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-bold text-bm-slate transition-colors hover:text-bm-ink"
+              className={`text-sm font-bold transition-colors ${
+                isPastHero ? "text-bm-slate hover:text-bm-ink" : "text-white/80 hover:text-white"
+              }`}
             >
               {item.label}
             </a>
@@ -57,54 +95,73 @@ export default function Header() {
         <div className="hidden items-center gap-4 lg:flex">
           <a
             href={APP_URL}
-            className="text-sm font-bold text-bm-slate transition-colors hover:text-bm-ink"
+            className={`text-sm font-bold transition-colors ${
+              isPastHero ? "text-bm-slate hover:text-bm-ink" : "text-white/80 hover:text-white"
+            }`}
             onClick={() => trackSiteEvent("header_login_click")}
           >
             Entrar
           </a>
-          <a
-            href="#demonstracao"
+          <button
+            type="button"
             className="btn-primary !px-5 !py-2.5"
-            onClick={() => trackSiteEvent("header_cta_click")}
+            onClick={() => {
+              trackSiteEvent("header_cta_click");
+              startTrial({ planId: "pro" });
+            }}
           >
-            Agendar demonstração
-          </a>
+            Testar grátis
+          </button>
         </div>
 
-        <button
-          type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-bm-mist bg-white text-bm-ink lg:hidden"
-          aria-expanded={open}
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            type="button"
+            className="btn-primary !h-11 !px-4 !py-0 text-sm shadow-none"
+            onClick={() => {
+              trackSiteEvent("header_cta_click");
+              startTrial({ planId: "pro" });
+            }}
+          >
+            Testar grátis
+          </button>
+          <button
+            type="button"
+            className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
+              isPastHero ? "border-bm-mist bg-white text-bm-ink" : "border-white/30 text-white"
+            }`}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="border-b border-bm-mist bg-white shadow-lg lg:hidden">
+        <div id="menu-mobile" className="border-b border-bm-mist bg-white shadow-lg lg:hidden">
           <nav className="shell flex flex-col gap-1 py-4" aria-label="Navegação móvel">
             {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={close}
-                className="rounded-lg px-3 py-3 text-base font-bold text-bm-ink hover:bg-bm-paper"
+                className="min-h-11 rounded-lg px-3 py-3 text-base font-bold text-bm-ink hover:bg-bm-paper"
               >
                 {item.label}
               </a>
             ))}
-            <div className="mt-2 grid gap-2 border-t border-bm-mist pt-4">
-              <a href={APP_URL} className="btn-ghost w-full" onClick={close}>
-                Entrar na plataforma
-              </a>
-              <a href="#demonstracao" className="btn-primary w-full" onClick={close}>
-                Agendar demonstração
-              </a>
-            </div>
+            <a
+              href={APP_URL}
+              onClick={close}
+              className="min-h-11 rounded-lg px-3 py-3 text-base font-bold text-bm-ink hover:bg-bm-paper"
+            >
+              Entrar
+            </a>
           </nav>
         </div>
       )}

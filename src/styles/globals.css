@@ -35,15 +35,15 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.22em] text-bm-cyan-deep;
+    @apply inline-flex items-center gap-2 text-sm font-bold text-bm-slate;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-bm-cyan px-6 py-3 text-sm font-extrabold text-bm-ink shadow-cta transition-all duration-200 hover:bg-bm-cyan-deep hover:text-white active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-bm-cyan px-6 py-3 text-sm font-extrabold text-bm-ink shadow-cta transition-all duration-200 hover:bg-bm-cyan-hover active:scale-[0.98];
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-bm-mist bg-white px-6 py-3 text-sm font-bold text-bm-ink transition-colors duration-200 hover:border-bm-cyan hover:text-bm-cyan-deep;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-bm-mist bg-white px-6 py-3 text-sm font-bold text-bm-ink transition-colors duration-200 hover:border-bm-cyan;
   }
 
   .btn-ghost-dark {
@@ -51,13 +51,20 @@
   }
 
   .card-surface {
-    @apply rounded-2xl border border-bm-mist bg-white shadow-card;
+    @apply rounded-2xl border border-bm-mist bg-white shadow-card transition-transform duration-200;
   }
 
-  /* Estado inicial dos blocos revelados por scroll (Reveal.jsx) */
+  /* Estado inicial dos blocos revelados por scroll (Reveal.jsx).
+     Sem a classe "js" no <html> (HTML pré-renderizado antes do JS assumir,
+     ou navegação sem JavaScript), o conteúdo fica sempre visível. */
   .reveal-init {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js .reveal-init {
     opacity: 0;
-    transform: translateY(26px);
+    transform: translateY(12px);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -65,6 +72,98 @@
       opacity: 1;
       transform: none;
     }
+  }
+
+  /* Barra fixa "Testar grátis" no celular (ui/StickyCta.jsx) */
+  .sticky-cta {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta {
+      transition: none;
+    }
+  }
+
+  /* Gaveta "Agendar demonstração" (components/DemoDrawer.jsx) — <dialog> nativo */
+  .demo-drawer {
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    background: transparent;
+    color: inherit;
+  }
+
+  .demo-drawer::backdrop {
+    background: rgba(21, 23, 63, 0.42);
+  }
+
+  .demo-drawer[open] {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+  }
+
+  .demo-drawer__panel {
+    width: 520px;
+    max-width: 100%;
+    height: 100%;
+    max-height: none;
+    transform: translateX(100%);
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .demo-drawer[data-visible="true"] .demo-drawer__panel {
+    transform: translateX(0);
+  }
+
+  @media (max-width: 1023px) {
+    .demo-drawer[open] {
+      align-items: flex-end;
+      justify-content: stretch;
+    }
+
+    .demo-drawer__panel {
+      width: 100%;
+      height: auto;
+      max-height: 92vh;
+      border-radius: 20px 20px 0 0;
+      transform: translateY(100%);
+    }
+
+    .demo-drawer[data-visible="true"] .demo-drawer__panel {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demo-drawer__panel {
+      transition: none;
+    }
+  }
+
+  /* Chip de seleção (radio estilizado) — "Como você atende hoje?" na gaveta */
+  .chip-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .chip-label {
+    @apply inline-flex h-11 cursor-pointer items-center rounded-full border border-bm-mist px-4 text-sm font-bold text-bm-ink transition-colors duration-150 sm:h-10;
+  }
+
+  .chip-input:checked + .chip-label {
+    @apply border-bm-ink bg-bm-ink text-white;
+  }
+
+  .chip-input:focus-visible + .chip-label {
+    @apply outline-none ring-2 ring-bm-cyan ring-offset-2 ring-offset-white;
   }
 }
 

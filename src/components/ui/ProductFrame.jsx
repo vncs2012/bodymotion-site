@@ -1,46 +1,55 @@
 import React from "react";
 
 /**
- * Moldura de janela do produto. Envolve uma composição ilustrativa
- * (src/components/mock) ou, quando disponível, um screenshot real:
- * passe `screenshot="/screens/arquivo.png"` e ele substitui o mock.
+ * Moldura de janela do produto. Sempre exibe uma captura real
+ * (public/screens/, ver src/data/screens.js) — a barra superior tem só os
+ * três pontos, sem pílula de URL nem legenda.
+ *
+ * `priority` marca a imagem do LCP (hero): carrega eager + fetchpriority
+ * "high" em vez de lazy.
  */
 export default function ProductFrame({
-  children,
-  screenshot = null,
-  alt = "Tela do Bodymotion",
-  caption = null,
+  screenshot,
+  alt,
+  width,
+  height,
   className = "",
+  priority = false,
+  sources = [],
 }) {
+  const priorityAttrs = priority ? { fetchpriority: "high" } : {};
+
   return (
-    <figure className={`overflow-hidden rounded-2xl border border-bm-mist bg-white shadow-frame ${className}`}>
-      <div className="flex items-center gap-3 border-b border-bm-mist bg-bm-paper px-4 py-2.5">
-        <span className="flex gap-1.5" aria-hidden="true">
-          <i className="h-2.5 w-2.5 rounded-full bg-bm-mist" />
-          <i className="h-2.5 w-2.5 rounded-full bg-bm-mist" />
-          <i className="h-2.5 w-2.5 rounded-full bg-bm-cyan/60" />
-        </span>
-        <span className="hidden flex-1 justify-center sm:flex">
-          <span className="rounded-full border border-bm-mist bg-white px-4 py-0.5 text-[10px] font-semibold tracking-wide text-bm-slate">
-            app.bodymotion.pro
-          </span>
-        </span>
-        <span className="w-10" aria-hidden="true" />
+    <figure
+      className={`overflow-hidden rounded-2xl border border-bm-mist bg-white shadow-frame ${className}`}
+    >
+      <div className="flex h-[34px] items-center gap-1.5 border-b border-bm-mist bg-bm-paper px-3.5">
+        <i className="h-2.5 w-2.5 rounded-full bg-bm-mist" aria-hidden="true" />
+        <i className="h-2.5 w-2.5 rounded-full bg-bm-mist" aria-hidden="true" />
+        <i className="h-2.5 w-2.5 rounded-full bg-bm-cyan" aria-hidden="true" />
       </div>
 
-      {screenshot ? (
-        <img src={screenshot} alt={alt} loading="lazy" className="block w-full" />
-      ) : (
-        <div role="img" aria-label={alt}>
-          {children}
-        </div>
-      )}
-
-      {caption && (
-        <figcaption className="border-t border-bm-mist bg-bm-paper px-4 py-2 text-[11px] font-medium text-bm-slate">
-          {caption}
-        </figcaption>
-      )}
+      <picture>
+        {sources.map((source) => (
+          <source
+            key={source.media}
+            media={source.media}
+            srcSet={source.src}
+            width={source.width}
+            height={source.height}
+          />
+        ))}
+        <img
+          src={screenshot}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? undefined : "async"}
+          className="block h-auto w-full"
+          {...priorityAttrs}
+        />
+      </picture>
     </figure>
   );
 }

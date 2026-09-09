@@ -2,38 +2,71 @@
 
 Landing page comercial do Bodymotion orientada a demonstração e captação de leads
 qualificados, com a identidade visual oficial da logomarca (navy `#22255a` + ciano
-`#50b4e6`, Bricolage Grotesque + Manrope).
+`#50b4e6`, Bricolage Grotesque + Manrope). As fontes são empacotadas via
+`@fontsource-variable` (importadas em `src/main.jsx`), sem `<link>` para o CDN do
+Google Fonts.
 
-Estrutura da página (branch `feat/landing-2026`):
+Estrutura da página (branch `feat/site-redesign-2026`):
 
-1. Hero pôster com composição do painel e prova factual (TACO, portal OTP, TCLE, check-ins);
-2. Problema: acompanhamento fragmentado em planilha/PDF/WhatsApp/apps;
-3. Módulos em abas (Atendimento, Nutrição+IA, Antropometria, Treinos, Agenda, Portal, Operação);
-4. Fluxo em 5 passos;
-5. IA auditável ("A IA sugere. A TACO calcula. Você decide.");
-6. Personas (nutricionista esportivo e clínica multidisciplinar);
-7. Planos compactos (R$ 97/197/347 + Enterprise) com toggle mensal/anual;
-8. Segurança com claims defensáveis;
-9. FAQ;
-10. Formulário de demonstração com UTM e fallback por e-mail.
+1. Header fixo, com "Testar grátis" como único CTA primário;
+2. Hero com captura real do produto e uma linha de fatos verificáveis (TACO, portal sem app, TCLE, LGPD);
+3. Como funciona: 3 passos curtos;
+4. Plataforma por objetivo: 4 linhas (Atender, Avaliar, Prescrever, Acompanhar), cada uma com captura real;
+5. Para quem é: 3 cartões (nutricionista, clínica multidisciplinar, educação física);
+6. Confiança: segurança e privacidade, suporte, rotina brasileira;
+7. Planos: toggle mensal/anual, Pro em destaque, Estudante e Enterprise em uma linha;
+8. Perguntas: 5 perguntas frequentes;
+9. Faixa final: CTA de teste grátis + "Agendar demonstração";
+10. Rodapé em uma linha.
+
+"Agendar demonstração" abre uma gaveta (drawer) por cima da página, no lugar da
+antiga seção de formulário. No celular, uma barra fixa com "Testar grátis" aparece
+depois que o hero sai da tela.
+
+## Pré-render
+
+`npm run build` faz duas etapas em sequência (um único comando):
+
+1. `vite build` — gera o bundle do cliente em `dist/`;
+2. `node scripts/prerender.mjs` — builda `src/entry-server.jsx` como bundle SSR em
+   `dist-ssr/`, chama `render()` (`renderToString` de `<App />`) e injeta o HTML
+   resultante dentro de `<div id="root">…</div>` em `dist/index.html`, no lugar
+   do bloco estático.
+
+O bloco estático que existe hoje dentro de `#root` em `index.html` continua no
+repositório como fallback — serve o `npm run dev` (sem build) e qualquer cliente
+sem JavaScript. Em produção, `dist/index.html` sempre carrega o HTML já
+renderizado pelo React, nunca o fallback.
 
 ## Estrutura de código
 
-- `index.html`: metadados, JSON-LD, fontes e conteúdo estático indexável.
-- `src/App.jsx`: composição da landing e Analytics.
-- `src/data/landing.js`: toda a copy editorial (módulos, passos, FAQ, segurança).
+- `index.html`: metadados, JSON-LD (`SoftwareApplication` + `FAQPage`), preload
+  da imagem do hero e o bloco estático de fallback dentro de `#root`.
+- `src/main.jsx`: monta `<App />` no cliente e marca `<html class="js">` (usado
+  pelo CSS para nunca esconder conteúdo antes do JavaScript rodar).
+- `src/entry-server.jsx`: ponto de entrada do pré-render — exporta `render()`,
+  usado só no build SSR (nunca no navegador).
+- `scripts/prerender.mjs`: gera o bundle SSR e injeta o HTML renderizado em
+  `dist/index.html` (ver "Pré-render" acima).
+- `src/App.jsx`: composição da página e Analytics.
+- `src/data/landing.js`: toda a copy editorial (passos, grupos por objetivo, personas, confiança, FAQ).
 - `src/data/plans.js`: planos e preços (alinhar sempre com o seed da API).
+- `src/data/screens.js`: liga o `screenshotKey` de cada grupo em `data/landing.js`
+  a um arquivo em `public/screens/` (`USE_SCREENSHOTS` decide entre captura real
+  e composição ilustrativa).
 - `src/components/sections/`: seções da página.
-- `src/components/mock/`: composições ilustrativas do produto (dados fictícios).
+- `src/components/mock/`: composições ilustrativas do produto, usadas onde ainda
+  não existe captura real em `public/screens/`.
 - `src/components/ui/`: Button, Reveal, MotionLine, ProductFrame, Toast.
 - `public/brand/`: logomarca oficial (horizontal, branca, símbolo/favicon).
+- `public/screens/`: capturas reais do produto.
 
 ## Rodar localmente
 
 ```bash
 npm install
 npm run dev      # desenvolvimento
-npm run build    # build de produção
+npm run build    # build de produção (cliente + SSR + pré-render)
 npm run preview  # preview do build
 ```
 
@@ -52,20 +85,20 @@ Sem `VITE_API_BASE_URL`, o formulário usa fallback de e-mail (mailto para
 
 ## Screenshots reais do produto
 
-As telas hoje são composições ilustrativas (`src/components/mock/`). Para trocar
-por capturas reais existe um script automatizado:
+As chaves de `screenshotKey` em `src/data/landing.js` (`atender`, `avaliar` /
+`avaliarMobile`, `prescrever` / `prescreverMobile`, `acompanhar`) são resolvidas
+em `src/data/screens.js` para um arquivo em `public/screens/`. Onde o arquivo
+não existe, a linha correspondente volta sozinha para a composição ilustrativa
+em `src/components/mock/`.
+
+**Pendência:** recapturar as telas de `public/screens/` com a conta de
+demonstração (dados fictícios), para garantir que refletem o produto atual e
+não carregam nenhum dado de paciente real, usando o script automatizado:
 
 ```bash
 npx playwright install chromium
-```
-
-```bash
 BM_PANEL_URL=http://localhost:8080 BM_USER=demo.landing BM_PASS='<senha>' node scripts/capture-screens.mjs
 ```
-
-Ele loga no painel, visita cada módulo e salva os PNGs em `public/screens/`.
-Depois, mude `USE_SCREENSHOTS` para `true` em `src/data/screens.js` — se algum
-arquivo faltar, aquele módulo volta sozinho para a composição ilustrativa.
 
 **LGPD — obrigatório:** use sempre uma conta de demonstração com pacientes
 fictícios. Nunca capture telas com nome, e-mail, telefone ou CPF de paciente
