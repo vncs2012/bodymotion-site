@@ -16,6 +16,8 @@ export default function ProductFrame({
   className = "",
   priority = false,
   sources = [],
+  toolbar,
+  imageId,
 }) {
   const priorityAttrs = priority ? { fetchpriority: "high" } : {};
 
@@ -23,10 +25,11 @@ export default function ProductFrame({
     <figure
       className={`overflow-hidden rounded-2xl border border-bm-mist bg-white shadow-frame ${className}`}
     >
-      <div className="flex h-[34px] items-center gap-1.5 border-b border-bm-mist bg-bm-paper px-3.5">
+      <div className={`flex items-center gap-1.5 border-b border-bm-mist bg-bm-paper px-3.5 ${toolbar ? "min-h-11" : "h-[34px]"}`}>
         <i className="h-2.5 w-2.5 rounded-full bg-bm-mist" aria-hidden="true" />
         <i className="h-2.5 w-2.5 rounded-full bg-bm-mist" aria-hidden="true" />
         <i className="h-2.5 w-2.5 rounded-full bg-bm-cyan" aria-hidden="true" />
+        {toolbar && <div className="ml-auto min-w-0">{toolbar}</div>}
       </div>
 
       <picture>
@@ -40,6 +43,8 @@ export default function ProductFrame({
           />
         ))}
         <img
+          key={screenshot}
+          id={imageId}
           src={screenshot}
           alt={alt}
           width={width}

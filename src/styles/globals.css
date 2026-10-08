@@ -26,6 +26,161 @@
 }
 
 @layer components {
+  .launch-page {
+    @apply flex min-h-screen flex-col bg-bm-night text-bm-ink;
+    min-height: 100svh;
+    background-image: radial-gradient(ellipse at 5% 95%, rgba(80, 180, 230, 0.07), transparent 50%);
+  }
+
+  .launch-shell {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-10;
+  }
+
+  .launch-header {
+    @apply flex items-center justify-between gap-4 py-5 lg:py-4;
+  }
+
+  .launch-login {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-xs font-bold text-white transition-colors hover:border-bm-cyan hover:bg-white/5 sm:px-5 sm:text-sm;
+  }
+
+  .launch-login svg {
+    @apply h-4 w-4 shrink-0;
+  }
+
+  .launch-main {
+    @apply grid flex-1 items-center gap-10 py-6 sm:py-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12 lg:py-3 xl:gap-16;
+  }
+
+  .launch-intro {
+    @apply min-w-0;
+  }
+
+  .launch-eyebrow {
+    @apply text-sm font-bold tracking-wide text-bm-cyan;
+  }
+
+  .launch-title {
+    @apply mt-3 font-display text-[clamp(2.25rem,3vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-white;
+    text-wrap: balance;
+  }
+
+  .launch-description {
+    @apply mt-4 max-w-[590px] text-base leading-relaxed text-white/70;
+    text-wrap: pretty;
+  }
+
+  .launch-mobile-cta {
+    @apply mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-bm-cyan lg:hidden;
+  }
+
+  .launch-product {
+    @apply mt-5;
+  }
+
+  .launch-preview {
+    @apply w-full rounded-xl border-white/20;
+    touch-action: pan-y;
+  }
+
+  .launch-preview img {
+    animation: preview-enter 240ms ease-out;
+  }
+
+  .launch-carousel-tabs {
+    @apply hidden items-center gap-x-1 sm:flex;
+  }
+
+  .launch-carousel-select {
+    @apply block min-h-11 w-44 max-w-full cursor-pointer rounded-md bg-transparent px-2 text-xs font-bold text-bm-ink sm:hidden;
+  }
+
+  .launch-carousel-tabs button {
+    @apply relative min-h-11 px-2 text-xs font-bold text-bm-slate transition-colors sm:px-3;
+  }
+
+  .launch-carousel-tabs button::after {
+    content: "";
+    @apply absolute bottom-0 left-2.5 right-2.5 h-0.5 rounded-full bg-transparent transition-colors;
+  }
+
+  .launch-carousel-tabs button[aria-pressed="true"] {
+    @apply text-bm-ink;
+  }
+
+  .launch-carousel-tabs button[aria-pressed="true"]::after {
+    @apply bg-bm-cyan;
+  }
+
+  .launch-carousel-tabs button:hover {
+    @apply text-bm-ink;
+  }
+
+  .launch-product-caption {
+    @apply flex flex-wrap items-center justify-between gap-x-4 pt-1 text-xs text-white/55;
+  }
+
+  .launch-product-caption > p {
+    @apply py-2;
+    text-wrap: pretty;
+  }
+
+  .launch-product-controls {
+    @apply ml-auto flex items-center gap-0.5;
+  }
+
+  .launch-slide-count {
+    @apply mr-2 text-xs font-bold text-white/85;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .launch-slide-count > span {
+    @apply font-medium text-white/40;
+  }
+
+  .launch-carousel-control {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full text-white/75 transition-colors hover:bg-white/10 hover:text-bm-cyan;
+  }
+
+  .launch-carousel-control svg {
+    @apply h-4 w-4;
+  }
+
+  .launch-expand {
+    @apply ml-2 inline-flex min-h-11 items-center gap-2 text-xs font-bold text-white/85 transition-colors hover:text-bm-cyan;
+  }
+
+  .launch-expand svg {
+    @apply h-3.5 w-3.5;
+  }
+
+  .launch-preview-dialog {
+    @apply m-auto w-[calc(100%-32px)] max-w-[1200px] overflow-auto rounded-2xl bg-white p-0 text-bm-ink;
+    max-height: calc(100svh - 40px);
+  }
+
+  .launch-preview-dialog::backdrop {
+    background: rgba(6, 8, 28, 0.8);
+    backdrop-filter: blur(4px);
+  }
+
+  .launch-footer {
+    @apply flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-3 text-xs leading-relaxed text-white/45 lg:py-2;
+  }
+
+  .launch-form {
+    @apply w-full rounded-2xl bg-white p-6 shadow-frame sm:p-7;
+    scroll-margin-top: 24px;
+  }
+
+  .launch-label {
+    @apply block text-sm font-bold text-bm-ink;
+  }
+
+  .launch-input {
+    @apply mt-1.5 min-h-11 w-full min-w-0 rounded-xl border border-bm-mist bg-white px-3 py-2.5 text-base font-medium text-bm-ink outline-none transition placeholder:text-slate-500 focus:border-bm-cyan focus:ring-2 focus:ring-bm-cyan/25 disabled:opacity-60;
+  }
+
   .skip-link {
     @apply fixed left-4 top-4 z-[100] -translate-y-20 rounded-lg bg-bm-ink px-4 py-2 text-sm font-bold text-white shadow-lg transition-transform focus:translate-y-0;
   }
@@ -165,6 +320,29 @@
   .chip-input:focus-visible + .chip-label {
     @apply outline-none ring-2 ring-bm-cyan ring-offset-2 ring-offset-white;
   }
+}
+
+/* Abertura compacta em notebooks, preservando a altura dos campos. */
+@media (min-width: 1024px) and (max-height: 800px) {
+  .launch-header { padding-top: 16px; padding-bottom: 16px; }
+  .launch-main { padding-top: 12px; padding-bottom: 12px; }
+  .launch-form { padding: 24px; }
+  .launch-form > .eyebrow { display: none; }
+  .launch-form h2 { margin-top: 0; }
+  .launch-form form { margin-top: 20px; gap: 12px; }
+  .launch-footer { padding-top: 12px; padding-bottom: 12px; }
+  .launch-description { margin-top: 16px; }
+  .launch-title { font-size: 36px; }
+  .launch-product { margin-top: 20px; }
+}
+
+@keyframes preview-enter {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launch-preview img { animation: none; }
 }
 
 /* ── Scrollbar ── */
