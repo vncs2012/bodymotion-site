@@ -17,8 +17,7 @@ interações originais. A abertura usa um carrossel com telas atualizadas do pai
 home preenchida primeiro, depois consulta, prontuário, evolução física e plano alimentar.
 A abertura destaca a avaliação física com IA por fotos, em beta, e a revisão
 das medidas pelo profissional.
-O botão “Entrar no sistema” leva usuários existentes para `VITE_APP_URL`
-(padrão `https://app.bodymotion.pro`). “Ampliar” abre a imagem completa do
+“Ampliar” abre a imagem completa do
 painel em uma visualização com fechamento por botão ou Esc.
 O carrossel alterna a cada 7 segundos e pausa durante interação do mouse,
 ampliação ou quando a aba está em segundo plano. Receber foco desliga a troca

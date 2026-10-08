@@ -3,9 +3,6 @@ import MotionLine from "./ui/MotionLine";
 import InterestForm from "./InterestForm";
 import ProductPreview from "./ProductPreview";
 import { getLaunchScreens } from "../data/screens";
-import { trackSiteEvent } from "../utils/analytics";
-
-const APP_URL = import.meta.env.VITE_APP_URL || "https://app.bodymotion.pro";
 
 export default function LaunchPage() {
   const screens = getLaunchScreens();
@@ -16,15 +13,6 @@ export default function LaunchPage() {
         <a href="#inicio" aria-label="Bodymotion — início">
           <img src="/brand/logo-branca.svg" alt="Bodymotion" className="h-10 w-auto sm:h-12" />
         </a>
-        <div className="flex items-center gap-4">
-          <span className="hidden text-sm text-white/65 sm:inline">Já tem conta?</span>
-          <a className="launch-login" href={APP_URL} aria-label="Entrar no sistema" onClick={() => trackSiteEvent("header_login_click", { placement: "launch_page" })}>
-            <span className="sm:hidden">Entrar</span><span className="hidden sm:inline">Entrar no sistema</span>
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M11 3h5v14h-5M3 10h9m-3-3 3 3-3 3" />
-            </svg>
-          </a>
-        </div>
       </header>
       <main id="inicio" className="launch-shell launch-main">
         <div className="launch-intro">
