@@ -15,7 +15,7 @@ const LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-bm-night text-white">
-      <div className="shell flex flex-col gap-8 py-10 pb-28 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pb-10">
+      <div className="shell flex flex-col gap-8 py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div className="flex items-center gap-4">
           <img src="/brand/logo-branca.svg" alt="Bodymotion" className="h-7 w-auto shrink-0" />
           <p className="text-sm text-white/60">
@@ -28,7 +28,9 @@ export default function Footer() {
             <a
               key={link.label}
               href={link.href}
-              className="flex min-h-11 items-center text-sm font-semibold text-white/80 transition-colors hover:text-bm-cyan sm:min-h-0"
+              className={`flex min-h-11 min-w-0 items-center break-words text-sm font-semibold text-white/80 transition-colors hover:text-bm-cyan sm:min-h-0 ${
+                link.href.startsWith("mailto:") ? "col-span-2 sm:col-span-1" : ""
+              }`}
             >
               {link.label}
             </a>
@@ -37,7 +39,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="shell py-6">
+        <div className="shell py-6 pb-28 lg:pb-6">
           <p id="privacidade" className="text-[13px] leading-relaxed text-white/60">
             © 2026 Bodymotion. Feito no Brasil. Os dados enviados nos formulários são usados apenas
             para contato comercial. Para acessar ou excluir seus dados, escreva para{" "}

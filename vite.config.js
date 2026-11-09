@@ -3,6 +3,10 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  build: {
+    // Preserva os navegadores-alvo do Vite 5 durante a atualizacao.
+    target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+  },
   server: {
     proxy: {
       "/api": {

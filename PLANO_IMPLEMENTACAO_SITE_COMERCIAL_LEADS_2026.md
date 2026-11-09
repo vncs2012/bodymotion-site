@@ -1,5 +1,12 @@
 # Plano de implementação — site comercial e geração de leads Bodymotion
 
+> **Revisão documental em 27/09/2026:** proposta e diagnóstico de julho. O fluxo
+> de trial do site hoje usa `src/utils/trial.js` e envia o usuário ao painel;
+> o cadastro atual está em `bodymotion-painel/src/pages/RegisterPage.tsx` e
+> `bodymotion-api/src/api/v1/auth.py`. As afirmações abaixo sobre bypass,
+> disponibilidade e o que publicar precisam ser verificadas contra esse fluxo e
+> o ambiente antes de virar tarefa ou anúncio.
+
 Data da análise: 13/07/2026<br>
 Branch: `feat/site-lead-generation`<br>
 Escopo analisado: `bodymotion-site`, `bodymotion-api`, `bodymotion-painel`, `bodymotion-mobile`, documentação consolidada, experiência local em desktop/mobile e páginas públicas dos concorrentes.
@@ -56,7 +63,7 @@ Evidências principais:
 
 - `bodymotion-api/docs/FUNCIONALIDADES_DO_SISTEMA.md`
 - `docs/product/PLANOS_GAPS_FEATURES.md`
-- `docs/architecture/auditoria-2026-07/12_ANALISE_POR_SERVICO.md`
+- `docs/archive/architecture/auditoria-2026-07/12_ANALISE_POR_SERVICO.md`
 - `bodymotion-api/src/api/v1/commercial.py`
 - `bodymotion-api/src/api/v1/patient_portal.py`
 - `bodymotion-api/src/api/v1/trainings.py`
