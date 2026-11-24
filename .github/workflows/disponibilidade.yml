@@ -1,6 +1,10 @@
 name: Disponibilidade da Bodymotion
 
 on:
+  pull_request:
+    branches: [master]
+    paths:
+      - '.github/workflows/disponibilidade.yml'
   schedule:
     - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
