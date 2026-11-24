@@ -1,0 +1,43 @@
+name: Disponibilidade da Bodymotion
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: disponibilidade-externa
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Verificar os endereços públicos por HTTPS
+        shell: bash
+        run: |
+          set -u
+          falhas=0
+          verificar() {
+            local nome="$1" endereco="$2" codigo
+            for tentativa in 1 2 3; do
+              codigo=$(curl --silent --output /dev/null --write-out '%{http_code}' \
+                --proto '=https' --proto-redir '=https' --location --max-redirs 3 \
+                --connect-timeout 3 --max-time 8 "$endereco") || codigo=000
+              if [[ "$codigo" == 200 ]]; then
+                printf '%s disponível\n' "$nome"
+                return 0
+              fi
+              if [[ "$tentativa" != 3 ]]; then sleep 2; fi
+            done
+            printf '::error::%s indisponível (HTTP %s)\n' "$nome" "$codigo"
+            falhas=1
+          }
+          verificar API https://api.bodymotion.pro/health/ready
+          verificar Rustrak https://logs.bodymotion.pro/health/ready
+          verificar Painel https://app.bodymotion.pro/
+          verificar Site https://bodymotion.pro/
+          exit "$falhas"
