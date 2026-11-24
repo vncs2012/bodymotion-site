@@ -11,7 +11,7 @@ export default defineConfig(({ mode, command, isSsrBuild }) => {
     plugins: [react(), mapas && sentryVitePlugin({
       url: "https://logs.bodymotion.pro", org: "bodymotion", project: "bodymotion-site",
       authToken: env.RUSTRAK_SOURCEMAP_TOKEN, telemetry: false,
-      release: { name: release || undefined, create: false, finalize: false },
+      release: { name: release || undefined, create: false, finalize: false, deploy: false },
       sourcemaps: { filesToDeleteAfterUpload: ["./dist/**/*.map"] },
     })],
     build: { sourcemap: mapas ? "hidden" : false },
