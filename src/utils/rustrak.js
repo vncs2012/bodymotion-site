@@ -2,6 +2,16 @@ import * as Sentry from '@sentry/react';
 
 const tipos = new Set(['Error', 'TypeError', 'RangeError', 'ReferenceError', 'SyntaxError',
   'URIError', 'AggregateError', 'DOMException']);
+const vitais = new Set(['lcp', 'inp', 'cls', 'fcp', 'ttfb']);
+const pagina = 'Site comercial';
+
+function metricasDoNavegador(medidas) {
+  return Object.fromEntries(Object.entries(medidas ?? {}).flatMap(([nome, medida]) =>
+    vitais.has(nome) && Number.isFinite(medida.value) && medida.value >= 0
+      ? [[nome, { value: medida.value, unit: nome === 'cls' ? 'none' : 'millisecond' }]]
+      : [],
+  ));
+}
 
 function arquivoDoBuild(nome) {
   try {
@@ -16,13 +26,15 @@ function arquivoDoBuild(nome) {
 export function iniciarRustrak() {
   const dsn = import.meta.env.VITE_RUSTRAK_DSN;
   if (!dsn) return;
+  const ambiente = import.meta.env.VITE_APP_ENV || import.meta.env.MODE;
+  const release = import.meta.env.VITE_RUSTRAK_RELEASE || undefined;
   Sentry.init({
-    dsn, environment: import.meta.env.VITE_APP_ENV || import.meta.env.MODE,
-    release: import.meta.env.VITE_RUSTRAK_RELEASE || undefined,
-    sendDefaultPii: false, enableLogs: true, maxBreadcrumbs: 0, tracesSampleRate: 0.05,
+    dsn, environment: ambiente, release,
+    sendDefaultPii: false, enableLogs: true, maxBreadcrumbs: 0, tracesSampleRate: 0.25,
     tracePropagationTargets: [],
     integrations: [Sentry.browserTracingIntegration({
-      traceFetch: false, traceXHR: false, beforeStartSpan: (op) => ({ ...op, name: 'Site comercial' }),
+      traceFetch: false, traceXHR: false, enableInp: true, beforeStartSpan: (op) => ({ ...op, name: pagina }),
+      _experiments: { enableStandaloneClsSpans: true },
     })],
     beforeSend(evento) {
       const erros = evento.exception?.values;
@@ -42,18 +54,24 @@ export function iniciarRustrak() {
     beforeSendTransaction(evento) {
       const trace = evento.contexts?.trace;
       return {
-        type: evento.type, event_id: evento.event_id, transaction: 'Site comercial',
+        type: evento.type, event_id: evento.event_id, transaction: pagina,
         release: evento.release, environment: evento.environment, timestamp: evento.timestamp,
-        start_timestamp: evento.start_timestamp, measurements: evento.measurements, platform: evento.platform,
+        start_timestamp: evento.start_timestamp, measurements: metricasDoNavegador(evento.measurements), platform: evento.platform,
         contexts: trace ? { trace: { trace_id: trace.trace_id, span_id: trace.span_id, op: trace.op } } : {},
         spans: [],
       };
     },
     beforeSendSpan(span) {
-      return { ...span, description: span.op, data: Object.fromEntries(
-        Object.entries(span.data || {}).filter(([k, v]) => k === 'sentry.op'
-          || (typeof v === 'number' && /^(?:sentry\.measurement|web_vital|browser\.)/.test(k))),
-      ) };
+      const medidas = metricasDoNavegador(span.measurements);
+      const carregamento = span.data?.['sentry.pageload.span_id'];
+      const avulso = span.op === 'ui.webvital.cls' || span.op?.startsWith('ui.interaction.');
+      const data = avulso
+        ? { transaction: pagina, environment: ambiente, release }
+        : {};
+      if (avulso && typeof carregamento === 'string' && /^[a-f0-9]{16}$/.test(carregamento)) {
+        Object.assign(data, { 'sentry.pageload.span_id': carregamento });
+      }
+      return { ...span, description: span.op, data, measurements: medidas };
     },
   });
   Sentry.logger.info('Site Bodymotion inicializado');
