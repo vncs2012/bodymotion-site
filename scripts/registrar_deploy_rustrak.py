@@ -1,5 +1,6 @@
 """Registra no Rustrak o deploy concluído e seu intervalo de commits."""
 
+import argparse
 import json
 import os
 import re
@@ -37,6 +38,17 @@ def git(*args):
     ).splitlines()
 
 
+def nome_da_release(sha):
+    if not SHA.fullmatch(sha):
+        raise SystemExit('SHA da release inválido.')
+    arquivo = 'rustrak-release.json'
+    if not git('ls-tree', sha, '--', arquivo):
+        # A promoção de um build antigo precisa usar o nome embutido nele.
+        return sha
+    config = json.loads('\n'.join(git('show', f'{sha}:{arquivo}')))
+    return f"{config['package']}@{sha[: config['shaLength']]}"
+
+
 def requisitar(token, metodo, caminho, dados=None, *, ausente=False):
     req = Request(
         RUSTRAK_URL + caminho,
@@ -65,7 +77,7 @@ def requisitar(token, metodo, caminho, dados=None, *, ausente=False):
 
 def commits_da_release(sha, anteriores):
     publicados = {
-        item['version']
+        item.get('ref') or item['version']
         for item in anteriores
         if item.get('dateReleased') and item.get('commitCount')
     }
@@ -79,14 +91,16 @@ def commits_da_release(sha, anteriores):
 
 
 def registrar(api, deploy, data):
-    caminho = f'{RELEASES}{deploy.sha}/'
+    versao = nome_da_release(deploy.sha)
+    caminho = f'{RELEASES}{versao}/'
     release = api('GET', caminho, ausente=True)
     if release is None:
         release = api(
             'POST',
             RELEASES,
             {
-                'version': deploy.sha,
+                'version': versao,
+                'ref': deploy.sha,
                 'projects': [deploy.projeto],
                 'url': deploy.url,
             },
@@ -95,6 +109,14 @@ def registrar(api, deploy, data):
         raise SystemExit('A release retornou um escopo de projeto inesperado.')
 
     ajuste = {}
+    referencia = release.get('ref')
+    if referencia is None:
+        # O SDK pode registrar a release ao enviar um erro antes do CI.
+        ajuste['ref'] = deploy.sha
+    elif deploy.sha not in {versao, referencia}:
+        raise SystemExit('O nome da release já aponta para outro commit.')
+    if release.get('url') is None:
+        ajuste['url'] = deploy.url
     if not release.get('dateReleased'):
         ajuste['dateReleased'] = data
     if not release.get('commitCount'):
@@ -126,7 +148,7 @@ def registrar(api, deploy, data):
         )
     print(
         f'Deploy {deploy.nome} registrado no projeto {deploy.projeto}, '
-        f"release {deploy.sha}, {release['commitCount']} commit(s)."
+        f"release {versao}, {release['commitCount']} commit(s)."
     )
 
 
@@ -162,6 +184,13 @@ def deploy_do_ambiente():
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--nome-release', metavar='SHA')
+    args = parser.parse_args()
+    if args.nome_release is not None:
+        print(nome_da_release(args.nome_release))
+        return
+
     token = os.environ.get('RUSTRAK_RELEASE_TOKEN', '')
     if not token:
         raise SystemExit('O token de releases do Rustrak não foi configurado.')
