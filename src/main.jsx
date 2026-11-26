@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { iniciarRustrak } from "./utils/rustrak";
+import { iniciarRustrak, registrarVisitaRustrak } from "./utils/rustrak";
 import "@fontsource-variable/bricolage-grotesque/wght.css";
 import "@fontsource-variable/manrope/wght.css";
 import "./styles/globals.css";
@@ -10,6 +10,7 @@ import "./styles/globals.css";
 // .reveal-init sob html.js): o HTML pré-renderizado nunca deve esconder
 // conteúdo antes do JavaScript assumir.
 iniciarRustrak();
+registrarVisitaRustrak();
 document.documentElement.classList.add("js");
 
 ReactDOM.createRoot(document.getElementById("root")).render(

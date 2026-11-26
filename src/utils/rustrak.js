@@ -76,3 +76,24 @@ export function iniciarRustrak() {
   });
   Sentry.logger.info('Site Bodymotion inicializado');
 }
+
+export function registrarVisitaRustrak() {
+  const origem = window.location.origin;
+  if (!import.meta.env.PROD || !['https://bodymotion.pro', 'https://www.bodymotion.pro'].includes(origem)) return;
+  if (['1', 'yes'].includes(navigator.doNotTrack ?? '')) return;
+
+  const chave = import.meta.env.VITE_RUSTRAK_DSN?.trim()
+    .match(/^https:\/\/([a-f0-9]{32})@logs\.bodymotion\.pro\/4$/i)?.[1];
+  if (!chave) return;
+
+  // O contador precisa apenas do domínio, sem parâmetros da página ou do formulário.
+  void fetch(`https://logs.bodymotion.pro/api/projects/4/plugins/web-traffic/collect?sentry_key=${chave}`, {
+    method: 'POST',
+    mode: 'no-cors',
+    credentials: 'omit',
+    redirect: 'error',
+    keepalive: true,
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ type: 'pageview', url: `${origem}/` }),
+  }).catch(() => undefined);
+}
