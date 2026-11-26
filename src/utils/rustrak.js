@@ -89,7 +89,8 @@ export function registrarVisitaRustrak() {
   // O contador precisa apenas do domínio, sem parâmetros da página ou do formulário.
   void fetch(`https://logs.bodymotion.pro/api/projects/4/plugins/web-traffic/collect?sentry_key=${chave}`, {
     method: 'POST',
-    mode: 'no-cors',
+    // Requisições no-cors são rejeitadas com redirect: 'error'.
+    mode: 'cors',
     credentials: 'omit',
     redirect: 'error',
     keepalive: true,
