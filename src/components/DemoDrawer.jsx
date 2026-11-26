@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "./ui/Button";
 import { startTrial } from "../utils/trial";
 import { trackSiteEvent } from "../utils/analytics";
+import { registrarEventoRustrak } from "../utils/rustrak";
 
 const API = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
 const LEAD = import.meta.env.VITE_LEAD_ENDPOINT || "/commercial/leads";
@@ -79,6 +80,7 @@ export default function DemoDrawer({ open, onOpenChange }) {
       if (!dialog.open) {
         lastFocusedRef.current = document.activeElement;
         dialog.showModal();
+        registrarEventoRustrak("demo_drawer_open");
       }
       const raf = requestAnimationFrame(() => setVisible(true));
       return () => cancelAnimationFrame(raf);
